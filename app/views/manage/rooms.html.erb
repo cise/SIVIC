@@ -1,0 +1,59 @@
+<% contador=0 %>
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+	
+<%= render :partial => 'menu' %>
+
+<div id="manage">	
+  <div class="users">
+
+      <%for room in @rooms %>
+  <div class="user">
+<ul class="group_links">
+<li>
+ <%=link_to(image_tag("icons/pencil.png", :class=>"icon", :alt => t('edit')), "edit_room/#{room.id}", {:class => 'edit_post_link', :title => t('edit')}) %>
+  <%=link_to(image_tag("icons/cancel.png", :class=>"icon", :alt => t('room.delete_message')), polymorphic_path(room), :confirm => t('delete.one'), :method => :delete, :class => 'delete_thread', :title => t('delete.one')) %>
+ 
+</li>
+</ul>
+      	<label><%=t('room.name')%>:</label>
+	<%=sanitize room.name %><%= room.country ? " (#{room.country})" : "" %><br />
+	<label><%=t('room.institucion')%>:</label>
+	<%=room.space.name %><br />
+	
+	<label class="main_date"><%=t('room.covi_asigned')%>:</label>
+
+        <% covi_users = room.stage_performances.select {|x| x.role.name == 'COVI'}.map {|y| y.agent} %>
+       
+        <% if covi_users.count > 0 %>
+		  	<p style="padding-left:250px;">
+			<%= covi_users.map {|z| z.profile.full_name }.join("<br />") %>
+			</p>
+        <% else %>
+			<br />
+		
+        <% end %>	
+		<% if room.certification_level==0 %>
+			<label><%= t('room.reevaluation')%>:</label>
+			<span class="red"><%= room.certification_level_text %></span>
+			<br />
+			<label><%= t('room.certification_level')%>:</label>
+		<% else %>
+			<% if (room.reevaluation) %>
+				<label><%= t('room.reevaluation')%>:</label>
+				<span class="red"><%= t('room.reevaluation_text') %></span> 
+				<br />
+			<% else %>
+			     <label><%= t('room.reevaluation')%>:</label>
+				 <span class="red"><%= t('room.reevaluation_aprove') %></span>
+				 <br />
+			<% end %>
+			<label><%= t('room.certification_level')%>:</label>
+			<strong><%= room.certification_level_stars %></strong>         
+		<% end %>    
+  </div>
+    <% end %>
+
+  </div>
+</div>

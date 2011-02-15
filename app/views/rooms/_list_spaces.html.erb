@@ -1,0 +1,4 @@
+<div id="room_list_spaces" class="margin-up">
+  <label for="space_name"><%= "Institucion" %></label>
+  <%= f.select(:space_id, spaces.collect {|s| [s.name, s.id]}, {:prompt => 'Seleccione una institucion'}) %>
+</div>

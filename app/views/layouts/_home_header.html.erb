@@ -3,15 +3,31 @@
 </div>
 
 <div id="name-space">
-  <span id="small-title"><%=link_to (image_tag("icons/MyHome3.png",:class=>"icon") + " " + t('home.my'),"")%></span>
+  <span id="small-title">
+  <%=link_to (image_tag("icons/MyHome3.png",:class=>"icon") + " " + t('home.my'), root_path ) %>
+  </span>
+<% if @main_space && !@main_space.disable %>
+    <span id="small-title" style = "padding-left:20px;">
+	<%= link_to logo(@main_space,{:size=>"h32", :title=> @main_space.name }) + @main_space.name, space_path(@main_space) %>
+    </span><br />
+    <% if @main_space.parent_id? %>
+    <span id="small-title">
+    	<%= link_to logo(@main_space.parent,{:size=>"h32", :title=> @main_space.parent.name }) + @main_space.parent.name, space_path(@main_space.parent) %>
+    </span>
+  <% end %>
+<% end %>
 </div>
 
 <div id="eu">
-  <%=image_tag("flags/union_europea.jpg", :size=>"72x48")%>
+  <%= link_to(image_tag("CLARA.png", :style => "width:71px;height:22px;float:rigth;display:block"),"http://redclara.net/")%>
+  <%= link_to(image_tag("UE.png", :style => "width:71px;height:46px;float:right;"),"http://europa.eu/index_es.htm")%>
 </div>
 
 <div id="search">
   <%= yield :search %>
 </div>
 
+<!--
+<%= current_user.stages(:type => 'Room') %>
+-->
 

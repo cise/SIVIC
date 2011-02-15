@@ -20,6 +20,13 @@ class ScreencastsController < ApplicationController
   def index
     
   end
-  
+  def partner
+      respond_to do |format|      
+            format.html
+            format.xml  { render :xml => @spaces }
+            format.atom
+          end
+        
+    end
   
 end

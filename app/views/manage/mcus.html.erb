@@ -1,0 +1,26 @@
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+	
+<%= render :partial => 'menu' %>
+
+<div id="manage">	
+  <div class="users">
+  <%for mcu in @mcus %>
+  <div class="user">
+	<ul class="group_links">
+		<li>
+			<%=link_to(image_tag("icons/pencil.png", :class=>"icon", :alt => t('edit')), "edit_mcu/#{mcu.id}", {:class => 'edit_post_link', :title => t('edit')}) %>
+			<%=link_to(image_tag("icons/cancel.png", :class=>"icon", :alt => t('delete.one')), "/mcus/#{mcu.id}?type=vnoc", :confirm => t(:are_you_sure), :method => :delete, :class => 'delete_thread', :title => t('delete.one')) %>
+		</li>
+	</ul>
+    <label><%=t('mcu.ip_address')%>:</label>
+		<strong><%=sanitize mcu.ip_address %></strong><br />
+	<label><%=t('mcu.model')%>:</label>
+		<strong><%=mcu.model %></strong><br />
+	<label><%=t('mcu.shared_ports')%>:</label>
+		<strong><%=mcu.shared_ports %></strong><br />   
+  </div>
+  <% end %>
+  </div>
+</div>

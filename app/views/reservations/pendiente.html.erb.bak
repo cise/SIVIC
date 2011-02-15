@@ -1,0 +1,48 @@
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+<%end%>
+
+<% content_for :header do%>
+	<div id="profile_edit_title">
+	  <h2 class="blue"><%= "Formulario de Reserva de salas para Video Conferencia" %></h2>
+	</div>
+	
+	<div id="search">
+	  <%= render :partial => 'search/form' %>
+	</div>
+<%end%>
+
+<h1>Listing reservations</h1>
+
+<table>
+  <tr>
+    <th> id</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Type</th>
+    <th>Vc service</th>
+    <th>Country</th>
+    <th>Room</th>
+    <th>Aggrement</th>
+  </tr>
+
+<% @reservations.each do |reservation| %>
+  <tr>
+    <td><%=h reservation. id %></td>
+    <td><%=h reservation.title %></td>
+    <td><%=h reservation.description %></td>
+    <td><%=h reservation.type %></td>
+    <td><%=h reservation.vc_service %></td>
+    <td><%=h reservation.country %></td>
+    <td><%=h reservation.room_id %></td>
+    <td><%=h reservation.aggrement %></td>
+    <td><%= link_to 'Show', reservation %></td>
+    <td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
+    <td><%= link_to 'Destroy', reservation, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New reservation', new_reservation_path %>

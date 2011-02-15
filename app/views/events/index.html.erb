@@ -7,17 +7,23 @@
 
 
 <% content_for :sidebar do  %>
+<!--
   <div id="screencast" class="button_wrapper">
     <%= link_to "<span>"+t('screencast.button')+"</span>", screencasts_path(:show=>1),:class => "big_button red_button", :target=>'_blank' %>
   </div>
+-->
+
   <%= render :partial => 'spaces/sidebar' %>
 
+
 	<%if @space.authorize?([:create, :content],:to => current_user)%>	
-   	<%= render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
-	<%else%>
+
+   	<% render :partial=> 'new_event', :locals => {:checked_users => Array.new}%>
+
+	<%else%>	
+       <%end%>
 	
-<%end%>
-	
+
 <%end%>
 
 <% content_for :javascript do %>
@@ -47,6 +53,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 <div id="events_wrapper">
 
   <%if current_user && @space.authorize?([:create, :content],:to => current_user) %>
+<!--
 	<div id="orange_bar">
 	  <ul>
 	    <li class="orange_one">
@@ -69,6 +76,7 @@ $(".event_navigation,.date_link,div.pagination a").livequery("click",function(){
 		<span id="pico_naranja"></span>
 	  <%end%>
 	</div>
+-->
   <%end%>
 	<div id="events_content">
 		

@@ -1,0 +1,156 @@
+<% menu :admin %>
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
+<% end -%>
+
+<% content_for :javascript do %>
+	$(".cancel").click(function ()
+  	{
+		$(window.location).attr('href', "/spaces/<%= @room.space.permalink %>/rooms");
+    });
+	 $(".available_schedule_link").fancybox({
+    'frameWidth' : 640,
+    'frameHeight' : 480
+  });
+<% end %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<% end %>
+
+<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+  <%= render :partial => 'spaces/admin_tabs' %>
+<% end %>
+
+<% content_for :sidebar do %>
+    <% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+      <%= render :partial => 'spaces/edit_space' %>
+    <% else %>
+      <%= render :partial => 'spaces/sidebar' %>
+    <% end %>
+<% end %>
+
+<% content_for :menu do  %>
+	<%= render :partial => "layouts/menu" %>
+<% end %>
+
+<div id="line">
+   <span class="bold"><%= "Editar Sala" %></span>
+</div>
+		
+<div id="edit_public_profile">
+	<div class="profile_content_item">
+<% form_for([space,@room]) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="margin-up">
+    <label for="name"><span class="red">* </span> <%= t('room.name') %>:</label>    <%= f.text_field :name %>
+  </div>
+  <div class="margin-up">
+   <label for="description"><span class="red">* </span> <%= t('room.description') %>:</label>
+    <%= f.text_area :description, :cols => "30", :rows => "4"  %>
+  </div>
+   <div class="margin-up">
+    <%= f.label :location, t('room.location') %>
+    <%= f.text_area :location, :cols => "30", :rows => "4"  %>
+  </div>
+   <div class="margin-up">
+        <%= f.label :country, t('room.country')%>
+        <%= @room.country %>
+	<%= f.hidden_field :country %>
+  </div>
+  <div class="margin-up">
+        <%= f.label :city, t('room.city')%>
+        <%= f.text_field :city, :size => 15 %>
+   </div>
+  
+  <div class="margin-up">
+	<label for="location"><%= t('room.institucion') %></label>
+        <%= @room.space.name %>
+	<%= f.hidden_field :space_id %>
+  </div>
+	<div class="margin-up">
+	<%= f.label :department, t('room.department')%>
+	<%= f.text_field :department %>
+  </div>
+   <div class="margin-up">
+	<%= f.label :phone_number, t('room.phonenumber')%>
+	<%= f.text_field :phone_number %>
+  </div>
+  <div class="margin-up">
+	<%= f.label :capacity, t('room.capacity')%>
+	<%= f.text_field :capacity %>
+  </div>
+    <div style="margin-left:70px">
+        <%= f.label :type, t('room.type')%>
+	<span style="margin-left:127px">
+        <%= f.radio_button :room_type, "publica", :checked => true, :style => "width:2%" %><%= f.label :publica, "Publica", :style => "width:5%" %>
+	<%= f.radio_button :room_type, "privada", :style => "width:2%" %><%= f.label :privada, "Privada", :style => "width:5%" %>
+    </span>
+   </div>
+    <div class="margin-up">
+	<%= f.label :equipment, t('room.equipment')%>
+	<%= f.text_area :equipment, :cols => "30", :rows => "4" %>
+  </div>
+    <div class="margin-up">
+	<%= f.label :devices, t('room.devices')%>
+	<%= f.text_area :devices, :cols => "30", :rows => "4" %>
+  </div>
+  <div style="margin-left:70px">
+        <%= f.label :light_type, t('room.type_light')%>
+	<span style="margin-left:85px">
+        <%= f.radio_button :light_type, "blancas", :checked => true, :style => "width:2%" %><%= f.label :blancas, "Blancas", :style => "width:5%" %>
+		<%= f.radio_button :light_type, "calidas", :style => "width:2%" %><%= f.label :calidas, "Calidas", :style => "width:5%" %>
+    </span>
+   </div>
+   <div class="margin-up">
+	<%= f.label :bandwidth, t('room.bandwidth')%>
+	<%= f.text_field :bandwidth %>
+  </div>
+  <div class="margin-up">
+	<%= f.label :ip_address, t('room.ip_address')%>
+	<%= f.text_field :ip_address %>
+  </div>
+
+<!--
+  <div class="margin-up">
+  <% if current_user.superuser? %>
+   <%= f.label :service_type %>
+	 <%= @room.service_type %>
+	<% else%>
+	<%= f.label :service_type, t('room.service_type')  %>
+	 <%= @room.service_type %>
+	<% end %>
+  </div>
+  <div class="margin-up">
+    <%= f.label :lng %>
+    <%= f.text_field :lng %>
+</div>
+  <div class="margin-up">
+    <%= f.label :lat %>
+    <%= f.text_field :lat %>
+  </div>
+
+  <div class="margin-up">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id %>
+  </div>
+-->
+ <div class="margin-up">
+       <label> <%= t('room.certification_level')%></label>
+       <%= room.certification_level_text %>
+</div>
+
+<br />
+	 <div style="margin-left:70px"><label><span class="red"><%= "* Campos Obligatorios" %></span></label></div>
+<br />
+
+    <div align="right">
+		<button type="submit" class="basic_button blue_button"><%="Guardar"%></button>
+    	<button type="button" class="basic_button blue_button cancel"><%="Cancelar"%></button>
+	</div>
+ 
+<% end %>
+	</div>
+</div>

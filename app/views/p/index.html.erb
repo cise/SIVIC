@@ -28,15 +28,18 @@
       var ijab_domain = "<%= @current_site_jab_domain %>";
       var ijab_httpbind = "<%= @current_site_jab_httpbind %>";
       var ijab_servertype = "EJabberd";<!-- EJabberd,Openfire,Others-->
-      var ijab_rostermode = "All";<!-- All,Online,None -->
+//    var ijab_servertype = "Openfire";<!-- EJabberd,Openfire,Others-->
+      var ijab_rostermode = "Online";<!-- All,Online,None -->
       var ijab_debug = false;
       var ijab_enableLoginBox = false;
       var ijab_autoLogin = true;
       var ijab_auto_user = "<%=current_user.login%>";
       var ijab_auto_password = "SID";
+//      var ijab_auto_user = "cise";
+//      var ijab_auto_password = "cise";
       var ijab_anonymous_prefix = "";
       var ijab_reconnect_count = 3;
-			var ijab_vcc_session_cookie = "<%=ActionController::Base.session_options[:key]%>";
+      var ijab_vcc_session_cookie = "<%=ActionController::Base.session_options[:key]%>";
     </script>
 
     <script type="text/javascript">

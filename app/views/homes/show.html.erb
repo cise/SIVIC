@@ -1,4 +1,4 @@
-
+<% rooms = Room.getManagedRooms(current_user) %>
 <% content_for :headers do  -%>
   <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
 <% end -%>
@@ -24,9 +24,9 @@
   
   
   $("input.home_menu_checkbox").click(function(){
-	  var contents;
-		var value = this.value
-		if ($.deparam.querystring().contents == null){
+    var contents;
+    var value = this.value
+    if ($.deparam.querystring().contents == null){
       contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
     }else{
       contents = $.deparam.querystring().contents.split(",");
@@ -34,15 +34,70 @@
 		
     if ($(this).attr("checked")){
       contents.push(value);
-		}else{
-			contents = jQuery.grep(contents, function (a) {
-			  return a != value;
-			});
-		}
-		window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
+    } else {
+      contents = jQuery.grep(contents, function (a) {
+        return a != value;
+      });
+    }
+    window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
   });
   
-  
+ /* $("div.pending-reservation").click(function()
+  {
+    $(this).children(".header-pending-reservation").slideUp(5);
+    $(this).children(".content-pending-reservation").slideDown(5);
+  });*/
+/*
+  $(".pending").click(function()
+  {
+    alert('header='+$(this).val());
+    $('#header-pending-reservation-'+$(this).id).slideUp(5);
+    $(this).children(".content-pending-reservation").slideDown(5);
+  });
+  */
+  $("div.my-reservation").click(function(){
+    $(this).children(".header-pending-reservation").slideUp(5);
+    $(this).children(".content-pending-reservation").slideDown(5);
+  });
+
+	/*$(".edit_reservation").submit(function() 
+	{
+		id_formulario = $(this).attr("id");
+		alert($(this).attr("val"));
+		num=id_formulario.length;
+		id_reservacion=id_formulario.substring(17,num);
+		
+		list = $("#reservation_room_id_" + id_reservacion);
+		if ((list.val() == "0") || (list.val() == null) || (list.val() == "Seleccione") )
+		{
+			alert(id_reservacion);
+			alert("Debe seleccionar una sala");
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+    });*/
+	
+	$(".accept").click(function () 
+	{
+		id_reservacion= $(this).attr("id");
+		list = $("#reservation_room_id_" + id_reservacion);
+		
+		if ((list.val() == "0") || (list.val() == null) || (list.val() == "Seleccione") )
+		{
+			alert("Debe seleccionar una sala");
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+ 
+    });
+	
+	
 <% end %>
 
 <% content_for :search do  %>
@@ -51,14 +106,30 @@
 
 <% content_for :sidebar do  %>
 
-	<% if logged_in?%>
+	<% if logged_in? && current_agent.active? && !current_user.spaces.empty? && (current_user.superuser ||
+         current_user.spaces.select {|x| x.role_for?(current_user, :name => 'Admin')}.size > 0 || Space.isUser(current_user)) %>
+
 		<div class="button_wrapper">
-			<%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
+			<%= link_to "<span>" + t('reservation.button_new') + "</span>", new_reservation_path,:class => "new_space_link big_button orange_button"%>
     </div>
   <%end%>
 
-	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+  <% if logged_in? && current_agent.active? && current_user.isCoviNREN %>
+    <br />
+    <div class="button_wrapper">
+      <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path(:parent => current_user.main_space.id), :class => "new_space_link big_button orange_button"%>
+    </div>
+  <%end%>
 
+	<div id="profile_spaces">
+<br />
+	<% if rooms.count > 0 %>
+		<%= render :partial => 'homes/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.admin'),:list_user_spaces=>current_user.spaces} %>
+	<% else %>
+		<%= render :partial => 'homes/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces'),:list_user_spaces=>current_user.spaces} %>
+	<% end %>
+	</div>
+	
   <%if !(current_user.spaces.empty?)%>
     <%periods = select_periods(@events_of_user)%>
   <%else%>
@@ -99,7 +170,7 @@
   <div id="home-inbox-full" class="margin-up">
     
 		<div id="home-inbox-title">
-    	<h3>
+    	<h3 style="color:#FFFFFF">
     		<%=image_tag("icons/email.png",:class=>"icon")%>
 				<%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
 			</h3>
@@ -143,33 +214,58 @@
 <% end %>
 
 <div id="recent-activity">
-	
-	<%for interval in intervals(@all_contents) do -%>
-		<%unless interval[:contents].empty? -%>
-			<div id="line">
-      	<span class="bold"><%= t('updated') + " " + interval[:name]%></span>
-    	</div>
-  	<%end -%>
-	
-  	<% interval[:contents].each do |content| -%>
-    	<% case content
-      	when Post -%>
-	        <%= render :partial => "posts/unified_post" , :locals => {:thread => content.reload, :extended => false, :last => (interval[:contents].last == content), :show_author => true} %>
-				<% when Event -%>
-	    		<%= render :partial => "events/unified_event", :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
-  			<% when News -%>
-	    		<%= render :partial => "news/unified_news", :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
-				<% when Attachment -%>
-		  		<%content = content.reload -%>
-      		<%= render :partial => "attachments/unified_attachment", :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
- 				<% else -%>
-	    		<div>
-	    			<%=t('unknown_content', :content => content.class)%>
-					</div>
-	  	<% end -%>
-		<% end -%>
-	<% end -%>
+  <%= link_to "<span>" + t('home.all')+" |" + "</span>", path_for_home %>
+  <%=link_to ("<span>" + t('home.last_events')+" |" + "</span>"), path_for_home(:type => 'old') %>
+<!--  <%=link_to ("<span>" + t('home.clara_events')+" |" + "</span>"), path_for_home(:type => 'clara') %> -->
+  <%=link_to ("<span>" + t('home.network_events') + "</span>"), path_for_home(:type => 'events') %>
+  <% if @type == "events" %>
+	<%= render :partial => 'list_countries_events' %>
+  <% end %>
 
-	<%= will_paginate @all_contents %>
+<% if !@all_contents.nil? %>
+  <% for interval in intervals(@all_contents) do -%>
+    <% unless interval[:contents].empty? -%>
+<!--
+      <div id="line">
+        <span class="bold"><%= t('updated') + " " + interval[:name]%></span>
+      </div>
+-->
+    <% end -%>
+	
+    <% interval[:contents].each do |content| -%>
+      <% case content
+        when Reservation -%>
+          <%= render :partial => "reservations/unified_reservation", 
+                     :locals => { :thread => content.reload, :extended => false, 
+                     :last => (interval[:contents].last == content), :show_author => true} %>
+	 <% when Request -%>
+		  <%= render :partial => "reservations/unified_request", 
+                     :locals => { :thread => content.reload, :extended => false, 
+                     :last => (interval[:contents].last == content), :show_author => true} %>	
+     <% when Post -%>
+          <%= render :partial => "posts/unified_post" , 
+                     :locals => { :thread => content.reload, :extended => false, 
+                                  :last => (interval[:contents].last == content), :show_author => true} %>
+     <% when Event -%>
+          <%= render :partial => "events/unified_event", 
+                     :locals => {:event => content.reload, :last => (interval[:contents].last == content)} %>
+     <% when News -%>
+	  <%= render :partial => "news/unified_news", 
+                     :locals =>{:news => content.reload, :last => (interval[:contents].last == content)}%>
+
+     <% when Attachment -%>
+          <%content = content.reload -%>
+          <%= render :partial => "attachments/unified_attachment", 
+                     :locals =>{:attachment => content, :last => (interval[:contents].last == content), :show_author => true} if content.post.blank?%>
+     <% else -%>
+       <div></div>
+     <% end -%>
+
+   <% end -%>
+	<% end -%>
+<%= will_paginate @all_contents %>
 	<br/>
+<% else %>
+
+<% end %>
 </div>

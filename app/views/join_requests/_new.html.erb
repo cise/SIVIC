@@ -29,7 +29,7 @@
 
 <%if logged_in?%>
 
-  <div id="lightbox-logo"><span><%= image_tag("bola_global_peque.png",:class=>"icon")%>Virtual Conference Centre > Join</span></div>
+  <div id="lightbox-logo"><span><%= image_tag("logo_clara_pequeño.png",:class=>"icon")%><%= t('join_request.title')%></span></div>
 
   <%if !space.public?%>
     <p class="note"><%= space.name %> <%= t('space.is_private') %></p>
@@ -54,7 +54,7 @@
               <p><%= t('join_request.asked_anonymous', :space => @space.name) %></p>
             <%end%>
 
-            <textarea id="join_request_personal"><%= t('join_request.personal') %></textarea><br/>
+            <textarea id="join_request_personal"></textarea><br/>
             <%= f.text_area :comment, :style => "display:none" %>
 
           </div>

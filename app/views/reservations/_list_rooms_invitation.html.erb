@@ -1,0 +1,12 @@
+<% name = reservation_id ? "reservation[room_id][#{reservation_id}]" : "reservation[room_id]"%>
+<% name = reservation_id ? "reservation[room_id]" : "reservation[room_id]"%>
+<% id = reservation_id ? "reservation_room_id_#{reservation_id}" : "reservation_room_id"%>
+
+<% rooms_list = (@rooms ? @rooms : Room.find_all_by_country(@reservation.country)).collect{|x| [x.name_certification_level_starts, x.id]} %>
+
+  <label for="reservation_room"><span class="red">* </span><%= t('reservation.room') %></label>
+  <% if @rooms == nil && @reservation.country == nil -%>
+    <select id="<%=id%>" name="<%=name%>"><option value="0"><%= t('reservation.select_a_room') %></option></select>
+  <% else -%>
+    <%= select_tag(name, "<option value="+ t('reservation.select_a_room') +">" + t('reservation.select_a_room') + "</option>" + options_for_select(rooms_list), :id => id) %>
+  <% end -%>

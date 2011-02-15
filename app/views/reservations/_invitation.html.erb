@@ -1,0 +1,58 @@
+<% sender = User.find(request.sender_id) %>
+<% reservation = request.reservation %>
+<% schedule = reservation.calendar_events %>
+
+<div id="recent-activity">
+<div>
+ <label><strong><%= sender.profile.full_name %></strong><%= " lo ha invitado a la:" %></label><br />
+ <br />
+ <div align="center">
+ 	<label><strong><%= reservation.title %></strong></label><br />
+
+        <% schedule.each do |calendar_event| %>
+          <label><strong><%= calendar_event.to_s %></strong></label><br />
+        <% end %>
+ 	
+ </div> 
+ <br />
+ <label><strong><%= "Descripción" %></strong></label><br />
+ <label><%= reservation.description %></label>
+ <br />
+ <br />
+
+<% form_for(reservation) do |f| %>
+<% 
+    @countries = Room.getCountriesBySpaces(current_user.spaces)    
+    @rooms = nil
+    if params[:reservation] != nil 
+      @rooms = Room.getRoomsByCountry(params[:reservation][:country])
+    end
+    @reservation = Reservation.new() 
+%>
+
+<%= hidden_field_tag :request_id, request.id %>
+<% if current_user.spaces.empty? %>
+		<span class="unified_user"><%=current_user.name%></span><br />
+		<label> No pertenece a ninguna institucion, Unase a una institucion para poder aceptar la invitacion</label><br /><br />
+<% else %>
+  <label><strong><%= "Reserva un aula cerca de tu ubicación" %></strong></label><br />
+  <%= render :partial => 'reservations/list_countries_invitation', :locals => {:reservation_id => reservation.id} %>
+  <% content_tag :div, :id => "reservation_list_rooms_invitation_#{reservation.id}", :class => "margin-up" do -%>
+  <%= render :partial => 'reservations/list_rooms_invitation', :locals => {:reservation_id => reservation.id } %><br />
+<% end %>
+  <div>
+	<label><%= "Horario de Reserva   " %></label>
+	<%= hidden_field_tag :calendar_events, reservation.calendar_events.map {|x| x.id }.join(" "),  :id => :reservation_calendar_events %>
+<!--    <%= text_area_tag "reservation[calendar_events][#{reservation.id}]", reservation.calendar_events.join("<br />"), :readonly => true, :cols => 40, :rows => 5 %> -->
+    <%= text_area_tag "reservation[calendar_events]", reservation.calendar_events.join("<br />"), :readonly => true, :cols => 40, :rows => 5 %>
+
+  </div> 
+<div class="button_wrapper grey_bar">
+	<button type="submit" id="<%= reservation.id %>" class="basic_button blue_button accept" name="submit" value="<%= Reservation::ACTION_ACCEPT_INVITATION %>"><%=t('reservation.button_accept_submit')%></button>
+    <button type="submit" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_DECLINE_INVITATION %>"><%=t('reservation.button_decline_submit')%></button>
+</div>
+<% end %> 
+<% end %>
+</div>
+</div>
+

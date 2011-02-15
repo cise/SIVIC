@@ -1,7 +1,13 @@
 module SpacesHelper
   
-  def eduEsGay
-    create_auto_logo "EDU ES GAY", 2,1111
+  def link_capitals(capitals, capital_sel = nil)
+    links = link_to_unless capital_sel==nil, t("space.all"), "spaces?id_space=all"
+    for capital in capitals
+      links += " - "      
+      links += link_to_unless capital_sel == capital['capital'], capital['capital'], 
+                 "spaces?id_space=all&cap=" + capital['capital']
+    end
+    links
   end
   
   

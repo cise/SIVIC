@@ -1,0 +1,90 @@
+<% last ||= false -%>
+<% show_author ||= false -%>
+
+<% content_for :javascript do %>
+$("a#cancel_by_covi_link").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 350
+  });
+<% end %>
+
+<div id="parent_<%=thread.id%>" class="pending-reservation even_thread post_cloud">
+  <div id="header-pending-reservation-<%=thread.id%>" class="header-pending-reservation">
+    <div class="thread_content thread">
+
+      <div class="div-logo">
+        <% link_logo(thread.room.space, :size =>'w48', :url => space_path(thread.room.space), :title=>thread.room.space.name)%>
+      </div>      
+      	
+      <div class="thread-home">
+        <!-- Options for the user to edit, delete or answer a thread..only visible at the extended view-->
+        <ul class="thread_options extended_thread">
+<% if thread.room.users_by_role("COVI").include?(current_user) || current_user.superuser %>
+<li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), cancel_by_covi_path(thread), :id => "cancel_by_covi_link")%></li>
+
+<!--    <li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), thread, 
+                          :confirm => "Esta seguro que desea cancelar la reservacion?", :method => :delete)%></li> -->
+
+<% else %>
+<li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), cancel_by_user_path(thread), :id => "cancel_by_covi_link")%></li>
+<!--  <li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), thread, 
+                          :confirm => "Esta seguro que desea cancelar la reservacion?", :method => :delete)%></li> -->
+ 
+<% end %>
+          
+
+          <li><%= image_tag("icons/16/arrow-down.png", :class=> "pending", :id=> thread.id, :onclick => "$('#header-pending-reservation-#{thread.id}').slideUp(5);$('#content-pending-reservation-#{thread.id}').slideDown(5);")%></li>
+        </ul>
+		  
+        <ul class="thread-title">  
+      	  <li>
+            <%=image_tag("icons/date.png", :class=>"icon", :title => "date")%>
+      	    <% if show_author -%>
+              <span class="unified_user">Reservaci&oacute;n<%= thread.parent_id ? " de invitaci&oacute;n" : "" %>:</span>
+            <% end -%>
+            <%=link_to (first_words(thread.title, 30), "#", :class=>"unified_posts", :onclick => "$('#header-pending-reservation-#{thread.id}').slideUp(5);$('#content-pending-reservation-#{thread.id}').slideDown(5);") if thread.room.space.authorize?([:read, :content],:to => current_user)%>
+            <span class="updated extend_thread"<%='style="display:none"' if extended%>><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
+          </li>
+
+          <li>
+            <div class="grey extend_thread" <%='style="display:none"' if extended %>>
+              <strong><label>Estado:</label></strong>
+              <%=first_words(thread.state,75)%><br />
+			  <% if thread.state == Reservation::STATE_APPROVED || thread.state == Reservation::STATE_REJECTED %>
+			  	<label></label>
+			  <% else  %>
+			     <strong><label><%= t('reservation.description') %>:</label></strong>
+			    <% if thread.vc_service == Room::SERVICE_TYPE_VIRTUAL %>
+			  	   <%= t('reservation.description2') %>
+				<% else %>
+				   <%= t('reservation.description1') %>
+				<% end %>
+			  <% end %>
+            </div>
+
+            <div id="grey" class="extended_thread grey" <%='style="display:none"' unless extended%> >
+            </div>
+          </li>	    
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-pending-reservation-<%=thread.id%>" class="content-pending-reservation" style="display:none;">
+    <ul class="thread_options extended_thread">
+<% if thread.room.users_by_role("COVI").include?(current_user) || current_user.superuser %>
+<li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), cancel_by_covi_path(thread), :id => "cancel_by_covi_link")%></li>
+<% else %>
+<li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), cancel_by_user_path(thread), :id => "cancel_by_covi_link")%></li> 
+     <!-- <li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), thread, :confirm => "Esta seguro que desea cancelar la reservacion?", :method => :delete)%></li> -->
+<% end %>
+      <li class="pending"><%=image_tag("icons/16/arrow-up.png", :onclick => "$('#header-pending-reservation-#{thread.id}').slideDown(5);$('#content-pending-reservation-#{thread.id}').slideUp(5);")%></li>
+    </ul>
+    <% if thread.user == current_user && (thread.state == Reservation::STATE_APPROVED || thread.state == Reservation::STATE_REJECTED) %>
+      <%= render :partial => "reservations/state", :locals => { :reservation => thread } %>
+    <% else  %>
+      <%= render :partial => "reservations/form_authorization", :locals => { :reservation => thread } %>	
+    <% end %>
+  </div>
+</div>

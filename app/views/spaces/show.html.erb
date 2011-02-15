@@ -79,7 +79,10 @@
     <% end %>
     </p>
     </div>
+  <% if space.users.include?(current_user) %>
 	<%= render :partial => 'sidebar_leave_space' %>
+  <% end %>
+
 <% end %>
 
 <% if !@current_events.empty? %>

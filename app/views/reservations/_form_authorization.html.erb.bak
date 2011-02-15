@@ -1,0 +1,87 @@
+<% reservations.each do |reservation| %>
+<% 
+schedule = reservation.calendar_events 
+first_day = schedule[0]
+%>
+<div class="event_image">
+  <div class="event_date_image">
+    <div class="event_day">
+      <%= first_day.starttime.strftime('%d') %>
+    </div>
+	
+    <div class="event_month">
+      <%= I18n.localize(first_day.starttime, :format => '%B') %>
+    </div>
+	
+    <div class="event_hour">
+      <%= first_day.starttime.strftime('%H:%M') %>
+    </div>
+  </div>
+</div>
+
+<%= image_tag("icons/date.png", :class=>"icon", :title => reservation.title)%>
+<%= link_to sanitize(highlight(reservation.title,"votate")), :class => "unified_event" %>
+<!-- <span class="updated"><%= t('updated_time_ago', :time => ((Time.zone.now - reservation.updated_at)/1.day).to_i) %></span> -->
+
+<br />
+
+<label class="main_date">
+<% schedule.each do |calendar_event| %>
+  <%= calendar_event.to_s %><br />
+<% end %>
+</label>
+<br />
+<div>
+  <span style="margin-left:66px"><label>Ticket #:</label></span>
+  <span style="margin-left:40px"><label><%= reservation.id %></label></span>
+  <br />
+  
+  <span style="margin-left:66px"><label><%= t('reservation.service_vc')%>:</label></span>
+  <span style="margin-left:8px"><label><%= reservation.vc_service%></label></span>
+  <br />
+  
+  <span style="margin-left:66px"><label><%= t('reservation.description') %>:</label>
+  <span style="margin-left:13px"><label><%= reservation.room.name %></label></span>
+  <br />
+  
+  <span style="margin-left:152px"><label class="main_date">
+  	<%= reservation.room.city %>, <%= reservation.room.country %>
+  </label></span>
+  <br />
+  
+  <span style="margin-left:152px"><label class="main_date">
+  	Capacidad a 5 conexiones
+  </label></span>
+  <br />
+  
+  <span style="margin-left:152px"><label class="main_date">
+  	Máximo ancho de banda máximo: 10Mb
+  </label></span>
+  <br />
+  
+  <span style="margin-left:66px"><label>
+  	Solicitante: <%= reservation.user.profile.full_name %>
+  </label></span>
+  <br />
+
+<% form_for(reservation) do |f| %>
+
+  <span style="margin-left:66px"><%= f.text_area(:notes, :cols => 70, :rows => 3)%></span>
+  <br />
+  
+<!--
+<span style="margin-left:66px"><label>Tipo de Rechazo</label></span>
+<%= select_tag(:country, options_for_select([['Ocupada', 1], ['Dañado', 2], ['En reparacion', 3]])) %>
+-->
+  <div class="button_wrapper grey_bar">
+<!--
+<%=link_to ("<span>" + "Aceptar" + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => "Aceptar"} %>
+<%=link_to ("<span>" + "Rechazar" + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => "Rechazar"} %>
+-->
+    <button type="submit" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_APPROVE %>"><%=t('reservation.button_approve_submit')%></button>
+    <button type="submit" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_REJECT %>"><%=t('reservation.button_reject_submit')%></button>
+  </div>
+  
+<% end %>
+</div>
+<% end %>

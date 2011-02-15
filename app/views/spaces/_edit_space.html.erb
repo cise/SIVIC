@@ -80,6 +80,15 @@
 			);
 
     });
+
+	$("#skin_select").change(function () { 
+	    var val = $("#skin_select option:selected").val();
+      $.post("<%=space_path(@space)%>",{
+        _method: "put", authenticity_token: "<%=form_authenticity_token()%>", 'space[skin]': val          
+      }, function(data){
+	              eval(data);
+	  }, "script");
+    });
 	
 	$("#edit_space_button").click(function(){
 		$("form#edit_logo_form").submit();
@@ -106,6 +115,13 @@
 	 
 <%end%>
 
+<% if logged_in? && ( current_user.superuser? || (current_user.isCoviNREN && @space.parent == Space.find_by_name("Red CLARA")) ) %>
+  <div class="button_wrapper">
+    <%= link_to "<span>" + t('space.create_own') + "</span>", "/spaces/new?parent=#{@space.id}",:class => "new_space_link big_button orange_button"%>
+  </div>
+  <br />
+<% end %>
+
 <div id="space-conf">
 
 <h3 class="center"><%=t('space.configuration')%></h3>
@@ -119,7 +135,11 @@
 		<p>
 		  <label for="description"><%=t('description')%>:</label><br/>
 		  <%= f.text_area :description%>
-		</p>	
+		</p>
+                <p>
+		  <label for="parent" id= "space_parent_label"><%= "Pertenece a:" %></label><br/>
+		  <%= f.select(:parent_id, Space.all.collect {|x| [x.name, x.id]}, :prompt => 'Seleccione una institución') %>
+		</p>
 		<p>
 		  <label for="public"><%=t('space.allow_public_access')%>:</label> 
 		  <%= check_box("space", "public")%>
@@ -127,7 +147,12 @@
 		<p>
 		  <label for="repository"><%=t('event.repository.enabled')%>:</label> 
 		  <%= check_box("space", "repository")%>
+		</p>
+		<p>
+		  <label for="skin"><%=t('space.skin')%>:</label> 
+		  <%= f.select("skin", list_skins)%>
 		</p>	
+	
 	  <div class="margin-up">
 	    <button type="submit" class="basic_button blue_button"><%=t("button.update")%></button>
 	  </div>	
@@ -167,7 +192,13 @@
         <%= check_box_tag "space[repository]", false, @space.repository?, :id => "repository_checkbox"%>
       </div>
     </li>
-	
+    <li>
+      <div>
+        <label for="skin" class="bold"><%=t('space.skin')%>:</label> 
+		<%= select_tag "space[skin]", options_for_select(list_skins, @space.skin), :id => 'skin_select' %>
+      </div>
+    </li>	
+
     <li> 
 			<div id="logo_preview">
 				<label for="public" class="bold"><%=t('space.clic_logo')%>:</label> 

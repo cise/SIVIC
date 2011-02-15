@@ -92,4 +92,155 @@ class PrivateSender
     m.save!
   end
   
+  def self.reservation_request_notification_message(reservation, receiver)
+    room = reservation.room
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.subject", :eventname => reservation.title,
+      :space => room.space.name, :username => User.find(reservation.user_id).full_name, :room => room.name), 
+      :body => I18n.t("reservation.notification.body", :eventname => reservation.title,
+    :space => room.space.name, :username => User.find(reservation.user_id).full_name, :room => room.name)
+    m.receiver = receiver
+    m.save!
+  end
+
+  def self.reservation_virtual_request_notification_message(reservation, receiver)
+    room = reservation.room
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.virtual.subject", 
+        :eventname => reservation.title, :space => room.space.name,
+        :username => User.find(reservation.user_id).full_name, :room => room.name
+      ), :body => I18n.t("reservation.notification.virtual.body", 
+        :eventname => reservation.title, :ports => reservation.ports, :space => room.space.name, 
+        :username=> User.find(reservation.user_id).full_name, :room => room.name
+      )
+    m.receiver = receiver
+    m.save!
+  end
+
+  def self.reservation_cancelled_notification_message(reservation, receiver)
+    room = reservation.room
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.cancelled.subject", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.user_id).full_name, :room => room.name, :action => reservation.state
+      ), :body => I18n.t("reservation.notification.cancelled.body", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.user_id).full_name, :room => room.name, :action => reservation.state
+      )
+    m.receiver = receiver
+    m.save!
+  end
+
+  def self.reservation_processed_notification_message(reservation, receiver)
+    room = reservation.room
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.processed.subject", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.admin_id).full_name, :room => room.name, :action => reservation.state
+      ), :body => I18n.t("reservation.notification.processed.body", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.admin_id).full_name, :room => room.name, :action => reservation.state
+      ) + @reservation.state == Reservation::STATE_APPROVED ? I18n.t("reservation.notification.processed.room_info", :covi_name => @user_sender.full_name, :room_location => @room.full_location, :room_phonenumber => @room.phone_number) : ""
+      + @reservation.notes ? I18n.t('reservation.notification.processed.covi_notes', :covi_notes => @reservation.notes) : ""
+    m.receiver = receiver
+    m.save!
+  end
+  
+  def self.request_reservation_notification_message(request, receiver)
+    reservation = request.reservation
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.request.subject", 
+        :eventname => reservation.title, :username => User.find(request.sender_id).full_name, 
+        :schedule => reservation.calendar_events.join(", ")
+      ), :body => I18n.t("reservation.notification.request.body", 
+        :eventname => reservation.title, :username => User.find(request.sender_id).full_name, 
+        :schedule => reservation.calendar_events.join(", ")
+      )
+    m.receiver = receiver
+    m.save!
+  end
+  
+  def self.request_processed_notification_message(request, receiver)
+    reservation = request.reservation
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.request.processed.subject", 
+        :eventname => reservation.title, :username => User.find(request.recipient_id).full_name, 
+        :schedule => reservation.calendar_events.join(", "), :action => request.status
+      ), :body => I18n.t("reservation.notification.request.processed.body", 
+        :eventname => reservation.title, :username => User.find(request.recipient_id).full_name, 
+        :schedule => reservation.calendar_events.join(", "), :action => request.status
+      )
+    m.receiver = receiver
+    m.save!
+  end
+ def self.room_update_message(request, receiver)
+    room = request.room
+    m = PrivateMessage.new :title => I18n.t("room.notification.subject", 
+        :room => room.name, 
+		:username => User.find(request.recipient_id).full_name), 
+		:body => I18n.t("room.notification.body", 
+        :room => room.name,
+		:username => User.find(request.recipient_id).full_name, 
+        :space =>Space.find(room.space_id).name),
+		:footer => I18n.t("room.notification.footer", 
+        :url => "http://" + Site.current.domain + "/manage/edit_room/" + room.id)
+    m.receiver = receiver
+    m.save!
+  end
+  def self.room_create_message(request, receiver)
+    room = request.room
+    m = PrivateMessage.new :title => I18n.t("room.notification.subject", 
+        :room => room.name, 
+		:username => User.find(request.recipient_id).full_name), 
+		:body => I18n.t("room.notification.body", 
+        :room => room.name,
+		:username => User.find(request.recipient_id).full_name, 
+        :space =>Space.find(room.space_id).name),
+		:footer => I18n.t("room.notification.footer", 
+        :url => "http://" + Site.current.domain + "/manage/edit_room/" + room.id)
+    m.receiver = receiver
+    m.save!
+  end
+
+  def self.reservation_cancelled_by_covi_notification_message(reservation, receiver)
+    room = reservation.room
+    available_rooms = Room.available_rooms(receiver.spaces, reservation.calendar_events)
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.cancelled.subject", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.cancelled_by).full_name, :room => room.name, :action => reservation.state
+      ), :body => I18n.t("reservation.notification.cancelled.body", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.cancelled_by).full_name, :room => room.name, :action => reservation.state
+      ) + I18n.t("reservation.notification.cancelled.reasons", :reasons => reservation.reason_rejection_text) 
+        + (available_rooms.size > 0 ? 
+             I18n.t("reservation.notification.cancelled.available_rooms", :available_rooms => available_rooms.map{|r| r.name }.join(', ')) :
+             I18n.t("reservation.notification.cancelled.no_available_rooms"))
+    m.receiver = receiver
+    m.save!
+  end
+
+  def self.reservation_cancelled_by_user_notification_message(reservation, receiver)
+    room = reservation.room
+    m = PrivateMessage.new :title => I18n.t("reservation.notification.cancelled.subject", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.cancelled_by).full_name, :room => room.name, :action => reservation.state
+      ), :body => I18n.t("reservation.notification.cancelled.body", 
+        :eventname => reservation.title, :space => room.space.name, 
+        :username => User.find(reservation.cancelled_by).full_name, :room => room.name, :action => reservation.state
+      ) + I18n.t("reservation.notification.cancelled.reasons", :reasons => reservation.reason_rejection) 
+    m.receiver = receiver
+    m.save!
+  end
+  def self.reservation_invitation_notification_message(request, receiver)
+    request_aux = request.request
+	reservation= Reservation.find(request_aux.reservation_id)
+    if request.status == Request::STATUS_ACCEPTED
+		estado_aux = "Aceptado"
+	elsif request.status == Reservation::ACTION_DECLINE_INVITATION
+		estado_aux = "Rechazo"
+	end
+	m = PrivateMessage.new :title => I18n.t("room.invitation.subject", 
+        :username => User.find(request_aux.recipient_id).full_name,
+		:reservation =>reservation.title),
+		:body => I18n.t("room.invitation.body", 
+		:username => User.find(request_aux.recipient_id).full_name, 
+        :reservation =>reservation.title,
+		:estado => estado_aux)
+    m.receiver = receiver
+    m.save!
+  end
 end

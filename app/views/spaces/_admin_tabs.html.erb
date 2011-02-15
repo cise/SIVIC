@@ -1,4 +1,9 @@
 <div  class="button_wrapper grey_bar">
+<% # if !current_user.superuser? 
+%>
+  <%= link_to "<span>" + t('room.other') + "</span>", space_rooms_path(@space), :class => "grey_button basic_button show_inv" %>
+<% # end 
+%>
   <%= link_to "<span>" + t('user.other') + "</span>", edit_space_path(@space), :class => "grey_button basic_button show_inv" %>
   <%= link_to "<span>" + t('group.other') + "</span>", space_groups_path(@space, :admin => true), :class => "grey_button basic_button show_inv" %>
   <%= link_to "<span>" + t('admission.other') + "</span>", space_admissions_path(@space), :class => "grey_button basic_button show_inv" %>

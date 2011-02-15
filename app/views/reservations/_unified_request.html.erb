@@ -1,0 +1,49 @@
+<% sender = User.find(thread.sender_id) %>
+<% reservation = thread.reservation %>
+
+<% last ||= false -%>
+<% show_author ||= false -%>
+
+<div id="parent_<%=thread.id%>" class="pending-request even_thread post_cloud">
+	 <div id="header-pending-request-<%=thread.id%>" class="header-pending-request">
+		
+		<div class="thread_content thread">
+			<div class="div-logo">
+				
+      		</div>      
+      	
+			<div class="thread-home">
+		  	<!-- Options for the user to edit, delete or answer a thread..only visible at the extended view-->
+		  		<ul class="thread_options extended_thread">
+	        		<li><%=image_tag("icons/16/arrow-down.png", :class=> "pending", :id=> thread.id, :onclick => "$('#header-pending-request-#{thread.id}').slideUp(5);$('#content-pending-request-#{thread.id}').slideDown(5);")%></li>
+		  		</ul>
+		  
+		  		<ul class="thread-title">  
+	      			<li>
+						<%=image_tag("icons/date.png",:class=>"icon", :title => "date")%>
+	      	  			<% if show_author -%>
+							<span class="unified_user">Invitacion de:</span>
+						<% end -%>
+			    		<%=link_to (first_words(sender.profile.full_name, 30),user_path(sender),:class=>"unified_posts")%>
+			  			<span class="updated extend_thread"<%='style="display:none"' if extended%>><%= t('updated_time_ago', :time => time_ago_in_words(thread.updated_at)) %></span>
+					</li>
+					<li>
+						<div class="grey extend_thread" <%='style="display:none"' if extended %>>
+							<strong><label>A conferencia:</label></strong>
+							<%=first_words(reservation.title,75)%>
+						</div>
+						<div id="grey" class="extended_thread grey" <%='style="display:none"' unless extended%> >
+
+						</div>
+					</li>	    
+				</ul>
+	  		</div>
+    	</div>
+  	</div>
+	 <div id="content-pending-request-<%=thread.id%>" class="content-pending-request" style="display:none;">
+		<ul class="thread_options extended_thread">
+			<li class="pending"><%=image_tag("icons/16/arrow-up.png", :onclick => "$('#header-pending-request-#{thread.id}').slideDown(5);$('#content-pending-request-#{thread.id}').slideUp(5);")%></li>
+		 </ul>
+		<%= render :partial => "reservations/invitation", :locals => { :request => thread } %>	
+	</div>
+</div>

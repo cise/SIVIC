@@ -1,0 +1,220 @@
+--- 
+pt: 
+  GMT: GMT
+  Isabel: Isabel
+  RSS: RSS
+  abc: ABC
+  about: Sobre
+  about_global: Sobre CLARA
+  about_me: Sobre Mim
+  about_sxsw: Sobre o SXSW
+  about_vcc: "Sobre Videoconfer\xC3\xAAncia CLARA (Beta)"
+  account: Conta
+  account_activated: Sua conta foi ativada!
+  account_activated_with_agent: "{{agent}}, sua conta foi ativada"
+  account_created: Sua conta foi criada
+  action: 
+    one: !binary |
+      QcOnw6Nv
+
+    other: !binary |
+      QcOnw7Vlcw==
+
+  actions: !binary |
+    QcOnw7Vlcw==
+
+  activerecord: 
+    attributes: 
+      user: 
+        email: E-mail
+        login: Login
+        password: Senha
+        space_id: !binary |
+          SW5zdGl0dWnDp8Ojbw==
+
+    errors: 
+      full_messages: 
+        aggrement: 
+          blank: "Acordo n\xC3\xA3o pode ficar em branco."
+        body: 
+          blank: "O corpo n\xC3\xA3o pode estar em branco."
+        code: 
+          blank: "C\xC3\xB3digo n\xC3\xA3o pode estar em branco."
+        description: 
+          blank: "A descri\xC3\xA7\xC3\xA3o n\xC3\xA3o pode estar em branco."
+          length: "A descri\xC3\xA7\xC3\xA3o \xC3\xA9 muito curto (m\xC3\xADnimo de 100 caracteres)."
+        email: 
+          blank: E-mail pode estar em branco.
+          format: "E-mail n\xC3\xA3o \xC3\xA9 v\xC3\xA1lido."
+          length: "E-mail \xC3\xA9 muito curto (m\xC3\xADnimo 5 caracteres)."
+        email_confirmation: "Confirmar o endere\xC3\xA7o de email n\xC3\xA3o pode estar em branco."
+        format: "{{attribute}} {{mensagem}}"
+        image: 
+          blank: "Imagem e texto s\xC3\xA3o diferentes."
+        ip_address: 
+          blank: "O endere\xC3\xA7o IP n\xC3\xA3o pode ficar em branco."
+          valida: "O endere\xC3\xA7o IP n\xC3\xA3o \xC3\xA9 v\xC3\xA1lido."
+        mcunumber: 
+          blank: "O MCU n\xC3\xA3o pode estar em branco."
+        model: 
+          blank: "Modelo n\xC3\xA3o pode estar em branco."
+        name: 
+          blank: "O nome n\xC3\xA3o pode estar em branco."
+        password: 
+          blank: "A senha n\xC3\xA3o pode estar em branco."
+          length: "A senha \xC3\xA9 muito curta (m\xC3\xADnimo de 4 charaters)."
+        password_confirmation: 
+          blank: "Confirmar senha n\xC3\xA3o pode estar em branco."
+        room: 
+          blank: "Voc\xC3\xAA deve selecionar uma sala"
+        shared_ports: 
+          blank: "O campo compartilhado portos n\xC3\xA3o podem ficar em branco."
+        timezone: 
+          blank: "Voc\xC3\xAA deve selecionar um fuso hor\xC3\xA1rio"
+        title: 
+          blank: "O t\xC3\xADtulo n\xC3\xA3o pode estar em branco."
+        total_ports: 
+          blank: "O campo do Porto n\xC3\xA3o pode estar em branco."
+        trade: 
+          blank: "O modelo n\xC3\xA3o pode estar em branco."
+      messages: 
+        accepted: deve ser aceito
+        blank: "n\xC3\xA3o pode estar em branco"
+        confirmation: "n\xC3\xA3o coincide com a confirma\xC3\xA7\xC3\xA3o"
+        empty: "n\xC3\xA3o pode estar vazio"
+        equal_to: deve ser igual a {{count}}
+        even: deve ser ainda
+        exclusion: "est\xC3\xA1 reservado"
+        greater_than: deve ser maior que {{count}}
+        greater_than_or_equal_to: deve ser maior ou igual a {{count}}
+        inclusion: "n\xC3\xA3o est\xC3\xA1 inclu\xC3\xADdo na lista"
+        invalid: "Inv\xC3\xA1lido"
+        less_than: deve ser inferior a {{count}}
+        less_than_or_equal_to: deve ser menor ou igual a {{count}}
+        missing: falta
+        not_a_number: !binary |
+          bsOjbyDDqSB1bSBuw7ptZXJv
+
+        odd: deve ser estranho
+        record_invalid: "Erro de valida\xC3\xA7\xC3\xA3o: {{errors}}"
+        taken: "j\xC3\xA1 em uso"
+        too_long: "\xC3\xA9 muito longo ({{count}} caracteres no m\xC3\xA1ximo)"
+        too_short: "\xC3\xA9 muito curto (m\xC3\xADnimo {{count}} caracteres)"
+        wrong_length: "n\xC3\xA3o tem o tamanho correto ({{count}} caracteres exatos)"
+      models: 
+        user: 
+          attributes: 
+            email: 
+              email: 
+                confirmation: "n\xC3\xA3o coincide com a confirma\xC3\xA7\xC3\xA3o"
+            password: 
+              password: 
+                confirmation: "n\xC3\xA3o coincide com a confirma\xC3\xA7\xC3\xA3o"
+      template: 
+        body: "Problemas encontrados nos seguintes dom\xC3\xADnios:"
+        header: 
+          one: ""
+          other: ""
+  add: Adicionar
+  add_document: Adicionar novo documento
+  add_more_details: "D\xC3\xAA mais detalhes"
+  add_website: "D\xC3\xAA seu site."
+  address: "Endere\xC3\xA7o"
+  admin: 
+    one: Admin
+    space: "{{spacename}} Administrador"
+  admission: 
+    accept: OK
+    deny: Negar
+    errors: 
+      candidate_equals_introducer: "O candidato e os convidados n\xC3\xA3o pode ser a mesma pessoa (provavelmente ter\xC3\xA1 que sair da reuni\xC3\xA3o)"
+      candidate_has_role: e tem um papel
+    one: "Admiss\xC3\xA3o"
+    other: "Admiss\xC3\xB5es"
+  advanced: ""
+  advanced_editor: "Editor Avan\xC3\xA7ado"
+  advanced_options: "Avan\xC3\xA7ado"
+  agenda: 
+    add_divider: Adicionar divisor
+    add_entry: "Adicionar sess\xC3\xA3o"
+    define: "Defini\xC3\xA7\xC3\xA3o da agenda"
+    del_entry: Limpar
+    divider: 
+      delete: "O divisor foi exclu\xC3\xADdo"
+      edit: Editar divisor
+      error: 
+        coinciding_times: "H\xC3\xA1 um conflito entre o tempo um divisor de novo e entradas de calend\xC3\xA1rio ou divis\xC3\xB3rias existentes"
+        date_out_of_event: "A data do divisor excede a dura\xC3\xA7\xC3\xA3o m\xC3\xA1xima do evento: dias {{max_days}}"
+        past_times: "Esse tipo de evento n\xC3\xA3o pode ter datas no passado"
+      failed: Houve um problema com o divisor da ordem do dia
+      new: Nova agenda divisor
+      start_time: "Hora de In\xC3\xADcio"
+      title: "T\xC3\xADtulo"
+      updated: O divisor foi atualizado com sucesso
+    edit_entry: Editar
+    entry: 
+      cannot_exclude: "N\xC3\xA3o se pode excluir a grava\xC3\xA7\xC3\xA3o de um curta de entrada"
+      created: A entrada da agenda foi criado com sucesso
+      delete: "A entrada da agenda foi exclu\xC3\xADda com sucesso"
+      description: !binary |
+        RGVzY3Jpw6fDo28=
+
+      duration: !binary |
+        RHVyYcOnw6Nv
+
+      edit: Editar entrada da agenda
+      embed_help: "Voc\xC3\xAA pode inserir c\xC3\xB3digo HTML para inserir um v\xC3\xADdeo"
+      embedded_video: "Incorporar a entrada de v\xC3\xADdeo"
+      end_time: Fim dos Tempos
+      error: 
+        attribute_unchangeable: "Voc\xC3\xAA tentou alterar um atributo s\xC3\xB3 de leitura da sess\xC3\xA3o"
+        coinciding_times: "H\xC3\xA1 um conflito entre o tempo da nova entrada na lista telef\xC3\xB3nica, e gateways para divis\xC3\xB3rias existentes"
+        create: "Falha ao criar uma sess\xC3\xA3o no sistema de videoconfer\xC3\xAAncia"
+        date_out_of_event: "A data de entrada na ordem do dia excede a dura\xC3\xA7\xC3\xA3o m\xC3\xA1xima do evento: dias {{max_days}}"
+        delete: "Falha ao apagar a sess\xC3\xA3o no sistema de videoconfer\xC3\xAAncia"
+        disordered_times: "O hor\xC3\xA1rio de in\xC3\xADcio deve ser antes do tempo final"
+        past_times: "O hor\xC3\xA1rio de in\xC3\xADcio da reuni\xC3\xA3o deve ser {{min_date}} ou mais tarde"
+        update: "Falha ao atualizar a sess\xC3\xA3o no sistema de videoconfer\xC3\xAAncia"
+      failed: "A entrada da agenda n\xC3\xA3o p\xC3\xB4de ser salvo"
+      has_attachment: Este post anexos
+      has_video: "V\xC3\xADdeo dispon\xC3\xADvel para esta entrada"
+      help: 
+        recording: "Grava\xC3\xA7\xC3\xA3o activada para esta sess\xC3\xA3o"
+        streaming: "Streaming habilitado para que esta sess\xC3\xA3o"
+      hidevideo: "Ocultar v\xC3\xADdeo"
+      minutes: registro
+      new: Nova entrada da agenda
+      no_record: !binary |
+        TsOjbw==
+
+      one: Entrada
+      options: 
+        add_video: "Descarte e adicione um video autom\xC3\xA1tico incorporado"
+        help: "Confira a transmiss\xC3\xA3o e / ou servi\xC3\xA7os de grava\xC3\xA7\xC3\xA3o, quando necess\xC3\xA1rio"
+        help2: "Nesta sess\xC3\xA3o teve lugar e n\xC3\xA3o pode editar as suas op\xC3\xA7\xC3\xB5es de grava\xC3\xA7\xC3\xA3o de streaming ou"
+        help3: "Esta sess\xC3\xA3o est\xC3\xA1 em andamento, s\xC3\xB3 voc\xC3\xAA pode mudar ou n\xC3\xA3o de streaming"
+        recording: !binary |
+          R3JhdmHDp8Ojbw==
+
+        streaming: Streaming
+        title: !binary |
+          T3DDp8O1ZXM=
+
+      record: Registre-se
+      speakers: Oradores
+      start_time: "Hora de In\xC3\xADcio"
+      title: "T\xC3\xADtulo"
+      updated: "Entrada da agenda telef\xC3\xB4nica atualizada com sucesso"
+      video: !binary |
+        R3JhdmHDp8Ojbw==
+
+      yes_record: Sim
+    error: 
+      dates: "O hor\xC3\xA1rio de in\xC3\xADcio deve ser antes do tempo final"
+      end_time_overlaps: "sobreposi\xC3\xA7\xC3\xB5es de tempo terminar com uma entrada existente na agenda"
+      omit_date: "A entrada da agenda que voc\xC3\xAA precisa de in\xC3\xADcio e fim"
+      omit_title: "Deve ser dada t\xC3\xADtulo para a entrada da agenda"
+      omit_title_divider: "O t\xC3\xADtulo do divisor n\xC3\xA3o pode ser vazia"
+      overlaps: "O calend\xC3\xA1rio se sobrep\xC3\xB5e entrada com uma entrada existente"
+      start_time_overlaps: "O in\xC3\xADcio se sobrep\xC3\xB5e tempo com uma entrada existente na agenda"
+    expand_help: "Clique no t\xC3\xADtulo de uma entrada da agenda para expandir ou recolher"

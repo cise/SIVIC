@@ -1,6 +1,32 @@
 ActionController::Routing::Routes.draw do |map|
+  map.connect '/reservations/:action', :controller => 'reservations', :action => /[a-z_]+/i
+#  map.resources :rooms
+  map.resources :mcus
+  
   Translate::Routes.translation_ui(map)
 
+#  map.resources :reservations, :collection => [:pending, :rechazada, :aceptada, :autorizacion, :invitacion, :pendiente]
+#  map.connect '/reservations/update_list_rooms', :controller => 'reservations', :action => 'update_list_rooms', :method => 'get'
+
+  map.reservations_rechazada '/rechazada', :controller => 'reservations', :action => 'rechazada', :method => 'get'
+  map.reservations_aceptada '/aceptada', :controller => 'reservations', :action => 'aceptada', :method => 'get' 
+  map.reservations_invitacion '/invitacion', :controller => 'reservations', :action => 'invitacion', :method => 'get'
+  map.reservations_pendientes '/pendientes', :controller => 'reservations', :action => 'pendientes', :method => 'get'
+  map.reservations_autorizacion '/autorizacion', :controller => 'reservations', :action => 'autorizacion', :method => 'get'
+
+  map.rejecting_reservation '/rejecting', :controller => 'reservations', :action => 'rejecting', :method => 'get'
+  map.cancel_by_covi '/cancel_by_covi/:reservation_id', :controller => 'reservations', :action => 'cancel_by_covi', :method => 'get'
+  map.cancel_by_user '/cancel_by_user/:reservation_id', :controller => 'reservations', :action => 'cancel_by_user', :method => 'get'
+  map.add_user '/add_user', :controller => 'reservations', :action => 'add_user'
+  map.information '/information', :controller => 'reservations', :action => 'information'
+  map.port '/port', :controller => 'reservations', :action => 'port'
+  map.information_service '/information_service', :controller => 'reservations', :action => 'information_service'
+  map.find_room '/find_room', :controller => 'reservations', :action => 'find_room'
+  map.add_participante '/add_participante', :controller => 'reservations', :action => 'participantes', :method => 'get'
+  map.space_sala '/spaces/:space_id/salas', :controller => 'spaces', :action => 'show_room'
+  map.assign_covi '/spaces/:space_id/rooms/:id/assign_covi', :controller => 'rooms', :action => 'assign_covi'
+  map.all_events '/all_events', :controller => 'home', :action => 'all_events'
+  map.profiles_updated_spaces '/update_spaces', :controller => 'homes', :action => 'update_spaces' 
   map.p '/p', :controller => 'p', :action => 'index'
   # Route for text logos creation
 
@@ -10,13 +36,13 @@ ActionController::Routing::Routes.draw do |map|
   #Global search
   map.search_all '/search.:format', :controller => 'search', :action=> 'index' #=> /search, SearchController  
   map.search_by_tag '/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
-
+  map.space_video '/spaces/:space_id/video', :controller => 'spaces', :action=> 'video' #=> /search, SearchVideo 
   #Search in the space
   map.space_search_all '/spaces/:space_id/search', :controller => 'search', :action=> 'index' #=> /search, SearchController  
-  map.space_search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)  
-  
+  map.space_search_by_tag '/spaces/:space_id/tags/:tag', :controller => 'search', :action => 'tag' #=> /tags/:id/events, TagsController (actualmente es parte del searchcontroller)
   
   map.resources :logos
+  map.partner 'screencasts/partner', :controller => 'screencasts', :action => 'partner'
   map.resources :screencasts
   
   map.resources :machines, :collection => [:contact_mail, :my_mailer ]
@@ -61,6 +87,12 @@ ActionController::Routing::Routes.draw do |map|
 #    space.resources :event_invitations
     space.resources :performances
     space.resources :news
+
+# added for SAR
+    space.resources :reservations
+    space.resources :rooms 
+    space.resources :mcus
+	map.resources :mcus
   end
 
   map.resources :invitations, :member => [ :accept ]
@@ -85,6 +117,9 @@ ActionController::Routing::Routes.draw do |map|
      end
      user.resource :avatar, :member => {:precrop => :post}
   end
+
+  map.resources :countries
+
   map.resources :roles
   map.resource :site
   map.resource :home
@@ -93,7 +128,12 @@ ActionController::Routing::Routes.draw do |map|
   map.manage_users '/manage/users', :controller => 'manage', :action => 'users'
   map.manage_spaces '/manage/spaces', :controller => 'manage', :action => 'spaces'
   map.manage_spam '/manage/spam', :controller => 'manage', :action => 'spam'
-  
+  map.manage_rooms '/manage/rooms', :controller => 'manage', :action => 'rooms'
+  map.manage_mcus '/manage/mcus', :controller => 'manage', :action => 'mcus'
+  map.manage_edit_room 'manage/:room_id/edit_room', :controller => 'manage', :action=> 'edit_room'
+  map.manage_edit_mcu 'manage/:mcu_id/edit_mcu', :controller => 'manage', :action=> 'edit_mcu'
+  map.manage_update_mcu 'manage/update_mcu', :controller => 'manage', :action=> 'update_mcu'
+  map.manage_countries '/manage/countries', :controller => 'manage', :action => 'countries'
 #LOCALE CONTROLLER (GLOBALIZE)
   map.connect ':locale/:controller/:action/:id'  
   map.set 'locale/set/:id', :controller => 'locale' , :action => 'set'
@@ -106,6 +146,7 @@ ActionController::Routing::Routes.draw do |map|
   map.about 'about', :controller => 'frontpage', :action => 'about'
   map.about2 'about2', :controller => 'frontpage', :action => 'about2'
   map.help 'help', :controller => 'help', :action => 'index'
+  map.faq 'faq', :controller => 'help', :action => 'faq'
   
 
   # #######################################################################
@@ -124,6 +165,8 @@ ActionController::Routing::Routes.draw do |map|
   map.login  '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.signup '/signup', :controller => 'users', :action => 'new'
+  map.signup_update_spaces '/signup/update_list_space', :controller => 'users', :action => 'update_list_space'
+  map.lost_activation '/lost_activation', :controller => 'users', :action => 'lost_activation'
   map.lost_password '/lost_password', :controller => 'users', :action => 'lost_password'
   map.reset_password '/reset_password/:reset_password_code', :controller =>"users", :action => "reset_password"  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil

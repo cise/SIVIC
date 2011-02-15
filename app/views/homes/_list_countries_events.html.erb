@@ -1,0 +1,7 @@
+<div id="home_list_countries" style="margin-left:485px">
+  <label><%= t('reservation.country') %></label>
+  <%= select_tag("events[country]",
+        "<option value=\"\">" + t('reservation.select_a_country') + "</option>" + options_for_select(Country.all.collect {|x| [x.name, x.code]},@country),
+		:onchange => "$(window.location).attr('href', '" + path_for_home(:type => params[:type]) + "&country='+$('#events_country').val())"
+      ) %> 
+</div>

@@ -1,0 +1,57 @@
+<% menu :rooms %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<% end %>
+
+<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+  <%= render :partial => 'spaces/admin_tabs' %>
+<% end %>
+
+<% content_for :sidebar do %>
+    <% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+      <%= render :partial => 'spaces/edit_space' %>
+    <% else %>
+      <%= render :partial => 'spaces/sidebar' %>
+    <% end %>
+<% end %>
+
+<h2 style="display:inline;"><%= t('mcu.title_list') %></h2>
+| <%= link_to "<span>"+t('mcu.action_new')+"</span>", new_space_mcu_path, :class => "grey_button basic_button show_inv",:style=>"float:right;color:black;background: url('../../images/buttons/grey-button.png') repeat-x scroll 0 4% transparent;" %>
+<% if @mcus.size > 0 %>
+
+<% @mcus.each do |mcu| %>
+<table width="650px" style="border-bottom:1px solid #CCCCCC">
+      <tr>
+        <td width="30%"><strong><%= t('mcu.mcunumber') %>:</strong>
+			<%=h mcu.mcunumber %><br />
+			<strong><%= t('mcu.ip_address')%>:</strong>
+			<%=h mcu.ip_address %>
+		</td>
+		<td width="25%"><strong><%= t('mcu.model') %>:</strong>
+			<%=h mcu.model %><br />
+			<strong><%= t('mcu.trade') %>:</strong>
+			<%=h mcu.trade %>
+		</td>
+		<td width="30%"><strong><%= t('mcu.total_ports') %>:</strong>
+			<%=h mcu.total_ports %><br />
+			<strong><%= t('mcu.shared_ports') %>:</strong>
+			<%=h mcu.shared_ports %>
+		</td>
+		<td width="15%">
+			<span align="right"><%= link_to image_tag("icons/pencil.png", :class=>"icon", :alt => t('mcu.action_edit')), edit_space_mcu_path(@space, mcu) %>
+            <%= link_to image_tag("icons/cancel.png", :class=>"icon", :alt => t('mcu.action_delete')), space_mcu_path(@space, mcu), :confirm => t('mcu.delete_confirm'), :method => :delete %></span></span>
+		</td>
+      </tr>
+</table>
+
+<% end %>
+
+
+<br />
+
+<% else %>
+<h3><%= t('mcu.empty') %></h3>
+
+<% end %>
+

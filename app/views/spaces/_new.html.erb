@@ -88,7 +88,19 @@ $("#create_space_button").livequery('click',function(){
 		$("#error_description").hide();
 	} 
 	
-	if ((name != "") && (description != "")) {
+	// Validate country
+    var country = ($('#space_country').val());
+    if (country == "") {
+	  $("#error_country").show();
+	  var destination_add = $('#new_space_anchor').offset().top;
+      $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination_add}, 1100, function() {
+        window.location.hash = '#new_space_anchor';
+      });
+	}else{
+		$("#error_country").hide();
+	} 
+	
+	if ((name != "") && (description != "") &&(country != "")) {
 		$("form#space_new_form").submit();
 	}
 	
@@ -180,23 +192,55 @@ function cropImage (c){
 			<div class='error' id="error_description" style="display:none" ><%= escape_javascript(t('space.description_none'))%></div>
 		   	<%= f.text_area(:description,:class=>"area") %>
 			</div>
-		
+
+                        <% if !@parent %>
 			<div>
-		   	<%= f.check_box(:public) %><label for="public"><%= t('space.public.one') %></label>
+			<label for="country" id= "space_country_label"><%= t('country') + ":" %></label><br/>
+			<div class='error' id="error_country" style="display:none" ><%= escape_javascript(t('space.country_none'))%></div> 
+			<%= f.select(:country, Country.all.collect {|x| [x.name, x.code]}, :prompt => 'Seleccione un pais') %>
+			</div>
+
+			<div>
+			<label for="parent" id= "space_parent_label"><%= "Pertenece a:" %></label><br/>
+			<div class='error' id="error_description" style="display:none" ><%= escape_javascript(t('space.description_none'))%></div> 
+			<%= f.select(:parent_id, Space.getNRENs.collect {|x| [x.name, x.id]}, :prompt => 'Seleccione una institución') %>
+			</div>
+
+			<% else %>
+                          <% if @parent == Space.find_by_name("Red CLARA") %>
+                            <div>
+			    <label for="country" id= "space_country_label"><%= t('country') + ":" %></label><br/>
+			    <div class='error' id="error_country" style="display:none" ><%= escape_javascript(t('space.country_none'))%></div> 
+			    <%= f.select(:country, Country.all.collect {|x| [x.name, x.code]}, :prompt => 'Seleccione un pais') %>
+			    </div>
+			  <% else %>
+			    <div>
+			    <label for="country" id= "space_country_label"><%= t('country') + ": #{Country.find_by_code(@parent.country).name}" %></label><br/>
+			    <%= f.hidden_field(:country, :value => @parent.country) %> 
+			    </div>
+			  <% end %>
+			<div>
+			<label for="parent" id= "space_parent_label"><%= "Pertenece a: #{@parent.name}" %></label><br/>
+			<%= f.hidden_field(:parent_id, :value => @parent.id) %> 
+			</div>
+
+			<% end %>
+
+			<div>
+		   	<%= f.check_box(:public) %><label for="public"><%= t('space.allow_public_access') %></label>
 			</div>
 			<div>
 		   	<%= f.check_box(:repository) %><label for="repository"><%= t('repository.enable') %></label>
 			</div>
-			
+<!--			
 			<div id='check_mail' class="check_mail_blinking">
 		   	<%= check_box_tag(:mail) %><label for="mailing_list"><%= t('mailing_list.associate') %></label>
 			</div>
 			
 			<div id='mail_group' class="mail_group_blinking" style="display:none">
 		   	<label for="e-mail_group">vcc-<%=f.text_field(:mailing_list_for_group, :size =>10, :maxlength=>25 )%>@<%= current_site.domain %></label>
-
 			</div>
-			
+-->			
 				
             <% 
 				@files = Dir.entries("public/images/default_space_logos/")

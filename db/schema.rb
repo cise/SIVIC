@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100511141600) do
+ActiveRecord::Schema.define(:version => 20110129173921) do
 
   create_table "admissions", :force => true do |t|
     t.string   "type"
@@ -96,6 +96,45 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
   add_index "attachments", ["version_child_id"], :name => "index_attachments_on_version_child_id"
   add_index "attachments", ["version_family_id"], :name => "index_attachments_on_version_family_id"
 
+  create_table "calendar_event_series", :force => true do |t|
+    t.integer  "frequency",    :default => 1
+    t.string   "period",       :default => "monthly"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.boolean  "all_day",      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "repeat_until"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "object_id"
+    t.string   "object_type"
+  end
+
+  create_table "calendar_events", :force => true do |t|
+    t.string   "title"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.boolean  "all_day",                  :default => false
+    t.integer  "calendar_event_series_id"
+    t.string   "object_type"
+    t.integer  "object_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.string   "timezone"
+    t.string   "gmt_offset"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "db_files", :force => true do |t|
     t.binary "data"
   end
@@ -170,6 +209,18 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
     t.integer "machine_id", :null => false
   end
 
+  create_table "mcus", :force => true do |t|
+    t.string   "ip_address"
+    t.integer  "mcunumber"
+    t.string   "model"
+    t.string   "trade"
+    t.integer  "total_ports"
+    t.integer  "shared_ports"
+    t.integer  "space_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "memberships", :force => true do |t|
     t.integer  "group_id"
     t.integer  "user_id"
@@ -231,6 +282,7 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
     t.string   "stage_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "status",     :default => true
   end
 
   create_table "permissions", :force => true do |t|
@@ -286,18 +338,81 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
     t.string  "province"
     t.string  "country"
     t.integer "user_id"
-    t.string  "prefix_key",   :default => ""
+    t.string  "prefix_key",    :default => ""
     t.text    "description"
     t.string  "url"
     t.string  "skype"
     t.string  "im"
-    t.integer "visibility",   :default => 2
+    t.integer "visibility",    :default => 2
     t.string  "full_name"
+    t.string  "discipline"
+    t.string  "subdiscipline"
+    t.string  "grade"
+  end
+
+  create_table "requests", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.integer  "reservation_id"
+    t.text     "message"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reservations", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "reservation_type", :default => "public"
+    t.string   "vc_service"
+    t.string   "country"
+    t.integer  "room_id"
+    t.boolean  "aggrement"
+    t.string   "state"
+    t.text     "notes"
+    t.integer  "user_id"
+    t.integer  "admin_id"
+    t.boolean  "allow_invitation"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "ports"
+    t.integer  "event_id"
+    t.string   "reason_rejection"
+    t.integer  "space_id"
+    t.integer  "cancelled_by"
   end
 
   create_table "roles", :force => true do |t|
     t.string "name"
     t.string "stage_type"
+  end
+
+  create_table "rooms", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "country"
+    t.string   "city"
+    t.text     "location"
+    t.string   "room_type"
+    t.string   "service_type"
+    t.string   "ip_address"
+    t.string   "uri"
+    t.decimal  "lng",                 :precision => 10, :scale => 8
+    t.decimal  "lat",                 :precision => 10, :scale => 8
+    t.integer  "user_id"
+    t.integer  "space_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "certification_level"
+    t.string   "department"
+    t.string   "phone_number"
+    t.string   "capacity"
+    t.text     "equipment"
+    t.text     "devices"
+    t.string   "light_type"
+    t.string   "bandwidth"
+    t.boolean  "reevaluation"
   end
 
   create_table "simple_captcha_data", :force => true do |t|
@@ -314,10 +429,10 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
   end
 
   create_table "sites", :force => true do |t|
-    t.string   "name",                          :default => "Virtual Conference Centre"
+    t.string   "name",                          :default => "CLARA VideoConferencias"
     t.text     "description"
-    t.string   "domain",                        :default => "sir.dit.upm.es"
-    t.string   "email",                         :default => "vcc@sir.dit.upm.es"
+    t.string   "domain",                        :default => "sivic.redclara.net"
+    t.string   "email",                         :default => "vnoc@redclara.net"
     t.string   "locale"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -362,6 +477,8 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
     t.string   "permalink"
     t.boolean  "disabled",    :default => false
     t.boolean  "repository",  :default => false
+    t.string   "skin",        :default => "default"
+    t.string   "country"
   end
 
   create_table "taggings", :force => true do |t|
@@ -406,6 +523,7 @@ ActiveRecord::Schema.define(:version => 20100511141600) do
     t.integer  "notification",                            :default => 1
     t.string   "locale"
     t.boolean  "chat_activation",                         :default => false
+    t.integer  "space_id"
   end
 
 end

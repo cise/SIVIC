@@ -4,7 +4,9 @@
 		<li><%=link_to t('site.default').upcase, site_path, :class => "#{'selected' if params[:controller] == 'sites'}"%></li>
 		<li><%=link_to t('space.other').upcase, manage_spaces_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spaces'}"%></li>
 		<li><%=link_to t('user.other').upcase, manage_users_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'users'}"%></li> 
-		<li><%=link_to t('spam.default').upcase, manage_spam_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'spam'}"%></li> 
+		<li><%=link_to t('mcu.mcunumber').upcase, manage_mcus_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'mcus'}"%></li>
+		<li><%=link_to "SALAS", manage_rooms_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'rooms'}" %></li> 
+                <li><%=link_to t('countries.other').upcase, manage_countries_path, :class => "#{'selected' if params[:controller] == 'manage' && params[:action] == 'countries'}" %></li>
 	</ul>
 	</div>
 	

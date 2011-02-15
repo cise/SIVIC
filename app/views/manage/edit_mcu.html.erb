@@ -1,0 +1,68 @@
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'user_filter' %>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+<% end %>
+
+<% content_for :search do  %>
+	<%= render :partial => 'search/form' %>
+<%end%>
+<% if current_user.superuser?%>
+	<%= render :partial => 'menu' %>
+<% else %>
+	<% menu :admin %>
+	<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+		<%= render :partial => 'spaces/admin_tabs' %>
+	<% end %>
+<% end %>
+
+<% content_for :javascript do %>
+	$(".cancel").click(function ()
+  	{
+		$(window.location).attr('href', "/manage/mcus");
+    });
+<% end %>
+
+<div id="line">
+   <span class="bold"><%= t('mcu.title_edit') %></span>
+</div>
+		
+<div id="edit_public_profile">
+	<div class="profile_content_item">
+
+	<% form_for @mcu, :url => { :action => "update_mcu"  } do |f|  %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :space_id, :value => @mcu.space_id %>
+  <%= hidden_field nil, :id, :value => @mcu.id %>
+
+  <div class="margin-up">
+    <%= f.label :ip_address,  t('mcu.ip_address')%>
+    <%= f.text_field :ip_address %>
+  </div>
+  <div class="margin-up">
+	<%= f.label :mcunumber, t('mcu.mcunumber') %>
+	<%= f.text_field :mcunumber %>
+  </div>
+  <div class="margin-up">
+	 <%= f.label :model, t('mcu.model') %>
+	<%= f.text_field :model %>
+  </div>
+  <div class="margin-up">
+	 <%= f.label :trade, t('mcu.trade') %>
+	<%= f.text_field :trade %>
+  </div>
+  <div class="margin-up">
+	 <%= f.label :total_ports, t('mcu.total_ports') %>
+	<%= f.text_field :total_ports %>
+  </div>
+  <div class="margin-up">
+	<%= f.label :shared_ports, t('mcu.shared_ports') %>
+	<%= f.text_field :shared_ports %>
+  </div>
+  <div align="right">
+    <button type="submit" class="basic_button blue_button"><%="Guardar"%></button>
+    <button type="button" class="basic_button blue_button cancel"><%="Cancelar"%></button>
+  </div>
+  <% end %>
+ </div>
+</div>

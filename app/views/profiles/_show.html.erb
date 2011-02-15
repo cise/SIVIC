@@ -37,10 +37,11 @@
   <% if @profile.authorize? :read, :to => current_user %>
     <%= render :partial=>'profiles/private_hcard'%>
   <% end %>
-	
+<!--	
 	<ul class="last_options">
-	  <li><%=link_to "Block user", "#" if @user != current_user %></li>
-		<li><%=link_to "Report spam user", "#" if @user != current_user %></li>
+	  <li><%=link_to t('user.block'), "#" if @user != current_user %></li>
+		<li><%=link_to t('user.spam'), "#" if @user != current_user %></li>
+-->
   </ul>
  
 </div>

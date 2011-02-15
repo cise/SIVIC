@@ -20,9 +20,9 @@ class PrivateMessage < ActiveRecord::Base
   belongs_to :receiver, :class_name => "User"
 
   acts_as_resource :per_page => 10
-
-  validates_presence_of :receiver_id , :title, :body,
-                          :message => "must be specified"
+  
+  validates_presence_of :title, :message => :"title.blank"
+  validates_presence_of	:body, :message => :"body.blank"
 
   named_scope :inbox, lambda{ |user|
     user_id = case user

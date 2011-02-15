@@ -1,0 +1,15 @@
+<div id="profile_list_disciplines" class="margin-up">
+  <label for="discipline"><%= t('discipline') %></label>
+  <% if @profile.discipline == nil %>
+  	<%= select(:profile, :discipline, Profile::DISCIPLINES,
+             { :include_blank => t('reservation.select_a_discipline') },
+             { :onchange => '$(\'#profile_list_subdisciplines\').load(\'/profiles/update_list_subdisciplines\', { discipline: $(\'#profile_discipline\').val(), 
+			 user_id: \''  + current_user.login + '\'})' }
+            ) %>
+	<% else %>
+			<%= select(:profile, :discipline, "<option>" + t('reservation.select_a_discipline') + "</option>" + options_for_select(Profile::DISCIPLINES, @profile.discipline ? @profile.discipline.to_sym : ""), {}, 
+             { :onchange => '$(\'#profile_list_subdisciplines\').load(\'/profiles/update_list_subdisciplines\', { discipline: $(\'#profile_discipline\').val(), 
+			 user_id: \''  + current_user.login + '\'})' }
+            ) %>
+	<% end %>
+</div>

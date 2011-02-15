@@ -1,0 +1,13 @@
+<div id="profile_list_subdisciplines" class="margin-up">
+  <label for="subdisciplines"><%= t('subdiscipline') %></label>
+  <% if @list_subdisciplines == nil %>
+  	<% if @profile.discipline == nil %>
+    	<select id="profile_subdisciplines"><option value=""><%= t('reservation.select_a_subdiscipline') %></option></select>
+	<% else %>
+		<% list_sub = Profile.subdisciplines(@profile.discipline) %>
+		<%= select(:profile, :subdiscipline, "<option>" + t('reservation.select_a_subdiscipline') + "</option>" + options_for_select(list_sub, @profile.subdiscipline.to_sym)) %>
+	<% end %>
+  <% else %>
+		<%= select(:profile, :subdiscipline, @list_subdisciplines) %>
+  <% end %>
+</div>

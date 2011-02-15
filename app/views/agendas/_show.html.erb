@@ -1,3 +1,5 @@
+<% if @event.reservations.select {|x| x.reservation_type == 'private'}.size == 0 || current_user.superuser || @space.role_for?(current_user, :name => 'Admin') || @event.organizers.include?(current_user) || @event.participants.map(&:user).include?(current_user) %>
+
 <div id="agenda_full" class="margin-up">      
   <div id="agenda_title">
       <%= link_to t('event.agenda.download'), space_event_path(@space, @event, :format => :pdf), :class=>"group_links" %>
@@ -14,3 +16,5 @@
     <%= render :partial => "agendas/edit" %>
   </div>
 </div>
+
+<% end %>

@@ -40,13 +40,13 @@ $("#mail_group").hide();
 	});
 
 
-$(".check_mail_blinking:last input:mail").livequery("click", function(){
+$(".check_mail_blinking:last :input#mail").livequery("click", function(){
   if($(this).attr("checked")){
 		$(".mail_group_blinking:last").show();
 	}
 	else{
 	 $(".mail_group_blinking:last").hide();
-	 $(".mail_group_blinking:last input:mailin_list").val("");	 
+	 $(".mail_group_blinking:last :input#mailing_list").val("");	 
 	}
 	$("#fancy_outer").height($(".create_space_blinking:last").height() + 50);
 	$(window).resize();

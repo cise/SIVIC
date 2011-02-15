@@ -1,0 +1,5 @@
+<div id="reservation_list_rooms" class="margin-up">
+    <label for="reservation_room"><%= t('sar.room') %></label>
+    <%= collection_select(:reservation, :room_id, @rooms, :id, :name, 
+                          { :include_blank => t('sar.select_a_room')}) %>
+</div>

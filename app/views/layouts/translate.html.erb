@@ -4,22 +4,25 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<%= javascript_include_tag :defaults %>
+		<%= javascript_include_tag :defaults, 'prototype' %>
     <title><%= yield :title %></title>
     <link href="/favicon.ico" rel="shortcut icon" />
     
     <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
-		<%= stylesheet_link_tag "translate", :media => "screen, projection" %>
- 	  <%= stylesheet_link_tag "print", :media => "print" %>
-		
+    <%= stylesheet_link_tag "translate", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
+	
     <!--[if IE]> 
     <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
     <![endif]-->
 
 <!-- Translate Javascript-->
 
-		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript">
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+    <script type="text/javascript">
       google.load("language", "1");
 
       function getGoogleTranslation(id, text, from_language, to_language) {
@@ -32,29 +35,29 @@
             Form.Element.setValue(id, result_text);
           }
         });
+      }
 
-    }
+      /*
+      prototypeUtils.js from http://jehiah.com/
+      Licensed under Creative Commons.
+      version 1.0 December 20 2005
 
-    /*
-    prototypeUtils.js from http://jehiah.com/
-    Licensed under Creative Commons.
-    version 1.0 December 20 2005
+      Contains:
+      + Form.Element.setValue()
+      + unpackToForm()
 
-    Contains:
-    + Form.Element.setValue()
-    + unpackToForm()
+      */
 
-    */
+      /* Form.Element.setValue("fieldname/id","valueToSet") */
 
-    /* Form.Element.setValue("fieldname/id","valueToSet") */
-    Form.Element.setValue = function(element,newValue) {
+      Form.Element.setValue = function(element,newValue) {
         element_id = element;
         element = $(element);
         if (!element){element = document.getElementsByName(element_id)[0];}
         if (!element){return false;}
         var method = element.tagName.toLowerCase();
         var parameter = Form.Element.SetSerializers[method](element,newValue);
-    }
+      }
 
     Form.Element.SetSerializers = {
       input: function(element,newValue) {
@@ -109,6 +112,103 @@
       }
     </script>
 
+    <%= javascript_include_tag 'jquery', 'application', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery.form' %>
+    <script type="text/javascript" charset="utf-8">
+      jQuery.noConflict();
+      jQuery(document).ready(function($) {
+/*
+ * Send Feedback
+ */
+ 
+jQuery("a#feedback_link").fancybox({
+  'hideOnContentClick' : false,
+	'frameWidth' : 450,
+  'frameHeight' : <%=logged_in? ? '430' : '470'%>
+});
+
+/*
+ * Select language
+ */
+
+      $(".language_select").click(function(e) {
+        e.preventDefault();
+        $("#language_select ul#language_menu").toggle();
+        $("#language_select .language_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#language_select a.language_select").length==0) {
+            $("#language_select .language_select").removeClass("menu-open");
+            $("#language_select ul#language_menu").hide();
+          }
+        });
+    });
+
+    $("#language_select ul#language_menu").mouseup(function() {
+        return false
+    });
+
+/*
+ * Select support
+ */
+
+      $(".support_select").click(function(e) {
+        e.preventDefault();
+        $("#support_select ul#support_menu").toggle();
+        $("#support_select .support_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#support_select a.support_select").length==0) {
+            $("#support_select .support_select").removeClass("menu-open");
+            $("#support_select ul#support_menu").hide();
+          }
+        });
+    });
+
+    $("#support_select ul#support_menu").mouseup(function() {
+        return false
+    });
+
+/*
+ * Select browse
+ */
+
+      $(".browse_select").click(function(e) {
+        e.preventDefault();
+        $("#browse_select ul#browse_menu").toggle();
+        $("#browse_select .browse_select").toggleClass("menu-open");
+        
+        $(document).mouseup(function(e) {
+          if($(e.target).parent("#browse_select a.browse_select").length==0) {
+            $("#browse_select .browse_select").removeClass("menu-open");
+            $("#browse_select ul#browse_menu").hide();
+          }
+        });
+    });
+
+    $("#support_select ul#browse_menu").mouseup(function() {
+        return false
+    });
+
+        <%= yield :javascript %>
+      })
+    </script>
+
+<%if current_site.domain == "sivic.redclara.net"%>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20726166-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+		<%end%>
+
   </head>
 
 	<body>
@@ -137,17 +237,5 @@
 	  
 
 	  </div>
-		<%if current_site.domain == "globalplaza.org"%>
-			<script type="text/javascript">
-				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-			</script>
-			<script type="text/javascript">
-				try {
-					var pageTracker = _gat._getTracker("UA-12096965-1");
-					pageTracker._trackPageview();
-				} catch(err) {}
-			</script>
-		<%end%>
 	</body>
 </html>

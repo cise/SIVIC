@@ -62,6 +62,7 @@ ol{list-style-type:decimal;}
 
 .left-align {float:left;}
 .right-align {float:right;}
+.right1{margin-top:9px;}
 .margin-up{margin-top:0.75em;}
 
 /************************************************** BUTTONS ********************************************/
@@ -174,7 +175,7 @@ button#change_logo{float:left;}
 .grey_bar #feeds_link{margin-right:6px;}
 
 /*BUTTON COLOURS*/
-.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space.png");}
+.orange_button,.orange_button span{color:#fff;background: transparent url("../images/buttons/fondo-join-space_naranja.png");}
 
 .orange_button span,button.orange_button{
 	border-bottom:1px #C18500 solid;
@@ -182,7 +183,7 @@ button#change_logo{float:left;}
 	border-left:1px #FFC14A solid;
 	border-right:1px #FFC14A solid;
 }
-.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space2.png");}
+.orange_button:hover,.orange_button span:hover{background:url("../images/buttons/fondo-join-space_naranja.png");}
 
 .red_button,.red_button span{color:#fff;background:url("../images/buttons/leave-space-notext3.png");}
 	
@@ -317,9 +318,10 @@ body .icon{margin-bottom:-2px;}
 #logo{height:64px;padding:1px;border:1px #dedede solid;}
 #logo:hover{border-color:#c0c0c0;}
 #logo img.logo{width:100%;}
-#name-space{width:500px;margin-left:20px;float:left;}
+#name-space{width:450px;margin-left:20px;float:left;}
 #name-space span a{font-size:3em;line-height:2;color:#244974;font-weight:normal;text-decoration:none;}
-#name-space #small-title a{font-size:2em;line-height:3;}
+#name-space #small-title a{font-size:28px;line-height:12px;}/*Ivan */
+#name-space #small-title2 a{font-size:28px;line-height:33px;}/*Ivan */
 #search{margin-top:3px;margin-left:18px;text-align:right;}
 
 #search input[type="text"]{font-size:1em;width:150px;}
@@ -1821,3 +1823,13 @@ div.banner_footer a{
 }
 
 #screencast{margin-bottom:0.75em;}
+/*********************** IVAN */ 
+.registro_item th{font-size:14px; solid #A8C0D1; text-align:center; color:#244974;}
+.registro_item td{font-size:12px; solid #A8C0D1; text-align:center;}
+.registro_item {border:1px solid; border-color:#244974;}
+
+div.invitation-contenido{float:left;}
+.invitation-contenido{width:500px;}
+.invitation-contenido ul{list-style-type:none;margin:0;}
+.invitation-contenido .float{float:left;margin-right:3px;}
+.invitation-contenido form select,.invitation-contenido form input{font-size:0.9166em;line-height:1.6363;}

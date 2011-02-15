@@ -68,7 +68,13 @@ class ProfilesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+ 
+  def update_list_subdisciplines
+    logger.info "PROFILE"
+	@list_subdisciplines = Profile.subdisciplines(params[:discipline])
+     logger.error @list_subdisciplines
+    render :partial => 'list_subdisciplines'
+  end
   
   private
 
@@ -96,5 +102,7 @@ class ProfilesController < ApplicationController
       redirect_to user_path(@user)
     end
   end
+  
+   
 end
 

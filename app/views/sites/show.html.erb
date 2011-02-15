@@ -2,8 +2,22 @@
   <%= render :partial => 'search/form' %>
 <%end%>
 
+<% content_for :sidebar do  %>
+
+  <% if logged_in? && current_agent.active? && !current_user.spaces.empty? %>
+  <div class="button_wrapper">
+    <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
+  </div>
+  <%end%>
+<%end%>
+
 	<%= render :partial => 'manage/menu' %>
 <div id="manage">
+<ul class="group_links">
+	<li>
+ 		<%=link_to(image_tag("icons/pencil.png", :class=>"icon", :alt => t('edit')), edit_site_path, {:class => 'edit_post_link', :title => t('edit')}) %>
+	</li>
+</ul>
   <p>
     <label><%= t('site.name') %>:</label>
     <span><%= sanitize current_site.name %></span>
@@ -59,7 +73,7 @@
     <%= current_site.signature_in_html %>
   </p>
 
-  <div id="site_button" class="button_wrapper">
+  <!--<div id="site_button" class="button_wrapper">
     <%= link_to "<span>" + t('button.edit') + "</span>", edit_site_path,:class => "blue_button basic_button"%>
-  </div>
+  </div>-->
 </div>

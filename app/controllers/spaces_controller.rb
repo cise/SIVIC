@@ -35,7 +35,13 @@ class SpacesController < ApplicationController
       redirect_to space_path(Space.find_by_permalink(params[:space_id]))
       return
     end
-    @spaces = Space.find(:all, :order => 'name ASC')
+    #@spaces = Space.find(:all, :order => 'name ASC')
+    if params[:cap]
+      @spaces = Space.paginate :page => params[:page], :order => 'name ASC', :conditions => ['name like ?', "#{params[:cap]}%"]
+    else
+      @spaces = Space.paginate :page => params[:page], :order => 'name ASC'      
+    end
+
     @private_spaces = @spaces.select{|s| !s.public?}
     @public_spaces = @spaces.select{|s| s.public?}
     if @space
@@ -66,6 +72,9 @@ class SpacesController < ApplicationController
     @performance=Performance.find(:all, :conditions => {:agent_id => current_user, :stage_id => @space, :stage_type => "Space"})
     @current_events = (Event.in(@space).all :order => "start_date ASC").select{|e| e.start_date && !e.start_date.future? && e.end_date.future?}
     respond_to do |format|
+      if @space.pending_join_requests_for?(current_user)
+        flash.now[:notice] = t('space.join_pending', :space => @space.name)
+      end 
       format.html{
         if request.xhr?
           render :partial=>"last_news"
@@ -78,6 +87,10 @@ class SpacesController < ApplicationController
   
   # GET /spaces/new
   def new
+    if params[:parent]
+      @parent = Space.find(params[:parent])      
+    end
+
     respond_to do |format|
       format.html{
           if request.xhr?
@@ -135,6 +148,10 @@ class SpacesController < ApplicationController
     respond_to do |format|
       if @space.save && @group.save
         flash[:success] = t('space.created')
+        vnoc_user = User.find(:first, :conditions => ["login = 'vnoc'"] )
+        if current_user != vnoc_user
+          @space.stage_performances.create(:agent => vnoc_user, :role => Space.role('Admin'))
+        end
         @space.stage_performances.create(:agent => current_user, :role => Space.role('Admin'))
         format.html { redirect_to :action => "show", :id => @space  }
         format.xml  { render :xml => @space, :status => :created, :location => @space }
@@ -177,6 +194,9 @@ class SpacesController < ApplicationController
             render "result.js"
           elsif params[:space][:description]
             @result=params[:space][:description]
+            render "result.js"
+          elsif params[:space][:skin]
+            @result = "window.location=\"#{edit_space_path(@space)}\";"
             render "result.js"
           else
             render "update.js"
@@ -247,7 +267,31 @@ class SpacesController < ApplicationController
       format.atom { head :ok }
     end
   end
+  
+  def video
+        respond_to do |format|
+          format.html
+          format.xml  { render :xml => @space }
+          format.atom
+        end
+      end
+  def show_room
+      @rooms = Room.find(:all, :order => "name")
+      respond_to do |format|
+          format.html
+          format.xml  { render :xml => @space }
+          format.atom
+      end
+  end
+  
+  def update_list_space
+    # updates list spaces based on country selected
+    @country = params[:country]
+    @spaces = Space.spaces_by_country(@country)
 
+    render :partial => 'spaces/list_spaces', :locals => { :spaces => @spaces }
+  end
+  
   private
   
   def space

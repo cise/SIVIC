@@ -86,5 +86,91 @@ class Informer
        PrivateSender.processed_join_request_message(admission)
      end
    end
+
+   def self.deliver_reservation_request_notification(reservation, receiver)
+     if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+       Notifier.deliver_reservation_request_notification_email(reservation,receiver)
+     elsif receiver.notification == User::NOTIFICATION_VIA_PM
+       PrivateSender.reservation_request_notification_message(reservation,receiver)
+     end
+   end
+
+  def self.deliver_reservation_virtual_request_notification(reservation, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_reservation_virtual_request_notification_email(reservation,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.reservation_virtual_request_notification_message(reservation,receiver)
+    end
+  end
+
+  def self.deliver_reservation_processed_notification(reservation, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_reservation_processed_notification_email(reservation,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.reservation_processed_notification_message(reservation,receiver)
+    end
+  end
+
+  def self.deliver_reservation_cancelled_notification(reservation, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_reservation_cancelled_notification_email(reservation,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.reservation_cancelled_notification_message(reservation,receiver)
+    end
+  end
+
+  def self.deliver_request_reservation_notification(request, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_request_reservation_notification_email(request,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.request_reservation_notification_message(request,receiver)
+    end
+  end
+  
+  def self.deliver_request_processed_notification(request, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_request_processed_notification_email(request,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.request_processed_notification_message(request,receiver)
+    end
+  end
+
+  def self.deliver_room_update(request, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_room_update(request,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.room_update_message(request,receiver)
+    end
+  end
    
+  def self.deliver_room_create(request, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_room_create(request,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.room_create_message(request,receiver)
+    end
+  end
+
+  def self.deliver_reservation_cancelled_by_covi_notification(reservation, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_reservation_cancelled_by_covi_notification_email(reservation, receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.reservation_cancelled_by_covi_notification_message(reservation, receiver)
+    end
+  end
+
+  def self.deliver_reservation_cancelled_by_user_notification(reservation, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_reservation_cancelled_by_user_notification_email(reservation, receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.reservation_cancelled_by_user_notification_message(reservation, receiver)
+    end
+  end
+  def self.deliver_reservation_invitation_notification(request, receiver)
+    if receiver.notification == User::NOTIFICATION_VIA_EMAIL
+      Notifier.deliver_reservation_invitation_notification(request,receiver)
+    elsif receiver.notification == User::NOTIFICATION_VIA_PM
+      PrivateSender.reservation_invitation_notification(request,receiver)
+    end
+  end
 end

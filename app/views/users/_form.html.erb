@@ -3,7 +3,17 @@
 
 <% if f.object.needs_password? -%>
 
-<div><label for="password"><%=t('user.password')%></label><br/>
+<div><label for="confirm_email"><%= "Confirmar email"%></label><br/>
+<%= f.text_field :email_confirmation %></div>
+
+<% if !f.object.new_record? %>
+	<div>
+		<%= "Contrase\xC3\xB1a Anterior:" %><br/>
+		<%= password_field_tag 'anterior', nil %>
+	</div>	
+	<% end %>
+
+<div><label for="password"><%= "Nueva Contrase\xC3\xB1a"%></label><br/>
 <%= f.password_field :password %></div>
 
 <div><label for="password_confirmation"><%=t('user.confirm_password')%></label><br/>
@@ -15,8 +25,25 @@
 %>
 <div><label for="full_name"><%=t('user.full_name')%></label><br/>
 <%= f.text_field :_full_name %></div>
+<%= render :partial => 'users/list_countries', :locals => {:f => f} %>
+<%= render :partial => 'users/list_spaces', :locals => {:f => f } %>
 <% else -%>
 <div><label for="login"><%=t('user.login')%></label><br/>
 <%= f.text_field :login %></div>
+  <% if f.object.main_space %>
+    <% if f.object.main_space.country %>
+      <div><label for="country"><%=t('country')%>:</label>
+      <%= Country.find_by_code(f.object.main_space.country).name %></div>
+    <% end %>
+    <div>
+      <label for="space"><%=t('space.one')%>:</label>
+      <%= f.object.main_space.name %>
+      <%= f.hidden_field :space_id, :value => f.object.main_space.id %>
+    </div>
+  <% end %>
 <% end -%>
+<!--
+<div><label for="departament"><%="Cargo-Departamento"%></label><br/>
+<%= f.password_field :password %></div>
+-->
 

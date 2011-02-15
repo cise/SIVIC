@@ -353,7 +353,7 @@ a.login{
 	text-indent:99999px;
 }
 
-#logo.frontpage_logo{background: url('/images/logo-global-plaza-white.png') no-repeat scroll 0% 84%;}
+#logo.frontpage_logo{background: url('/images/claraVC-01.png') no-repeat scroll 0% 84%;}
 
 #espacio_header {
 	margin:0px;	
@@ -702,4 +702,5 @@ ul#language_menu li a,ul#support_menu li a,ul#browse_menu li a{text-decoration:n
 ul#language_menu li a:hover,ul#support_menu li a:hover,ul#browse_menu li a:hover{text-decoration:none;color:#fff;}
 ul.menu1{list-style-type:none;margin:0;}
 ul.menu1 li{display:inline;}
+.morado {color:#9974B7;}
 /**/

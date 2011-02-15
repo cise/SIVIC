@@ -71,9 +71,15 @@ class PrivateMessagesController < ApplicationController
       for receiver in params[:receiver_ids].uniq
         params[:private_message][:sender_id] = user.id
         params[:private_message][:receiver_id] = receiver
+        if params[:reservation_id]
+          params[:private_message][:title] ="Ticket:" + params[:reservation_id] + params[:private_message][:title]
+        end
+		 
         private_message = PrivateMessage.new(params[:private_message])
+
         if private_message.save
           @success_messages << private_message
+          Notifier.deliver_private_message_notification(private_message, User.find(receiver))
         else
           @fail_messages << private_message
         end
@@ -91,8 +97,12 @@ class PrivateMessagesController < ApplicationController
       end
     else  
       params[:private_message][:sender_id] = user.id
+      if params[:reservation_id]
+        params[:private_message][:title] ="Ticket: " + params[:reservation_id] + " " +params[:private_message][:title]
+      end
+	  
       @private_message = PrivateMessage.new(params[:private_message])
-  
+     
       respond_to do |format|
         if @private_message.save
           flash[:success] = t('message.created')

@@ -1,0 +1,94 @@
+<% menu :rooms %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<% end %>
+
+<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+  <%= render :partial => 'spaces/admin_tabs' %>
+<% end %>
+
+<% content_for :sidebar do %>
+    <% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+      <%= render :partial => 'spaces/edit_space' %>
+    <% else %>
+      <%= render :partial => 'spaces/sidebar' %>
+    <% end %>
+<% end %>
+
+<% content_for :javascript do %>
+    $(".iframe").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 640,
+    'frameHeight' : 480
+  });
+<% end %>
+
+<div id="mcu-info">
+	<span>Total de Puertos MCU: <strong><%= space.mcus.map { |m| m.total_ports}.sum %></strong></span> | 
+	<span>Total MCUs: <strong><%= space.mcus.size %></strong></span>
+
+       <% if logged_in? && current_agent.active? && (space.role_for?(current_user, :name => 'Admin') || current_user.superuser?) %>
+         <%= link_to "<span>Administrar recursos MCU </span>", space_mcus_path(space), :class => "grey_button basic_button show_inv",:style=>"float:right;color:black;background: url('../../images/buttons/grey-button.png') repeat-x scroll 0 4% transparent;" %>
+        |<%= link_to "<span>Nueva Sala </span>", "rooms/new", :class => "grey_button basic_button show_inv",:style=>"float:right;color:black;background: url('../../images/buttons/grey-button.png') repeat-x scroll 0 4% transparent;" %>
+
+	<% end %>
+</div>
+<br />
+
+<% if (@rooms.size == 0) %>
+  <div><%= "No existen salas registradas." %></div>
+<% end %>	
+<% @rooms.each do |room| -%>
+<table width="700px" style="border-bottom:1px solid #CCCCCC">
+  <tr>
+	<td width="15%">
+		<label class="blue"><%= t('room.name')%>:</label><br />
+		<label class="blue">Covi Asignado:</label>
+	</td>	
+	<td width="30%">
+		<label class="main_date"><%=link_to sanitize(room.name), space_room_path(space, room)  %></label><br />
+		<label class="main_date">
+                  <%= room.users_by_role("COVI").map {|y| y.full_name }.join("<br />") %>
+                </label>
+	</td>
+	<td width="30%">
+		<% if room.certification_level==0 %>
+			<%= room.certification_level_text %>
+			<br />
+		<% else %>
+			<strong><%= room.certification_level_stars %></strong>
+			<br />
+			<% if (room.reevaluation) %>
+				<%= t('room.reevaluation_text') %>
+			<% else %>
+				<%= t('room.reevaluation_aprove') %>
+			<% end %>
+			         
+		<% end %>   
+	</td>
+	<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+		<td align="right" width="25%">
+		  <span align="right">
+                    <%=link_to(image_tag("icons/pencil.png", :class=>"icon", :alt => t('edit')), "rooms/#{room.id}/edit", {:class => 'edit_post_link', :title => t('edit')}) %>
+<% # if !current_user.superuser? && current_user.isCoviNREN 
+%>
+<% if !current_user.superuser? %>
+<%=link_to(image_tag("icons/user.png", :class=>"icon", :alt => t('room.assign_covi')), "rooms/#{room.id}/assign_covi", {:class => 'edit_post_link', :title => t('room.assign_covi')}) %>
+<% end %>
+                    <%= link_to(image_tag("icons/date-add.png", :class=>"icon", :alt => t('add')), "/calendar_events/schedule?id=#{room.id}", {:class => 'iframe', :id => 'schedule_link'}) %>
+		    <%=link_to(image_tag("icons/cancel.png", :class=>"icon", :alt => t('delete.one')), polymorphic_path(room), :confirm => t('delete.one'), :method => :delete, :class => 'delete_thread', :title => t('delete.one')) %></span>
+		</td>
+	<% else %>
+		<td width="25%">
+			<span align="right"><%= link_to "Ver Disponibilidad", "/calendar_events/available?room_id=#{room.id}", :class => "available_schedule_link iframe" %></span>
+		</td>
+	<% end %>
+	
+  </tr>
+  </table>
+
+<% end %>
+
+<br />
+

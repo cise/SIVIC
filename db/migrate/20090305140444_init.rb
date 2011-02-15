@@ -217,10 +217,10 @@ class Init < ActiveRecord::Migration
     end
 
     create_table "sites", :force => true do |t|
-      t.string   "name",        :default => "Virtual Conference Centre"
+      t.string   "name",        :default => "CLARA VideoConferencias"
       t.text     "description"
-      t.string   "domain",      :default => "sir.dit.upm.es"
-      t.string   "email",       :default => "vcc@sir.dit.upm.es"
+      t.string   "domain",      :default => "sivic.redclara.net"
+      t.string   "email",       :default => "vnoc@redclara.net"
       t.string   "locale"
       t.datetime "created_at"
       t.datetime "updated_at"

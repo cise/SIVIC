@@ -1,3 +1,5 @@
+<% thread = Reservation.find(:first, :conditions => ["event_id = ? and state <> ?", event.id, Reservation::STATE_DELETED]) %>
+
 <% content_for :headers do %>
   <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
 <%end %>
@@ -7,7 +9,12 @@
     :locals => { :url_form   => precrop_space_event_logo_path(@event.space, @event),
     :aspect_ratio => EventLogo::ASPECT_RATIO_S
     } %>
-        
+
+$("a#cancel_by_covi_link").fancybox({
+    'hideOnContentClick' : false,
+    'frameWidth' : 450,
+    'frameHeight' : 350
+  });        
 <% end %>
 
 <div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
@@ -22,7 +29,18 @@
       <%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , space_event_path(@space, event, :edit_event => event), :title => t('edit')) if event.authorize?(:update, :to => current_user) %>
     </li>
     <li>
-      <%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if event.authorize?(:delete, :to => current_user) && !event.is_happening_now?%>
+<% if event.authorize?(:delete, :to => current_user) && !event.is_happening_now? %>
+	<% if !thread.nil? %>
+         <% if thread.room.users_by_role("COVI").include?(current_user) || current_user.superuser%>
+           <li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), cancel_by_covi_path(thread.id), :id => "cancel_by_covi_link")%></li>
+         <% else %>
+           <li><%= link_to(image_tag("icons/cancel.png", :alt=>"Cancelar"), cancel_by_user_path(thread.id), :id => "cancel_by_covi_link")%></li>
+	  <% end %>
+       <% else %>
+	  <li><%=link_to image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)} %></li>
+       <% end %>
+<% end %>
+
     </li>
   </ul>
   <div class="event_image">
@@ -74,6 +92,8 @@
   </ul>
 </div>
 
+<% if @event.reservations.select {|x| x.reservation_type == 'private'}.size == 0 || current_user.superuser || @space.role_for?(current_user, :name => 'Admin') || @event.organizers.include?(current_user) || @event.participants.map(&:user).include?(current_user) %>
+
 <div id="jar">
 	<div class="button_wrapper grey_bar">
 	  <%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event, :show_agenda => true), {:id=>"view_agenda", :class=>"grey_button basic_button #{'selected' if params[:show_agenda]} ",:title => t('event.view_agenda')} %>
@@ -81,12 +101,12 @@
 	 
 	  <%unless @event.past?%>
 			<%if @event.has_streaming? || @event.is_in_person?%>
-		    <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_streaming? } #{'selected' if params[:show_streaming]}",:title => t("event.view_streaming#{ '_disabled' unless @event.show_streaming? }")} %>
+		    <%link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_streaming? } #{'selected' if params[:show_streaming]}",:title => t("event.view_streaming#{ '_disabled' unless @event.show_streaming? }")} %>
 		  <%end%>
 			
 		  
 		  <%if (@event.is_virtual? && @event.web_interface?) || @event.is_in_person?%>
-		    <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_participation?} #{'selected' if params[:show_participation]}",:title => t("event.view_participation_#{ 'disabled' unless @event.show_streaming? }")} %>
+		    <%link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_participation?} #{'selected' if params[:show_participation]}",:title => t("event.view_participation_#{ 'disabled' unless @event.show_streaming? }")} %>
 		  <%end%>
 	  <%end%>
 		
@@ -102,8 +122,10 @@
 				<ul id="actions_menu" style="display:none">
 					<li><%=link_to t('event.logo.button'),"javascript:change_logo();" %></li>
 	        <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
-	        <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
-          <li><%=link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
+<!--
+	        <li><%link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
+          <li><%link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
+-->
 	        <li><%=link_to t('event.notification.button'),space_event_path(@space, @event, :notification => @event)%></li>
           <% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? %>
             <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
@@ -119,3 +141,4 @@
 		<%end %>
 	<%end %>
 </div>
+<% end %>

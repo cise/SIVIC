@@ -1,0 +1,187 @@
+--- 
+es: 
+  GMT: GMT
+  Isabel: Isabel
+  RSS: RSS
+  abc: ABC
+  about: Acerca de
+  about_global: Acerca de CLARA
+  about_me: "Acerca de m\xC3\xAD"
+  about_sxsw: Acerca de SXSW
+  about_vcc: Acerca de CLARA VideoConferencias (Beta)
+  account: Cuenta
+  account_activated: Su cuenta ha sido activada
+  account_activated_with_agent: "{{agent}}, su cuenta ha sido activada"
+  account_created: Su cuenta ha sido creada
+  action: 
+    one: "Acci\xC3\xB3n"
+    other: Acciones
+  actions: Acciones
+  activerecord: 
+    attributes: 
+      user: 
+        login: Login
+    errors: 
+      attributes: 
+      full_messages: 
+        format: "{{attribute}} {{message}}"
+      messages: 
+        accepted: debe ser aceptado
+        blank: no puede estar en blanco
+        confirmation: "no coincide con la confirmaci\xC3\xB3n"
+        empty: "no puede estar vac\xC3\xADo"
+        equal_to: debe ser igual a {{count}}
+        even: debe ser par
+        exclusion: "est\xC3\xA1 reservado"
+        greater_than: debe ser mayor que {{count}}
+        greater_than_or_equal_to: debe ser mayor que o igual a {{count}}
+        inclusion: "no est\xC3\xA1 incluido en la lista"
+        invalid: "no es v\xC3\xA1lido"
+        less_than: debe ser menor que {{count}}
+        less_than_or_equal_to: debe ser menor que o igual a {{count}}
+        missing: falta
+        not_a_number: "no es un n\xC3\xBAmero"
+        odd: debe ser impar
+        record_invalid: "Validaci\xC3\xB3n err\xC3\xB3nea: {{errors}}"
+        taken: "ya est\xC3\xA1 en uso"
+        too_long: "es demasiado largo ({{count}} caracteres m\xC3\xA1ximo)"
+        too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
+        wrong_length: no tiene la longitud correcta ({{count}} caracteres exactos)
+      models: 
+      template: 
+        body: "Se encontraron problemas en los siguientes campos:"
+        header: 
+          one: "No se pudo guardar {{model}} porque se encontr\xC3\xB3 1 error"
+          other: No se pudo guardar {{model}} porque se encontraron {{count}} errores
+  add: Agregar
+  add_document: "A\xC3\xB1adir nuevo documento"
+  add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles"
+  address: "Direcci\xC3\xB3n"
+  admin: 
+    one: Admin
+    space: El administrador de {{spacename}}
+  admission: 
+    errors: 
+      candidate_equals_introducer: "El candidato y el invitador no pueden ser la misma persona (seguramente tenga que salir de la sesi\xC3\xB3n)"
+      candidate_has_role: ya tiene un rol
+    one: "Admisi\xC3\xB3n"
+    other: Admisiones
+  advanced: Avanzada
+  advanced_editor: Editor avanzado
+  advanced_options: Opciones avanzadas
+  agenda: 
+    add_divider: "A\xC3\xB1adir divisor"
+    add_entry: "A\xC3\xB1adir per\xC3\xADodo de sesiones"
+    define: Definir la agenda
+    del_entry: Borrar
+    divider: 
+      delete: El divisor ha sido borrado
+      edit: Editar divisor
+      error: 
+        coinciding_times: Hay un conflicto entre la hora del nuevo divisor y las entradas de agenda o divisores ya existentes
+        date_out_of_event: "La fecha del divisor excede la m\xC3\xA1xima duraci\xC3\xB3n del evento: {{max_days}} d\xC3\xADas"
+        past_times: Este tipo de evento no puede tener fechas en el pasado
+      failed: Ha habido un problema con el divisor de la agenda
+      new: Nuevo divisor de agenda
+      start_time: Hora de inicio
+      title: "T\xC3\xADtulo"
+      updated: El divisor se ha actualizado correctamente
+    edit_entry: Editar
+    entry: 
+      cannot_exclude: "No se puede excluir de la grabaci\xC3\xB3n de una entrada m\xC3\xA1s corta de "
+      created: La entrada en la agenda ha sido creada correctamente
+      delete: "La entrada en la agenda ha sido borrada con \xC3\xA9xito"
+      description: "Descripci\xC3\xB3n"
+      duration: "Duraci\xC3\xB3n"
+      edit: Editar entrada en la agenda
+      embed_help: "Puede introducirse c\xC3\xB3digo HTML para embeber un v\xC3\xADdeo"
+      embedded_video: "Embeber v\xC3\xADdeo en la entrada"
+      end_time: "Hora de finalizaci\xC3\xB3n"
+      error: 
+        attribute_unchangeable: "Ha intentado cambiar un atributo inalterable de esta sesi\xC3\xB3n"
+        coinciding_times: Hay un conflicto entre la hora de la nueva entrada en la agenda, y entradas o divisores ya existentes
+        create: "Error al crear la sesi\xC3\xB3n en el sistema de videoconferencia"
+        date_out_of_event: "La fecha de la entrada en la agenda excede la m\xC3\xA1xima duraci\xC3\xB3n del evento: {{max_days}} d\xC3\xADas"
+        delete: "Error al eliminar la sesi\xC3\xB3n en el sistema de videoconferencia"
+        disordered_times: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
+        past_times: "La hora de inicio de la sesi\xC3\xB3n debe ser {{min_date}} o m\xC3\xA1s tarde"
+        update: "Error al actualizar la sesi\xC3\xB3n en el sistema de videoconferencia"
+      failed: La entrada en la agenda no se pudo guardar
+      has_attachment: Esta entrada tiene archivos adjuntos
+      has_video: Video disponible para esta entrada
+      help: 
+        recording: "Grabaci\xC3\xB3n habilitada para esta sesi\xC3\xB3n"
+        streaming: "Streaming habilitado para esta sesi\xC3\xB3n"
+      hidevideo: "Ocultar v\xC3\xADdeo"
+      minutes: acta
+      new: Nueva entrada en la agenda
+      no_record: "No"
+      one: Entrada
+      options: 
+        add_video: "Descartar v\xC3\xADdeo autom\xC3\xA1tico y a\xC3\xB1adir uno embebido"
+        help: "Compruebe la transmisi\xC3\xB3n y/o servicios de grabaci\xC3\xB3n, seg\xC3\xBAn sea necesario"
+        help2: "En esta sesi\xC3\xB3n ya ha tenido lugar y no puede editar su streaming o las opciones de grabaci\xC3\xB3n"
+        help3: "Esta sesi\xC3\xB3n est\xC3\xA1 en curso; s\xC3\xB3lo puede cambiar si desea o no streaming"
+        recording: "Grabaci\xC3\xB3n"
+        streaming: Streaming
+        title: Opciones
+      record: Registro
+      speakers: Intervienen
+      start_time: Hora de inicio
+      title: "T\xC3\xADtulo"
+      updated: entrada de Agenda se ha actualizado correctamente
+      video: "Grabaci\xC3\xB3n"
+      yes_record: !binary |
+        U8Ot
+
+    error: 
+      dates: "La hora de inicio debe ser anterior a la hora de finalizaci\xC3\xB3n"
+      end_time_overlaps: "La hora de finalizaci\xC3\xB3n se solapa con una entrada ya existente en la agenda"
+      omit_date: "La entrada en la agenda necesita fechas de inicio y de finalizaci\xC3\xB3n"
+      omit_title: "Debe darse t\xC3\xADtulo a la entrada de la agenda"
+      omit_title_divider: "El t\xC3\xADtulo del divisor no puede estar vac\xC3\xADo"
+      overlaps: La entrada de la agenda se solapa con una entrada ya existente
+      start_time_overlaps: La hora de inicio se solapa con una entrada ya existente en la agenda
+    expand_help: "Haga click en el t\xC3\xADtulo de una entrada de la agenda para expandirla o contraerla"
+    title: Agenda para el evento
+    update: Agenda actualizada correctamente.
+    upload: Subir agenda
+  agent: 
+    authentication: 
+      change_password: "Cambiar la contrase\xC3\xB1a"
+      confirm_password: "Confirme la contrase\xC3\xB1a"
+      login: Login
+      lost_password: "\xC2\xA1Olvid\xC3\xA9 mi contrase\xC3\xB1a!"
+      password: "Contrase\xC3\xB1a"
+    email: "Correo electr\xC3\xB3nico"
+    one: Usuario
+    other: Usuarios
+    select: 
+      one: Seleccionar usuario
+  agree: !binary |
+    U8Ot
+
+  all: Todo
+  all_rights_reserved: Todos los derechos reservados
+  any: Cualquier
+  any_field: Cualquier campo
+  are_you_sure: "\xC2\xBFEst\xC3\xA1 seguro?"
+  at: en
+  attachment: 
+    add: Agregar archivo adjunto
+    attach: Adjunto
+    created: Adjunto creado correctamente
+    delete: Eliminar archivo adjunto
+    deleted: Adjunto eliminado correctamente
+    error: 
+      not_deleted: "{{file}} no se ha eliminado correctamente."
+      not_permission: "{{user}} no puede borrar {{file}}."
+    file: "Archivo:"
+    found: 
+      none: No se encontraron archivos adjuntos
+      one: "Se encontr\xC3\xB3 1 archivo adjunto"
+      other: Se encontraron {{size}} archivos adjuntos
+    home: 
+      one: Archivo en la institución {{space}}
+    info: "Informaci\xC3\xB3n sobre el documento"
+    loading: "Cargando informaci\xC3\xB3n del documento

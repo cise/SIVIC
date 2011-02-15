@@ -1,0 +1,201 @@
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
+<% end -%>
+
+<% content_for :javascript do %>
+
+/*
+ *  Expand and collapse thread
+ */
+  extend_thread = function(id){
+    $("#parent_" + id + " .extended_thread").show();
+    $("#parent_" + id + " .extend_thread").hide();
+    $("#parent_" + id + " .collapse_thread").show();
+    $("#message-body-" + id).hide();
+  }
+	
+  collapse_thread = function(id){
+    $("#parent_" + id + " .extended_thread").hide();
+    $("#parent_" + id + " .extend_thread").show();
+    $("#parent_" + id + " .collapse_thread").hide();
+    $("#message-body-" + id).show();
+  }  
+  
+  
+  $("input.home_menu_checkbox").click(function(){
+	  var contents;
+		var value = this.value
+		if ($.deparam.querystring().contents == null){
+      contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
+    }else{
+      contents = $.deparam.querystring().contents.split(",");
+    }
+		
+    if ($(this).attr("checked")){
+      contents.push(value);
+		}else{
+			contents = jQuery.grep(contents, function (a) {
+			  return a != value;
+			});
+		}
+		window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
+  });
+  
+  
+<% end %>
+
+<% content_for :search do  %>
+	<%= render :partial => 'search/form' %>
+<%end%>
+
+<% content_for :sidebar do  %>
+
+	<% if logged_in?%>
+		<div class="button_wrapper">
+			<%= link_to "<span>" + "Create new reservation" + "</span>", new_reservation_path,:class => "new_space_link big_button orange_button"%>
+    </div>
+  <%end%>
+
+	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+
+  <%if !(current_user.spaces.empty?)%>
+    <%periods = select_periods(@events_of_user)%>
+  <%else%>
+    <%periods = [["today",[]], ["tomorrow",[]], ["week.this",[]], ["event.upcoming.other",[]]]%>
+  <%end%>
+
+	<div class="next-events margin-up">
+
+		<div class="next-events-title">
+			<h3>
+				<%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%>
+				<span class="small-font">(GMT<%= Time.zone.formatted_offset %>)</span>
+			</h3>
+    </div>
+
+    <%periods.each do |period|%>
+      <div class="next-events-section">
+        <%if period[1].empty?%>
+          <span class="bold"><%= t(period[0])%></span><br/>
+          <%=t('event.no_events')%>
+        <%else%>
+          <span class="bold"><%= t(period[0])%></span>
+          <ul>
+            <% for event in period[1] -%>
+              <li class="event">
+                <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%=link_to event_link, space_event_path(event.space,event)%>
+                <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
+              </li>
+            <%end%>
+          </ul>
+        <%end%>
+      </div>
+    <%end%> 
+
+	</div>
+ 
+  <div id="home-inbox-full" class="margin-up">
+    
+		<div id="home-inbox-title">
+    	<h3>
+    		<%=image_tag("icons/email.png",:class=>"icon")%>
+				<%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
+			</h3>
+		</div>
+	
+		<%if @private_messages.empty?%>
+	  	<div class="next-events-section">
+	    	<span><%=t("message.private.none")%></span>
+	  	</div> 	
+		<%else%>
+	    <%for private_message in @private_messages%>
+        <%if @sender.present?%>
+          <%@sender=User.find_with_disabled(private_message.sender_id)%>
+       		<div class="next-events-section">
+            <div class="user-logo">
+              <%=link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login) %>
+            </div>
+            <div class="home-inbox-message">
+              <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+              <br/>
+              <%= sanitize(first_words(private_message.body,35)) %>
+            </div>
+          </div>
+        <%else%>
+          <div class="next-events-section">
+            <div class="home-inbox-message">
+              <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+              <br/>
+              <%= sanitize(first_words(private_message.body,35)) %>
+            </div>
+          </div>
+        <%end%>
+		  <%end%>
+    <%end%>
+	</div>
+<%end%>  
+
+
+<% content_for :menu do  %>
+	<%= render :partial => "menu" %>
+<% end %>
+
+<div id="recent-activity">
+	
+	<%for interval in intervals(@all_contents) do -%>
+		<%unless interval[:contents].empty? -%>
+			<div id="line">
+      	<span class="bold"><%= "Autorizacion Pendiente" %></span>
+    	</div>
+  	<%end -%>
+	
+  
+	<% end -%>
+
+
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+<%end%>
+   <div class="event_image">
+<div class="event_date_image">
+        <div class="event_day">
+          <%= "21" %>
+        </div>
+        <div class="event_month">
+          <%= "Jun" %>
+        </div>
+        <div class="event_hour">
+          <%= "20:08" %>
+        </div>
+			
+</div>
+ </div>
+	<%=image_tag("icons/date.png",:class=>"icon", :title => "Conferencia Magistral del X Congreso Internacional de CLARA")%> <%=link_to sanitize(highlight("Conferencia Magistral del X Congreso Internacional de CLARA","votate")), :class=>"unified_event"%><span class="updated"> <%= t('updated_time_ago', :time => "2 days ago") %></span>
+<br />
+<label class="main_date">
+      <%= "Friday, 21 Jun 2010, at 20h08 to 21:00. Timezone: Madrid (CEST, GMT +02:00)" %>
+ </label>
+
+	<div>
+		<label>Ticket#: </label>
+		<label><span style="margin-left:40px">456 </label></span><br />
+		<label>Tipo Servicio: </label>
+		<span style="margin-left:8px"><label>Sala Virtual </label></span><br />
+		<span style="margin-left:66px"><label>Descripción: </label>
+		<span style="margin-left:13px"><label>Sala Demo, U. Antioquia</label></span><br />
+		<span style="margin-left:152px"><label class="main_date">Medellin, Colombia</label></span><br />
+		<span style="margin-left:152px"><label class="main_date">Capacidad a 5 conexiónes</label></span><br />
+		<span style="margin-left:152px"> <label class="main_date">Máximo ancho de banda máximo: 10Mb</label></span><br />
+		<span style="margin-left:66px"><label>Solicitante: Diego Carrera</label></span><br />
+		<span style="margin-left:66px"><%= text_area(:post, :body, :cols => 70, :rows => 3)%></span><br />
+		<span style="margin-left:66px"><label>Tipo de Rechazo</label></span>
+		<%= select_tag(:country, options_for_select([['Ocupada', 1], ['Dañado', 2], ['En reparacion', 3]])) %>
+		<div class="button_wrapper grey_bar">
+			<%=link_to ("<span>" + "Aceptar" + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => "Aceptar"} %>
+			<%=link_to ("<span>" + "Rechazar" + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => "Rechazar"} %>
+
+		</div>
+	</div>
+</div>

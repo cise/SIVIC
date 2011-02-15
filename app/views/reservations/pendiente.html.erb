@@ -1,0 +1,41 @@
+<% content_for :headers do%>
+  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+<%end%>
+
+<% content_for :header do%>
+	<div id="profile_edit_title">
+	  <h2 class="blue"><%= "Formulario de Reserva de salas para Video Conferencia" %></h2>
+	</div>
+	
+	<div id="search">
+	  <%= render :partial => 'search/form' %>
+	</div>
+<%end%>
+<label><%= "COVY" %></label>
+<br />
+<div align="right" style="margin-right:25px" >
+<label align="right"><%= "Hola Jose COVI" %></label><br />
+<label align="right"><%= "COVI: Colombia" %></label><br />
+</div>
+<br />
+<h1 class="blue" align="center">Autorizaciones de Servicios Pendientes</h1>
+<br />
+<table width="940px" class="registro_item">
+  <tr>
+    <th>Tipo Servicio</th>
+    <th>Ticket#</th>
+    <th>Descripción</th>
+    <th>Horario</th>
+    <th>Opciones</th>
+    <th>Observaciones</th>
+  </tr>
+  <tr>
+    <td><%= "Sala Certificada" %></td>
+    <td><%= "459" %></td>
+    <td><%= "Solicita: kike Barra Sala Demo2, ESPOL" %></td>
+    <td><%= "29/Julio/2010 13h00-14h00 GMT -05h00" %></td>
+    <td><%=  button_to "Aceptar", :action => "new" %>
+	<%=  button_to "Cancelar", :action => "new" %></td>
+    <td><%= text_area(:post, :body, :cols => 30, :rows => 3)%></td>
+  </tr>
+</table>

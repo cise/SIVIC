@@ -59,4 +59,8 @@ class HelpController < ApplicationController
   def define_agenda
 
   end
+  
+  def faq
+  
+  end
 end

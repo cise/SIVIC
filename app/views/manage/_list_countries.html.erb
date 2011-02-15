@@ -1,0 +1,7 @@
+<div id="home_list_countries" style="margin-left:25px">
+  <label><%= t('reservation.country') %></label>
+  <%= select_tag("space[country]",
+        "<option value=\"\">" + t('reservation.select_a_country') + "</option>" + options_for_select(Country.all.collect {|x| [x.name, x.code]},@country),
+		:onchange => '$(window.location).attr("href", "/manage/spaces?country=" + $(\'#space_country\').val())'
+      ) %>
+</div>

@@ -102,7 +102,7 @@ class Group < ActiveRecord::Base
     def self.copy_list(group,list)
       `cp #{ group.temp_file } /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end
-    
+
     def self.delete_list(group,list)
       `rm -f /var/lib/mailman/data/listas_automaticas/vcc-#{list}`
     end

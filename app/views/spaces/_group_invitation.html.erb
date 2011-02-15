@@ -56,7 +56,7 @@
         <div class="grey_bar">
 
           <b><%= t('invitation.to_space', :username => current_user.full_name, :space => @space.name) %>.</b><br/><br/>
-          <textarea id="invite_personal"><%= t('invitation.personal') %></textarea><br/>
+          <textarea id="invite_personal"></textarea><br/>
           <%= t('invitation.info_space', :space_url => space_url(@space)) %><br/><br/>
           <%if !(@space.public)%>
             <%= t('space.group_invitation.private', :register_url=>signup_url) %><br/>

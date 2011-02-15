@@ -1,0 +1,11 @@
+<div id="reservation_list_rooms" class="margin-up">
+  <label for="reservation_room"><span class="red">* </span><%= t('reservation.room') %></label>
+  <% if @rooms == nil && @reservation.country == nil -%>
+    <select id="reservation_room_id" name="reservation[room_id]"><option value=""><%= t('reservation.select_a_room') %></option></select>
+  <% else -%>
+    <%= collection_select(:reservation, :room_id, @rooms != nil ? @rooms : Room.find_all_by_country(@reservation.country), :id, :name_certification_level_starts, 
+                         {:include_blank => t('reservation.select_a_room')}, :onchange => '$(\'#reservation_virtual_room_id\').val($(\'#reservation_room_id\').val())') %>
+  <% end -%>
+  <%= hidden_field_tag "reservation[room_id]", params[:reservation] ? params[:reservation][:room_id] : "", :id => :reservation_virtual_room_id %>
+
+</div>

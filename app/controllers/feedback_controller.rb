@@ -24,6 +24,12 @@ class FeedbackController < ApplicationController
     end
   end
   
+  def new_qualification
+    if request.xhr?
+      render :layout => false
+    end
+  end
+  
   def create
     if (params[:subject].present? and params[:from].present? and params[:body].present?)
       if (params[:from]).match(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i)

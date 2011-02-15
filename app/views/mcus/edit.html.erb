@@ -1,0 +1,83 @@
+<% menu :admin %>
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
+<% end -%>
+
+<% content_for :javascript do %>
+	$(".cancel").click(function ()
+  	{
+		$(window.location).attr('href', "/spaces/<%= @space.permalink %>/mcus");
+    });
+<% end %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<% end %>
+
+<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+  <%= render :partial => 'spaces/admin_tabs' %>
+<% end %>
+
+<% content_for :sidebar do %>
+    <% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+      <%= render :partial => 'spaces/edit_space' %>
+    <% else %>
+      <%= render :partial => 'spaces/sidebar' %>
+    <% end %>
+<% end %>
+
+<% content_for :menu do  %>
+	<%= render :partial => "layouts/menu" %>
+<% end %>
+
+<div id="line">
+   <span class="bold"><%= t('mcu.title_edit') %></span>
+</div>
+		
+<div id="edit_public_profile">
+	<div class="profile_content_item">
+<% form_for([@mcu.space, @mcu]) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :space_id, :value => @mcu.space_id %>
+
+  <div class="margin-up">
+<span style="float:left;padding-left:70px;" class="red">* </span>
+    <%= f.label :ip_address,  t('mcu.ip_address')%>
+    <%= f.text_field :ip_address %>
+  </div>
+  <div class="margin-up">
+<span style="float:left;padding-left:70px;" class="red">* </span>
+	<%= f.label :mcunumber, t('mcu.mcunumber') %>
+	<%= f.text_field :mcunumber %>
+  </div>
+  <div class="margin-up">
+<span style="float:left;padding-left:70px;" class="red">* </span>
+	 <%= f.label :model, t('mcu.model') %>
+	<%= f.text_field :model %>
+  </div>
+  <div class="margin-up">
+<span style="float:left;padding-left:70px;" class="red">* </span>
+	 <%= f.label :trade, t('mcu.trade') %>
+	<%= f.text_field :trade %>
+  </div>
+  <div class="margin-up">
+<span style="float:left;padding-left:70px;" class="red">* </span>
+	 <%= f.label :total_ports, t('mcu.total_ports') %>
+	<%= f.text_field :total_ports %>
+  </div>
+  <div class="margin-up">
+<span style="float:left;padding-left:70px;" class="red">* </span>
+	<%= f.label :shared_ports, t('mcu.shared_ports') %>
+	<%= f.text_field :shared_ports %>
+  </div>
+<br />
+<div style="margin-left:70px"><label><span class="red"><%= "* Campos Obligatorios" %></span></label></div>
+<br/>  
+<div align="right">
+    <button type="submit" class="basic_button blue_button"><%="Guardar"%></button>
+    <button type="button" class="basic_button blue_button cancel"><%="Cancelar"%></button>
+  </div>
+  <% end %>
+ </div>
+</div>

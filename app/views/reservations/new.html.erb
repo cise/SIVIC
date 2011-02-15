@@ -1,0 +1,353 @@
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
+  <%= javascript_include_tag 'user_filter' %>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+  <%= stylesheet_link_tag 'style', 'fullcalendar', 'jquery-ui', 'dialog' %>
+<% end -%>
+
+<% content_for :javascript do %>
+
+/*
+ *  Expand and collapse thread
+ */
+  extend_thread = function(id){
+    $("#parent_" + id + " .extended_thread").show();
+    $("#parent_" + id + " .extend_thread").hide();
+    $("#parent_" + id + " .collapse_thread").show();
+    $("#message-body-" + id).hide();
+  }
+	
+  collapse_thread = function(id){
+    $("#parent_" + id + " .extended_thread").hide();
+    $("#parent_" + id + " .extend_thread").show();
+    $("#parent_" + id + " .collapse_thread").hide();
+    $("#message-body-" + id).show();
+  }  
+  
+  show_public = function(){
+    //$('#reservation_list_rooms').load('reservations/update_list_room', { country: ''});
+    $('#reservation_public_private_certified').show();
+    $('#reservation_private').hide();
+    if ($('#reservation_virtual_room_id').val() == "9") {
+      $('#reservation_virtual_room_id').val($('#reservation_room_id').val());
+    }
+  }
+
+  show_private = function(){
+    $('#reservation_private').show();
+    if ($('#reservation_vc_service_virtual').attr('checked'))
+      $('#reservation_public_private_certified').hide();
+    else {
+      $('#reservation_public_private_certified').show();
+      $('#reservation_private_virtual').hide();
+      if ($('#reservation_virtual_room_id').val() == "9") {
+        $('#reservation_virtual_room_id').val($('#reservation_room_id').val());
+      }
+    }
+  }
+
+  show_virtual = function(){
+    $('#reservation_private_virtual').show();
+    $('#reservation_public_private_certified').hide();
+    if ($('#reservation_virtual_room_id')) {
+      $('#reservation_virtual_room_id').val("9");
+    }
+  }
+
+  $("input.home_menu_checkbox").click(function(){
+	  var contents;
+		var value = this.value
+		if ($.deparam.querystring().contents == null){
+      contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
+    }else{
+      contents = $.deparam.querystring().contents.split(",");
+    }
+		
+    if ($(this).attr("checked")){
+      contents.push(value);
+		}else{
+			contents = jQuery.grep(contents, function (a) {
+			  return a != value;
+			});
+		}
+		window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
+  });
+  
+    $("#schedule_link").fancybox({
+    	'callbackOnClose' : function(){
+	  $.ajax({
+	    url: "/calendar_events/show?calendar_events=" + $("#reservation_calendar_events").val()
+	  });
+    },
+    'frameWidth' : 640,
+    'frameHeight' : 480
+  });
+  
+  $("#participantes_link").fancybox({
+   'hideOnContentClick' : false,
+	'callbackOnClose' : function(){
+	  $.ajax({
+	    url: "/add_participante?" + $("#fparticipantes").serialize()
+    });
+	},
+ 'frameHeight' : 450
+  });
+  
+  
+  
+  $(".participantes").click(function ()
+  {
+	 //alert("votate");
+	 //$.ajax({url: "/add_participante?" + $("#fparticipantes").serialize() });
+
+  });
+
+ $(".cancel").click(function ()
+  {
+     //alert("votate");
+	$(window.location).attr('href', "<%= "http://" + Site.current.domain.to_s + root_path %>");
+
+  });
+  
+  $("#information").fancybox({
+   'hideOnContentClick' : false,
+   'frameHeight' : 450
+  });
+
+  $("#information_service").fancybox({
+   'hideOnContentClick' : false,
+   'frameHeight' : 450
+  });
+
+  $("#information_port").fancybox({
+   'hideOnContentClick' : false,
+   'frameHeight' : 450
+  });
+  
+  if ($("#reservation_calendar_events").val() != null && $("#reservation_calendar_events").val() != "")
+    $.ajax({
+	    url: "/calendar_events/show?calendar_events=" + $("#reservation_calendar_events").val()
+	});
+  
+  if ($("#reservation_participantes").val() != null && $("#reservation_participantes").val() != "")
+  {
+    var users=$("#reservation_participantes").val().split(',');
+	var params = "user_selector=";
+	for(i =0; i < users.length; i++) {
+	  if (users[i] != "")
+	    params += "&invitation[recipient_ids][]="+users[i];
+	}
+    $.ajax({
+	    url: "/add_participante?" + params 
+	});
+  }
+
+  
+<% end %>
+
+<% content_for :search do  %>
+	<%= render :partial => 'search/form' %>
+<%end%>
+
+<% content_for :sidebar do  %>
+
+	<% if logged_in?%>
+		<div class="button_wrapper">
+			<%= link_to "<span>" + "Crear Nueva Reserva" + "</span>", new_reservation_path,:class => "new_space_link big_button orange_button"%>
+    </div>
+  <%end%>
+
+	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+
+  <%if !(current_user.spaces.empty?)%>
+    <%periods = select_periods(@events_of_user)%>
+  <%else%>
+    <%periods = [["today",[]], ["tomorrow",[]], ["week.this",[]], ["event.upcoming.other",[]]]%>
+  <%end%>
+
+	<div class="next-events margin-up">
+
+		<div class="next-events-title">
+			<h3>
+				<%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%>
+				<span class="small-font">(GMT<%= Time.zone.formatted_offset %>)</span>
+			</h3>
+    </div>
+
+    <%periods.each do |period|%>
+      <div class="next-events-section">
+        <%if period[1].empty?%>
+          <span class="bold"><%= t(period[0])%></span><br/>
+          <%=t('event.no_events')%>
+        <%else%>
+          <span class="bold"><%= t(period[0])%></span>
+          <ul>
+            <% for event in period[1] -%>
+              <li class="event">
+                <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%=link_to event_link, space_event_path(event.space,event)%>
+                <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
+              </li>
+            <%end%>
+          </ul>
+        <%end%>
+      </div>
+    <%end%> 
+
+	</div>
+ 
+  <div id="home-inbox-full" class="margin-up">
+    
+		<div id="home-inbox-title">
+    	<h3>
+    		<%=image_tag("icons/email.png",:class=>"icon")%>
+				<%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
+			</h3>
+		</div>
+	
+		<%if @private_messages.empty?%>
+	  	<div class="next-events-section">
+	    	<span><%=t("message.private.none")%></span>
+	  	</div> 	
+		<%else%>
+	    <%for private_message in @private_messages%>
+        <%if @sender.present?%>
+          <%@sender=User.find_with_disabled(private_message.sender_id)%>
+       		<div class="next-events-section">
+            <div class="user-logo">
+              <%=link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login) %>
+            </div>
+            <div class="home-inbox-message">
+              <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+              <br/>
+              <%= sanitize(first_words(private_message.body,35)) %>
+            </div>
+          </div>
+        <%else%>
+          <div class="next-events-section">
+            <div class="home-inbox-message">
+              <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+              <br/>
+              <%= sanitize(first_words(private_message.body,35)) %>
+            </div>
+          </div>
+        <%end%>
+		  <%end%>
+    <%end%>
+	</div>
+<%end%>  
+
+
+<% content_for :menu do  %>
+	<%= render :partial => "menu" %>
+<% end %>
+
+<div id="recent-activity">
+	<div id="line">
+      	<span class="bold"><%= "Nueva Reserva" %></span>
+    	</div>
+	<%for interval in intervals(@all_contents) do -%>
+		<%unless interval[:contents].empty? -%>
+			
+  	<%end -%>
+	
+
+	<% end -%>
+<div id="edit_public_profile">
+	
+<div class="profile_content_item">
+
+<% form_for(@reservation, :html => { :multipart => true}) do |f| %>
+  <%= f.error_messages %>
+  <div class="margin-up">
+	<label for="title"><span class="red">* </span> <%= t('reservation.title') %>:</label>
+	<%= f.text_field :title %>
+  </div>
+   <div class="margin-up">
+	<label for="description"><span class="red">* </span> <%= t('reservation.description') %>:</label>
+	<%= f.text_area :description,:cols => "40", :rows => "5"  %>
+  </div>
+
+  <% if current_user.spaces.size > 1 %>
+  <div class="margin-up">
+	<label for="space"><span class="red">* </span> <%= t('reservation.space') %>:</label>
+	<%= f.collection_select :space_id, current_user.spaces, :id, :name, :prompt => t('reservation.select_a_space') %>
+  </div>
+  <% else %>
+    <%= f.hidden_field :space_id, :value => current_user.main_space.id %>
+  <% end %>
+
+  <div style="margin-left:70px">
+	<label for="type"><span class="red">* </span> <%= t('reservation.type') %>:</label>
+    <span style="margin-left:11px">
+      <%= f.radio_button :reservation_type, :public, :onclick => "show_public();" %><%= label_tag t('reservation.type_public') %></span>
+      <%= f.radio_button :reservation_type, :private, :onclick => "show_private();" %><%= label_tag t('reservation.type_private') %>
+	  
+	  <%= link_to " " + t('reservation.more_information'), information_path, :id => "information" %> 
+  </div>
+
+  <div id="reservation_private" style="<%= @reservation.reservation_type == "public" ? "display:none" : "" %>">
+    <div style="margin-left:70px">
+      <label for="vc_service"><span class="red">* </span> <%= t('reservation.service_vc') %>:</label>
+      <span style="margin-left:70px">
+        <%= f.radio_button :vc_service, Room::SERVICE_TYPE_CERTIFIED, :checked => true, :onclick => "show_private();" %><%= label_tag "Sala Certificada" %></span>
+        <%= f.radio_button :vc_service, Room::SERVICE_TYPE_VIRTUAL, :onclick => "show_virtual();" %><%= label_tag "Sala Virtual" %>
+
+        <%= link_to " " + t('reservation.more_information'), information_service_path, :id => "information_service" %>
+    </div>
+
+    <div id="reservation_private_virtual" style="<%= @reservation.reservation_type == "private" && @reservation.vc_service == Room::SERVICE_TYPE_VIRTUAL ? "" : "display:none" %>">
+      <div class="margin-up">
+        <label for="ports"><span class="red">* </span><%= t('reservation.num_port') %>:</label>
+        <%= f.text_field :ports, :size => 5, :style => "width:5%" %>
+
+        <%= link_to " " + t('reservation.more_information'), port_path, :id => "information_port" %> 
+      </div>
+    </div>
+  </div> 
+
+  <div id="reservation_public_private_certified" style="<%= @reservation.vc_service == Room::SERVICE_TYPE_VIRTUAL ? "display:none" : "" %>">
+    <div id="reservation_list_countries"><%= render :partial => 'list_countries', :object => @reservation %></div>
+    <div id="reservation_list_rooms"><%= render :partial => 'list_rooms', :object => @reservation %></div>
+  </div>
+
+  <div class="margin-up">
+    <label for=":title"><span class="red">* </span> <%= t('reservation.reservation_schedule') %></label>
+    <%= hidden_field_tag :calendar_events, params[:calendar_events] ? params[:calendar_events] : "",  :id => :reservation_calendar_events %>
+
+    <%= link_to 'Horarios', '#', 
+          :id => 'schedule_link', 
+          :class => 'iframe', 
+          :onclick => "$('#schedule_link').attr('href', '/calendar_events?' + $('#new_reservation').serialize())" 
+    %>
+
+    <div class="margin-up" style="margin:0px 0px 0px 225px"><ul id="holder_schedules" class="holder margin-up"></ul></div>
+  </div>
+
+  <div class="margin-up">
+    <label><span class="red">* </span><%= t('reservation.participants') %></label>
+    <%= link_to  t('reservation.add_participants'), "#", :id => "participantes_link",
+      :onclick => "$('#participantes_link').attr('href', '" + add_user_path + "?reservation_participantes=' + $('#reservation_participantes').val())" %>
+    <br />
+    <%= hidden_field_tag :participantes, params[:participantes] ? params[:participantes] : "",  :id => :reservation_participantes %>
+  </div>
+  
+  <div class="margin-up" style="margin:0px 0px 0px 225px"><ul id="holder_participants" class="holder margin-up"></ul></div> 
+    <br />   
+  <div style="margin-left:70px">
+    <span class="red">* </span><%= f.check_box(:aggrement) %><label for="public"><%= t('reservation.aggrement') %></label>
+  </div>
+
+  <br />
+  <div style="margin-left:70px"><label><span class="red"><%= "* Campos Obligatorios" %></span></label></div>
+
+  <div style="margin-left:475px">
+    <button type="submit" class="basic_button blue_button" value="<%= Reservation::ACTION_ACCEPT %>"><%="Aceptar"%></button>
+    <button type="button" class="basic_button blue_button cancel" name="submit"><%="Cancelar"%></button>
+  </div>
+<% end %>
+</div>
+</div>
+</div>

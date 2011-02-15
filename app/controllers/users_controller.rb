@@ -102,7 +102,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       if user.save_with_captcha 
         user.tag_with(params[:tags]) if params[:tags]
+        user.timezone = Country.find_by_code(user.space.country).timezone 
+        user.save
         self.current_agent = user
+
         flash[:notice] = t('user.registered') 
         format.html { redirect_back_or_default root_path }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
@@ -122,6 +125,10 @@ class UsersController < ApplicationController
   
   #This method returns the user to show the form to edit himself
   def edit
+    respond_to do |format|
+      flash.now[:notice] = t('user.change_space');
+      format.html
+    end
   end
   
   def clean
@@ -137,9 +144,9 @@ class UsersController < ApplicationController
   #this method updates a user
   def update
     respond_to do |format|
-      if user.update_attributes(params[:user])
+      if params[:anterior] && User.authenticate_with_login_and_password(params[:user][:email],params[:anterior])
+        user.update_attributes(params[:user])
         user.tag_with(params[:tags]) if params[:tags]
-        
         flash[:success] = t('user.updated')     
         format.html { #the superuser will be redirected to list_users
           redirect_to(user_path(@user))
@@ -147,6 +154,9 @@ class UsersController < ApplicationController
         format.xml  { render :xml => @user }
         format.atom { head :ok }
       else
+        user.update_attributes(params[:user])
+        user.tag_with(params[:tags]) if params[:tags]
+        flash[:success] = t('user.updated')     
         format.html { #the superuser will be redirected to list_users
           if current_user.superuser == true
              render :action => "edit" 
@@ -205,5 +215,34 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
       format.atom { head :ok }
     end
+  end
+
+  def update_list_space
+    # updates list spaces based on country selected
+    @country = params[:country]
+    @spaces = Space.spaces_by_country(@country)
+
+    render :partial => 'users/list_spaces', :locals => { :spaces => @spaces }
+  end
+
+  def lost_activation
+    user = User.find_by_email(params[:email])
+
+    unless user
+      flash[:error] = t(:could_not_find_anybody_with_that_email_address)
+      return
+    end
+
+    user.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
+    user.activated_at = nil
+    user.save(false)
+    Notifier.deliver_confirmation_email(user)
+    
+    flash[:success] = t('user.activation_email_sent')
+        respond_to do |format|
+          format.html { redirect_to root_path }
+          format.xml  { head :ok }
+          format.atom { head :ok }
+        end
   end
 end

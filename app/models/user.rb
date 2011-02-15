@@ -17,14 +17,18 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  apply_simple_captcha :message => "image and text were different"
+  apply_simple_captcha :message => :"image.blank"
   # LoginAndPassword Authentication:
   acts_as_agent :activation => true,
                 :openid_server => true
 
-  validates_presence_of  :email
+#  validates_presence_of :email, :message => :"email.blank"
   validates_exclusion_of :login, :in => %w( xmpp_server )
-  validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/
+  validates_format_of :email, :with => /^[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,}$/, :message => :"email.format"
+  validates_confirmation_of :email, :message => "La direcciones de email no coinciden"
+  
+  validates_presence_of :email_confirmation, :if => :email_changed?
+  validates_presence_of :space_id, :on => :create
 
   acts_as_stage
   acts_as_taggable :container => false
@@ -42,7 +46,14 @@ class User < ActiveRecord::Base
   attr_accessible :timezone
   attr_accessible :expanded_post, :notification
   attr_accessible :chat_activation
-  
+  # SAR
+  attr_accessible :email_confirmation
+  attr_accessible :space_id
+  belongs_to :space
+
+  has_many :reservations
+  has_many :rooms
+
   is_indexed :fields => ['login','email'],
              :conditions => "disabled = 0",
              :include => [ {:class_name => 'Profile',:field => 'full_name',:as => 'full_name'},
@@ -116,14 +127,14 @@ class User < ActiveRecord::Base
 
     u && u.password_authenticated?(password) ? u : nil
   end
-  
+
   after_update { |user|
       if user.email_changed? 
         user.groups.each do |group|
           if group.mailing_list.present?
-            delete_list(group,group.mailing_list)
+            Group.delete_list(group,group.mailing_list)
             group.mail_list_archive
-            copy_list(group,group.mailing_list)
+            Group.copy_list(group,group.mailing_list)
           end
         end
         Group.request_list_update
@@ -134,7 +145,7 @@ class User < ActiveRecord::Base
     e = Atom::Entry.parse(data)
     user = {}
     user[:login] = e.title.to_s
-    user[:password] = e.get_elem(e.to_xml, "http://sir.dit.upm.es/schema", "password").text
+    user[:password] = e.get_elem(e.to_xml, "http://" + Site.current.domain.to_s + "/schema", "password").text
     user[:password_confirmation] = user[:password]
     e.get_elems(e.to_xml, "http://schemas.google.com/g/2005", "email").each do |email|
         user[:email] = email.attributes['address']
@@ -153,7 +164,7 @@ class User < ActiveRecord::Base
 
   def disable
     self.update_attribute(:disabled,true)
-    self.agent_performances.each(&:destroy)
+   #self.agent_performances.each(&:destroy)
   end
   
   def enable
@@ -192,5 +203,19 @@ class User < ActiveRecord::Base
     !events.select{|ev| ev.space==space}.empty?
   end
     
-  
+  def main_space
+    stages(:type => "Space").first || Space.find_by_name("Red CLARA")
+  end
+
+  def isCoviNREN
+    stages(:type => "Space", :role => "COVI").select{|x| x.parent == Space.find_by_name("Red CLARA")}.size > 0
+  end
+
+  def fullname_email_space 
+    email_xxx = email
+    for i in 1..email.length
+      email_xxx[i-1,1] = ((i-1) / 5) % 2 == 0 ? email[i-1,1] : "x"
+    end 
+    profile.full_name + " &lt;" + email_xxx + "&gt; " + (main_space ? main_space.name : "")   
+  end
 end

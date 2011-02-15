@@ -1,0 +1,14 @@
+<% country = @country ? @country : f.object.main_space ? f.object.main_space.country : params[:space] ? params[:space][:country] : "" %>
+<% spaces = @spaces ? @spaces : Space.spaces_by_country(country) %>
+<% space_id = defined?(f) ? f.object.space_id : params[:user] ? params[:user][:space_id] : nil %>
+
+<div id="login_list_spaces">
+  <label for="space_name"><%= t('space.one') %></label><br />
+  <% if spaces.nil? -%>
+    <select id="login_space_id" name="login[space_id]"><option value=""><%= t('space.select_space_id') %></option></select>
+  <% else -%>
+    <%= select_tag("user[space_id]", 
+        "<option value=\"\">" + t('space.select_space_id') + "</option>" + 
+        options_for_select(spaces, space_id) ) %>
+  <% end -%>
+</div>

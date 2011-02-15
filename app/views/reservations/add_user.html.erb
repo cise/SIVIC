@@ -1,0 +1,4 @@
+ <div>
+	<% link_to '[' + t('reservation.add_participants')+']', "[Añadir participantes]" %>
+	<%= render :partial => 'new_invitation', :object => @reservation.requests, :locals => {:checked_users => @checked_users ? @checked_users : Array.new, :message => @message} %>
+ </div>

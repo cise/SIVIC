@@ -1,0 +1,8 @@
+<div id="login_list_spaces">
+  <label for="space_name"><%= "Pertenece a:" %></label><br />
+  <% if @spaces.nil? -%>
+    <select id="login_space_id" name="space[parent_id]"><option value=""><%= "Seleccione su institucion" %></option></select>
+  <% else -%>
+    <%= select_tag("login[space_id]", "<option>" + "Seleccione su institucion" + "</option>" + options_for_select(@spaces != nil ? @spaces : Spaces.spaces_by_country(@country), @space) ) %>
+  <% end -%>
+</div>

@@ -1,0 +1,19 @@
+<div id="login_list_countries">
+  <label for="country"><%= t('reservation.country') %></label><br />
+<!--
+  <%= select_tag(
+        "space[country]", 
+        "<option value=\"\">" + t('reservation.select_a_country') + "</option>" + options_for_select(Space.countries, f.object.main_space ? f.object.main_space.country : params[:space] ? params[:space][:country] : ""),
+        :onchange => '$(\'#login_list_spaces\').load(\'' + signup_update_spaces_path() +'\', { country: $(\'#space_country\').val()})'
+      ) %>
+-->
+  <%= collection_select(:country, :code, Country.all, :code, :name, 
+        { :include_blank => t('reservation.select_a_country') }, 
+        { :onchange => '$(\'#login_list_spaces\').load(\'' + signup_update_spaces_path() +'\', { country: $(\'#country_code\').val()})'}
+      ) 
+  %>
+
+</div>
+
+                           
+

@@ -27,7 +27,10 @@ class Event < ActiveRecord::Base
   
   has_logo :class_name => "EventLogo"
   has_permalink :name, :update=>true
-  
+
+  # SAR
+  has_many :reservations
+
   include EventToPdf
   include EventToIcs
   
@@ -54,6 +57,7 @@ class Event < ActiveRecord::Base
   attr_accessor :group_invitation_msg
   attr_accessor :external_streaming_url 
   attr_accessor :new_organizers
+  attr_accessor :calendar_events
   
   is_indexed :fields => ['name','description','place','start_date','end_date', 'space_id', {:field => 'start_date', :as => 'start_time'}, {:field => 'end_date', :as => 'end_time'}],
              :include =>[{:class_name => 'Tag',
@@ -124,7 +128,9 @@ class Event < ActiveRecord::Base
     if event.ids
       event.ids.map { |user_id|
         user = User.find(user_id)
-        params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => user.email, :comment => event.invite_msg}
+        params = {:role_id => Role.find_by_name("Invitedevent").id.to_s, :email => user.email, 
+          :comment => event.invite_msg.gsub("{{schedule}}", event.calendar_events.map {|x| x.to_string(user.timezone)}.join(", "))
+        }
         i = event.invitations.build params
         i.introducer = User.find(event.invit_introducer_id)
         i

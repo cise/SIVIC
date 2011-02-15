@@ -2,16 +2,15 @@
 <div id="footer">
 	
   <ul>
-  	<li id="trade_mark"><%=image_tag("bola_global_peque.png",:class=>"icon")%><%= t('vcc') %></li>
-	<li>-</li>
+
 	<li><%= t('all_rights_reserved') %></li>
 	<li>-</li>
 	<li>
 	  <div id="support_select">
 	    <%=link_to ("<span>" + t('help') + "</span>"),'dropup', {:id=>"support_select", :class=>"support_select",:title => t('translate.change')} %>
 	    <ul id="support_menu" style="display:none">            
-	      <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_support'), help_path)%></li>
-				<li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>
+		  <li><%=link_to(image_tag("icons/film.png",:class=>"icon") + " " + t('screencast.title'),screencasts_path(:show=>2), :target=>'_blank')%></li>
+		  <li><%=link_to(image_tag("icons/help.png",:class=>"icon") + " " + t('help_vcc.faq'), help_path)%></li>
 	    </ul>
 	  </div>
 	</li>
@@ -19,6 +18,14 @@
 	<li><%=link_to(t('feedback.send_us'), new_feedback_path(), :id => "feedback_link" )%></li>
 	<li>-</li>
 	<li><%=link_to(t('about_global'),"http://www.global-project.eu")%></li>
+	<li>-</li>
+	<li><%=link_to("CISE","http://www.cise.espol.edu.ec")%></li>
+	<li>-</li>
+	<li><%=link_to("ESPOL","http://www.espol.edu.ec")%></li>
+	<li>-</li>
+	<li><%=link_to("DIT","http://dit.upm.es")%></li>
+	<li>-</li>
+	<li><%=link_to("UPM","http://www.upm.es")%></li>
 	<li>-</li>
 	<li>
 		<div id="language_select">
@@ -34,5 +41,9 @@
 		<li>-</li>
 		<li><%=link_to t('translate.one'), :action => 'index', :controller => 'translate'%></li>
 	<%end%>
+	<li>-</li>
+	<li><%=link_to("Partners", partner_path())%></li>
+	<li>-</li>
+	<li><%=link_to("Global Plaza", "http://www.globalplaza.org")%></li>
   </ul>
 </div>

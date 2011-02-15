@@ -1,0 +1,10 @@
+<div id="reservation_list_countries" class="margin-up">
+  <label for="country"><span class="red">* </span><%= t('reservation.country') %></label>
+  <%= collection_select(:reservation, :country, Room.getCountriesBySpaces(current_user.spaces), :country, :country, 
+                      { :include_blank => t('reservation.select_a_country')},
+                      { :onchange => '$(\'#reservation_list_rooms\').load(\'reservations/update_list_room\', { country: $(\'#reservation_country\').val()})'} 
+                        ) %>
+</div>
+
+                           
+

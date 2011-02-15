@@ -1,0 +1,26 @@
+<% menu(:rooms) %>
+
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+	
+
+<div id="manage">	
+  <div class="users">
+
+      <%for room in @rooms %>
+  <div class="user">
+      	<label><%=t('room.name')%>:</label>
+	<strong><%=sanitize room.name %></strong><br />
+	<label>Direccion:</label>
+	<label class="main_date"><%=t('room.covi_asigned')%>:</label>
+        <label class="main_date">
+                  <% performances_room = room.stage_performances.select {|x| x.role.name == 'COVI'}.map {|y| y.agent_name }.join("<br />") %>
+        </label><br />
+		<label><%= t('room.certification_level')%>:</label>
+        <strong><%= room.certification_level_text %></strong>
+      
+  </div>
+    <% end %>
+</div>
+</div>

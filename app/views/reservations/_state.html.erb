@@ -1,0 +1,93 @@
+<%content_for :javascript do%>
+
+	/*
+	 * Send Private Message
+	 */
+	 
+	$("a#new_private_message_link").fancybox({
+	  'hideOnContentClick' : false,
+	  'frameWidth' : 450,
+	  'frameHeight' : 430
+	});
+
+	$("a#new_service_qualification").fancybox({
+	  'hideOnContentClick' : false,
+	  'frameWidth' : 450,
+         'frameHeight' : <%=logged_in? ? '430' : '470'%>
+	});
+
+
+<%end%>
+
+<div>
+
+<strong><h2><%= "Solicitud #" + reservation.id.to_s + " de Reserva, Servicio: " + reservation.title %></h2></strong>
+<label><strong><%= "De: " %></strong><%= User.find(reservation.admin_id).profile.full_name + ", Responsable COVI " + reservation.room.name %></label><br />
+<br />
+<% if reservation.state == Reservation::STATE_APPROVED %>
+<strong><p align="center" class="blue"><%= "El sistema SAR le informa que su solicitud ha sido aceptada" %></p></strong>
+<% elsif reservation.state == Reservation::STATE_REJECTED %>
+<strong><p align="center" class="red"><%= "El sistema SAR le informa que su solicitud ha sido rechazada" %></p></strong>
+<% else # Reservation::STATE_PENDING %>
+<strong><p align="center" class="yellow"><%= "Solicitud pendiente" %></p></strong>
+<% end %>
+
+<% if reservation.state == Reservation::STATE_APPROVED || reservation.state == Reservation::STATE_REJECTED %>
+<% covi = User.find(reservation.admin_id) %>
+<strong><label><%= "Información sobre tecnico (COVI) asignado: " %></label></strong>
+<label><%= link_to covi.profile.full_name, user_path(covi) %></label> <br />
+<%= mail_to(User.find(reservation.admin_id).email) %> <br />
+<%=link_to image_tag("./icons/email.png", :alt => "mail",:class=>"icon") , new_user_message_path(:user_id => current_user.login, :receiver => reservation.admin_id, :ticket => reservation.id),:id => "new_private_message_link" %>
+<%=link_to ("Mensaje Privado", new_user_message_path(:user_id => current_user.login, :receiver => reservation.admin_id, :ticket => reservation.id), :id => "new_private_message_link", :class=>"blue" )%> <br />
+<% if User.find(reservation.admin_id).profile.phone != nil %>
+<label>Teléfono: <%= User.find(reservation.admin_id).profile.phone %></label><br />
+<% end %>
+<br />
+
+<strong><label class="blue">Tipo Servicio:</label></strong>
+<label>Sala <%= reservation.vc_service %></label><br />
+<strong><label class="blue">#Ticket:</label></strong>
+<label><%= reservation.id %></label><br />
+<strong><label class="blue">Descripcion:</label></strong>
+<span style="margin-left:10px"><label>Solicitante: <%= reservation.user.profile.full_name %></label></span> <br /> 
+<span style="margin-left:85px"><label><%=reservation.room.name %></label></span> <br />
+<% if reservation.room.city != "" && reservation.room.country != "" %>
+<span style="margin-left:85px"><label class="main_date"><%= reservation.room.city %>, <%= reservation.room.country %></label></span><br />
+<% end %>
+<strong><label class="blue">Horario:</label></strong>
+<% reservation.calendar_events.each do |calendar_event| %>
+    <span><%= calendar_event.to_s %></span><br />
+    <% end %>
+<% end %>
+
+<% if reservation.state == Reservation::STATE_APPROVED %>
+<br />
+  <% if reservation.vc_service == Room::SERVICE_TYPE_VIRTUAL %>
+<strong><label><%= "Datos Técnicos para conexión:" %></label></strong><br /><br />
+<span style="margin-left:20px"><label><%=reservation.notes%></span><br /><br />
+  <% end %>
+
+<% invitations = reservation.requests %>
+<strong><label class="blue">Estado de Invitaciones</label></strong><br />
+<% for invitation in invitations %>
+	<label><%= User.find(invitation.recipient_id).profile.full_name %>:</label> 
+	<span style="margin-left:20px"><label> <%= invitation.status %></label></span><br />
+<% end %>
+<% elsif reservation.state == Reservation::STATE_REJECTED %>
+<br />
+
+  <% if reservation.reason_rejection %>
+<strong><label><%= "Motivo:" %></label></strong>
+<span><label><%= Reservation::REJECT_REASONS.select {|x| x[0].to_s == reservation.reason_rejection}.collect {|y| y[1]} %></label></span><br />
+<br />
+  <% end %>
+
+<strong><label><%= "Observación COVI" %></label></strong><br />
+<span style="margin-left:20px"><label>*<%= reservation.notes %></label></span><br />
+<% else %>
+<!-- -->
+<% end %>
+<br />
+<%= link_to("Califique este servicio", new_feedback_path(:subject => "Calificacion del servicio de reserva ##{reservation.id}", :body => ""), :id => "new_service_qualification" )%>
+<br />
+</div>

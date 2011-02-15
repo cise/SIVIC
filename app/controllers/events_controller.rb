@@ -238,11 +238,31 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.xml
   def destroy
+    reservation = Reservation.find(:first, :conditions => ["event_id = ? and state <> ?", @event.id, Reservation::STATE_DELETED])
+    if reservation && reservation.state != Reservation::STATE_DELETED
+      reservation.state = Reservation::STATE_DELETED
+      reservation.cancelled_by = current_user.id
+      reservation.event_id = nil
+      reservation.delete_cascade
+      reservation.save
     
+      reservations = Reservation.find_by_parent_id(reservation.id)
+      if reservations
+        for c_reservation in reservations
+          c_reservation.state = Reservation::STATE_DELETED
+          c_reservation.delete_cascade
+          c_reservation.save
+        end
+      end
+    end
     respond_to do |format|
       if @event.destroy
         flash[:success] = t('event.deleted')
-        format.html { redirect_to(space_events_path(@space)) }
+        if reservation
+          format.html { redirect_to root_path }
+        else
+          format.html { redirect_to(space_events_path(@space)) }
+        end
         format.xml  { head :ok }
       else
         format.html { message = ""
@@ -320,6 +340,12 @@ class EventsController < ApplicationController
 
   def events
       @events = (Event.in(@space).all :order => "start_date ASC")
+
+      # quitar eventos privados
+      @events.delete_if {|x| x.reservations != nil && 
+                             x.reservations.map {|y| y.reservation_type == 'private'}.size > 0 &&
+                               !(current_user.superuser || @space.role_for?(current_user, :name => 'Admin') ||
+                               x.organizers.include?(current_user) || x.participants.map(&:user).include?(current_user)) }
     
       #Current events
       @current_events = @events.select{|e| e.is_happening_now?}

@@ -35,8 +35,11 @@ module EventToPdf
     pdf.select_font("Helvetica" , { :encondig => "WinAnsiEnconding" } )
     pdf.start_page_numbering(pdf.margin_x_middle, 5, 10, nil, nil, 1)
     
-    i1 = "#{RAILS_ROOT}/public/images/cabeceraVCC_pdf.jpg"
-    i2 = "#{RAILS_ROOT}/public/images/vcc-logo_pdf.jpg"
+#    i1 = "#{RAILS_ROOT}/public/images/cabeceraVCC_pdf.jpg"
+    i1 = "#{RAILS_ROOT}/public/images/cabeceraSAR_pdf.jpg"
+#    i2 = "#{RAILS_ROOT}/public/images/vcc-logo_pdf.jpg"
+    i2 = "#{RAILS_ROOT}/public/images/sar-logo_pdf.jpg"
+
     pdf.image i1, :justification => :right, :resize => 1
     pdf.image i2, :justification => :left, :resize => 0.7
     

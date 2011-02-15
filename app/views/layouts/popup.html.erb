@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <title><%= yield(:title) || current_site.name %></title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "lightbox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "calendar", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.fancybox", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "jquery.jcrop", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "timeentry", :media => "screen, projection" %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
+		
+    <!--[if IE]> 
+    <%= stylesheet_link_tag "ie", :media => "screen, projection" %>
+    <![endif]-->
+    <script type="text/javascript">
+      if (navigator.userAgent.indexOf('Mac') != -1) { 
+         document.write("<link href='/stylesheets/mac.css' media='screen, projection' rel='stylesheet' type='text/css' />"); 
+      }
+    </script>
+
+    <%= javascript_include_tag 'jquery', 'jquery.livequery', 'jquery.fancybox', 'jquery.easing', 'jquery-ui', 'jquery.form', 'application' %>
+    <%= yield :headers %>
+
+<%if current_site.domain == "sivic.redclara.net"%>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20726166-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+		<%end%>
+    
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        <%= yield :javascript %>
+      })
+    </script>
+    
+  </head>
+
+	<body style="min-width: 400px; min-height: 400px;">
+	  <div id="site" style="height: 400px;">
+		<div id="space" style="width: 425px; height: 400px;">
+		  <div id="content" style="width: 400px; height: 300px;">		      	      				
+            <div id="main" style="width: 400px; height: 230px;">		        
+              <div id="wrapper" style="width: 400px;">		
+	     		    <%= yield %>
+			  </div>
+			</div>
+          </div>
+<!--		  <div id="footer" style="width: 350px;"></div> -->  
+	    </div>
+	  </div>
+	</body>
+</html>

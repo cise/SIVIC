@@ -1,0 +1,33 @@
+<p>
+  <b>Ip address:</b>
+  <%=h @mcu.ip_address %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%=h @mcu.mcunumber %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%=h @mcu.model %>
+</p>
+
+<p>
+  <b>Trade:</b>
+  <%=h @mcu.trade %>
+</p>
+
+<p>
+  <b>Total ports:</b>
+  <%=h @mcu.total_ports %>
+</p>
+
+<p>
+  <b>Shared ports:</b>
+  <%=h @mcu.shared_ports %>
+</p>
+
+
+<%= link_to 'Edit', edit_space_mcu_path(@mcu.space, @mcu) %> |
+<%= link_to 'Back', space_mcus_path %>

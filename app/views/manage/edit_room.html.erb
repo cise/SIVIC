@@ -1,0 +1,114 @@
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'user_filter' %>
+  <%= javascript_include_tag 'jquery.fcbkcomplete' %>
+  <%= stylesheet_link_tag "fcbkcomplete", :media => "screen, projection" %>
+<% end %>
+
+<% content_for :search do  %>
+	<%= render :partial => 'search/form' %>
+<%end%>
+<% if current_user.superuser?%>
+	<%= render :partial => 'menu' %>
+<% else %>
+	<% menu :admin %>
+
+	<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+	  <%= render :partial => 'spaces/admin_tabs' %>
+	<% end %>
+<% end %>
+
+
+<% content_for :javascript do %>
+    $(".available_schedule_link").fancybox({
+    'frameWidth' : 640,
+    'frameHeight' : 480
+  });
+  $(".cancel").click(function ()
+  	{
+		$(window.location).attr('href', "../../manage/rooms");
+    });
+
+<% end %>
+
+
+<div id="line">
+   <span class="bold"><%= t('room.editing') %></span>
+</div>
+		
+<div id="edit_public_profile">
+	<div class="profile_content_item">
+<% form_for(@room) do |f| %>
+  <%= f.error_messages %>
+
+  <div>
+    <span style="margin-left:70px"><label> <%= t("room.name") %></label> </span>   
+    <span style="margin-left:112px"><label><%= @room.name %></label></span>
+  </div>
+  <div>
+    <span style="margin-left:70px"><label><%= t("room.institucion") %></label></span>
+    <span style="margin-left:97px"><label><%= @room.space.name %></label></span>
+  </div>
+  <div class="margin-up">
+    <label>Covi Asignado(s)</label>
+   <span>
+<%= select_tag "performance[agent]", "<option>Agregar COVI</option>" + options_for_select(User.find_all_by_superuser(0).collect { |u| [ u.profile.full_name, "user-" + u.id.to_s ] }), :class=>"small-font main_text" %></span>
+<br />
+
+   <div class="margin-up" style="margin:0px 0px 0px 225px">
+     <ul id="holder_covis" class="holder margin-up">
+     <% for perfs in @room.performances_by_role("COVI") %>
+       <li id="<%= "covi_#{perfs.agent.id}" %>" class="bit-box" rel="<%= "#{perfs.agent.id}" %>"><%= "#{perfs.agent.name}" %>
+         <a class='closebutton' href='#' onclick='$.ajax({url: "/performances/<%="#{perfs.id}"%>", type: "DELETE", success: function(){ window.location.reload(); } });'>
+         </a>
+       </li>
+     <% end %>
+     </ul>
+   </div>
+  </div>
+  <div class="margin-up">
+  <% if @room.certification_level==0 %>
+		<label><%= t('room.reevaluation')%>:</label>
+		<strong><%= @room.certification_level_text %></strong>
+		<br />
+	<% else %>
+		<% if (@room.reevaluation) %>
+			<label><%= t('room.reevaluation')%>:</label>
+			<strong><%= t('room.reevaluation_text') %></strong> 
+			<br />
+		<% else %>
+			<label><%= t('room.reevaluation')%>:</label>
+			<strong><%= t('room.reevaluation_aprove') %></strong> 
+			<br />
+		<% end %>         
+	<% end %>   
+  </div>
+  <div class="margin-up">
+   <label><%= t('room.certification_level')%>:</label>
+   <span><%= f.select :certification_level,"<option>" + t('room.select_certification_level') + "</option>" + options_for_select(Room::CERTIFICATION_LEVELS, @room.certification_level), :class => "main_text small-font" %>
+</span>
+  </div>
+   <div class="margin-up">
+   	<label><%= t('room.equipment')%>:</label>
+   	<span><%= @room.equipment %></span>
+  </div>
+   <div class="margin-up">
+   	<label><%= t('room.devices')%>:</label>
+   	<span><%= @room.devices %></span>
+  </div>
+  <div class="margin-up">
+   	<label><%= t('room.bandwidth')%>:</label>
+   	<span><%= @room.bandwidth %></span>
+  </div>
+  <div class="margin-up">
+   	<label><%= t('room.type_light')%>:</label>
+   	<span><%= @room.light_type %></span>
+  </div>
+  <br />
+     <div align="right">
+    <button type="submit" class="basic_button blue_button"><%="Guardar"%></button>
+    <button type="button" class="basic_button blue_button cancel"><%="Cancelar"%></button>
+  </div>
+ 
+<% end %>
+	</div>
+</div>

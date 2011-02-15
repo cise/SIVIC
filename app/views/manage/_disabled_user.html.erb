@@ -1,6 +1,7 @@
 <div class="user disabled">
   <div class="links">
-    <%=link_to image_tag("icons/accept.png", :alt => t('enable'), :title => t('user.enable')), enable_user_path(user), :method => :post%>
+    <% link_to image_tag("icons/accept.png", :alt => t('enable'), :title => t('user.enable')), enable_user_path(user), :method => :post%>
+    <%=link_to image_tag("icons/accept.png", :alt => t('enable'), :title => t('user.enable')), "/users/#{user.id}/enable", :method => :post%>
   </div>
     <%=user.name%>
 </div>

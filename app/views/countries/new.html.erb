@@ -1,0 +1,40 @@
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<% content_for :javascript do %>
+	$(".cancel").click(function ()
+  	{
+		$(window.location).attr('href', "manage/countries");
+    });
+<% end %>
+
+<%= render :partial => 'manage/menu' %>
+
+<div class="profile_content_item">
+<h3><%= t('countries.new') %></h3>
+<% form_for(@country) do |f| %>
+  <%= f.error_messages %>
+  <div class="margin-up">
+    <%= f.label :code, t('countries.code') %>:
+	<%= f.text_field :code %>
+  </div>
+  <div class="margin-up">
+    <%= f.label :name, t('countries.name') %>:
+	<%= f.text_field :name %>
+  </div>
+  <div class="margin-up">
+    <%= f.label :timezone, t('countries.timezone') %>:
+    <%= f.time_zone_select :timezone, nil, :include_blank => true %>
+  </div>
+  <!--
+  <p>
+    <%= f.label :gmt_offset, t('countries.gmt_offset') %>:<%= f.text_field :gmt_offset %>
+  </p>
+  -->
+ <div align="right">
+    <button type="submit" class="basic_button blue_button"><%="Guardar"%></button>
+    <button type="button" class="basic_button blue_button cancel"><%="Cancelar"%></button>
+  </div>
+<% end %>
+</div>

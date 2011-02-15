@@ -1,0 +1,104 @@
+  <% content_for :javascript do %>
+
+  /*jquery for assistants div*/
+/*
+  $(".list_my_spaces").livequery('click',function () {
+    $("#my_spaces_lite").hide();
+    $("#all_my_spaces").hide();
+    $("#my_spaces_list").show();
+    return false;
+  });*/
+  
+	/*
+   $(".more_spaces").livequery('click',function () {
+    $("#my_spaces_lite").hide();
+    $("#my_spaces_list").hide();
+    $("#all_my_spaces").show();
+	$("#profile_spaces").get($(".more_spaces").attr("href"));
+    return false;
+  });*/
+   
+   $(".less_spaces").livequery('click',function () {
+     $("#all_my_spaces").hide();
+     $("#my_spaces_list").hide();
+     $("#my_spaces_lite").show();
+    
+    return false;
+  });
+
+<%end%>
+	
+	<div class="my_spaces margin-up">    
+	    <div id="my_spaces_title">
+	    	<h3>
+	    		<%=image_tag("http://" + Site.current.domain.to_s+"/images/icons/information.png", :class=>"icon",:title=> t('information.information4'))%> <%=title%>
+			</h3>
+	    </div>
+	    
+		<%if list_user_spaces.empty?%>
+			<ul>
+	        	<li><span class="unified_user"><%=show_user.name%></span> No pertenece a ninguna institucion</li>
+	      	</ul>
+	    <%else%>
+<% if current_user.spaces.size() > 6 %>
+		<div><%= render :partial => 'homes/list_countries' %></div>
+<% end %>
+	    	<div id="my_spaces_lite" <%= 'style="display: none;"' if params[:all_my_spaces] or params[:list_my_spaces]%> >
+	        	<ul class="inline">
+				
+	          		<%for space in list_user_spaces.first(6)%>
+						<%if space.authorize? :read, :to => current_user%>
+	              			<li><%=link_to logo(space,{:size=>"h64", :title=> space.name }),space_path(space) %></li>
+						<%else%>
+							<li><%=logo(space,{:size=>"h64", :title=> space.name })%></li>
+						<%end%>
+	        		<%end%>
+				</ul>
+	      
+	  			<div class="links">        			
+<%=link_to_remote t('show_list_version>>'),:update => "#profile_spaces", :url => profiles_updated_spaces_path(:user_id=>current_user.id,:country_space=>params[:country_space], :list_my_spaces => true),:class => "list_my_spaces" %>
+
+					<% if list_user_spaces.size > 6 %>
+        				<span class="sidebar_text">|</span>
+<%=link_to_remote t('more>>'),:update => "#profile_spaces", :url => profiles_updated_spaces_path(:user_id=>current_user.id,:country_space=>params[:country_space], :all_my_spaces => true),:class => "more_spaces" %>
+					<% end %>
+      			</div>
+	      	</div>
+	      
+	      	<div id="all_my_spaces" <%= 'style="display: none;"' unless params[:all_my_spaces]%>>
+	        	<ul class="inline">
+	          		<% list_user_spaces.each do |s| %>
+						<%if s.authorize? :read, :to => current_user%>     
+	              			<li><%= link_to logo(s,{:size=>"h64", :title=> s.name }),space_path(s) %></li>
+	            		<%else%>
+							<li><%= logo(s,{:size=>"h64", :title=> s.name })%></li>
+						<%end%>
+					<% end %>
+				</ul>
+	
+	      		<div class="links">
+<%=link_to_remote t('show_list_version>>'),:update => "#profile_spaces", :url => profiles_updated_spaces_path(:user_id=>current_user.id,:country_space=>params[:country_space], :list_my_spaces => true),:class => "list_my_spaces" %>
+
+	        		<span class="sidebar_text">|</span>
+<%=link_to_remote t('collapse>>'), :update => "#profile_spaces", :url => profiles_updated_spaces_path(:user_id =>current_user.id, :country_space=>params[:country_space]), :class => "less_spaces"%>
+	      		</div>
+	      	</div>
+	      
+	      	<div id="my_spaces_list" <%= 'style="display: none;"' unless params[:list_my_spaces]%> >
+	      		<ul>
+	        		<% list_user_spaces.each do |s| %>     
+	          			<%if space.authorize? :read, :to => current_user%>    
+							<li><%= link_to(s.name, s) %></li>
+					  	<%else%>
+							<li><%= s.name %></li>
+						<%end%>
+	        		<% end %>
+	      		</ul>
+	
+				<div class="links">
+<%=link_to_remote t('photos_view>>'),:update=> "#profile_spaces", :url => profiles_updated_spaces_path(:user_id=>current_user.id,:country_space=>params[:country_space], :all_my_spaces => true), :class => "less_spaces"%>
+	      		</div>
+			
+	      	</div>
+	    <%end%>
+	</div>

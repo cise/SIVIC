@@ -25,7 +25,14 @@ class Space < ActiveRecord::Base
   has_many :news, :dependent => :destroy
   has_many :attachments, :dependent => :destroy
   has_many :tags, :dependent => :destroy, :as => :container
-           
+
+  has_many :rooms
+  has_many :users
+  has_many :childs, :class_name => "Space", :foreign_key => "parent_id"
+  belongs_to :parent, :class_name => "Space"
+  has_many :mcus
+  has_many :reservations
+
   has_permalink :name, :update=>true
   
   acts_as_resource :param => :permalink
@@ -57,6 +64,9 @@ class Space < ActiveRecord::Base
 
   validates_presence_of :name, :description
   validates_uniqueness_of :name
+
+  cattr_reader :per_page
+  @@per_page = 50
 
   #after_create { |space|
       #group = Group.new(:name => space.emailize_name, :space_id => space.id, :mailing_list => space.mailing_list)
@@ -335,5 +345,36 @@ class Space < ActiveRecord::Base
     if self.public? && [ :read, [ :read, :content ], [ :read, :performance ] ].include?(permission)
       true
     end
+  end
+
+  def self.capitals
+    self.connection.select_all("SELECT DISTINCT substring(name,1,1) as capital FROM spaces WHERE disabled = 0 ORDER BY name ASC;")
+  end
+
+  def self.countries
+    find(:all, :select => "DISTINCT(country)", :conditions => ["country IS NOT NULL and country <> ''"], :order => "country", :readonly => true).map { |x| x.country }
+  end
+
+  def self.spaces_by_country(country)
+    find_all_by_country_and_disabled(country, 0).collect {|x| [x.name, x.id] }
+  end
+
+  def self.getNRENs
+    clara = find_by_name("Red CLARA")
+    find_all_by_parent_id(clara.id, :order => "name")
+  end
+
+  def self.all_pending_join_requests_for(user)
+    jr = connection.select_all("SELECT * FROM admissions WHERE candidate_type = '#{user.class.to_s}' and candidate_id = #{user.id} and type = 'JoinRequest' and processed_at is null;").size
+    return jr > 0
+  end
+
+  def self.isUser(user)
+    sp = self.connection.select_all("SELECT * FROM performances, roles WHERE performances.role_id = roles.id and performances.stage_type = 'Space' and performances.agent_type = '#{user.class.to_s}' and performances.agent_id = #{user.id} and roles.name = 'User';")
+    return sp.count > 0;
+  end
+
+  def isNREN
+    parent == Space.find_by_name("Red CLARA") ? true : false
   end
 end

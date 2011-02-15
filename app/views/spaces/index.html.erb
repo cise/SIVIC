@@ -64,14 +64,6 @@
 	$(".unautorized a").fancybox({
     'hideOnContentClick' : false
   });
-  
-
-	
-	
-	
-	
-
-	
 	
 	<%if params[:space_id]=="my"%>
 	   $("input#spaces_my").click();
@@ -94,9 +86,12 @@
 <% end %>
 
 <% content_for :sidebar do  %>
-	<% if logged_in?%>
+	<% if logged_in? && ( current_user.superuser? || current_user.isCoviNREN ) %>
       <div class="button_wrapper">
-        <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path,:class => "new_space_link big_button orange_button"%>
+        <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path(:parent => current_user.main_space.id),:class => "new_space_link big_button orange_button"%>
+      </div>
+	<% elsif logged_in? %>
+      <div class="button_wrapper">        
       </div>
     <%else%>
 	  <div class="join">
@@ -123,20 +118,15 @@
 <%else%>
   <%@user_spaces = []%>
 <%end%>
-<div id = "public_spaces" class="space-box margin-up">
 
-  <div id="title"><h3 class="blue bold"><%= t('space.public.other') %></h3></div>
-  <div id="space_content">
-    <% for space in @public_spaces %>
-      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
-    <% end %>
-  </div>
-</div>
 
 <div id = "private_spaces" class="space-box">
 
-  <div id="title"><h3 class="blue bold"><%= t('space.private') %></h3></div>
+  <div id="title"><h3 class="blue bold"><%= "Institución" %></h3></div>
+ 
   <div id="space_content">
+  	 <div id="navigator" class="pagination"><%= link_capitals Space.capitals, params[:cap] %></div>
+	  
   	<% for space in @private_spaces %>
   	  <% unless space.authorize?(:read, :to => current_agent) %>
   	    <div class="space_item other" name="<%=space.permalink%>">
@@ -146,6 +136,9 @@
   		  <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
   	  <% end %>
   	<% end %>
+	<% for space in @public_spaces %>
+      <div class="space_item <%= if @user_spaces.include?(space) then "mymy" else "other" end%>" name="<%=space.permalink%>"><%=link_logo (space, :size=> 'h64', :title => space.name)%></div>
+    <% end %>
   </div>
 </div>
 

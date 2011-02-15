@@ -1,0 +1,60 @@
+
+<% content_for :javascript do  %>
+  $("#edit_reservation_<%=@reservation.id%>").submit(function(){
+    if ($("#reservation_reason_rejection").val() == "") 
+	{
+      alert("Debe seleccionar un motivo de cancelacion");
+	  return false;
+	}
+    else
+	{
+	  parent.location.reload();
+	  return true;
+	}
+  });
+<% end %>
+
+<div>
+	<label><strong> Anulaci&oacute;n de la reservaci&oacute;n:</strong></label>
+	<br/>
+	<%= @reservation.title %>
+	
+	<br />
+<% form_for(@reservation, :url => reservation_path(@reservation), :html => { :method => :delete } ) do |f| %>
+<%= hidden_field_tag("_method", "delete") %>
+<% schedule = @reservation.calendar_events %>
+
+<label><strong>Horario de la reservaci&oacute;n: </strong></label><br />
+<label class="main_date">
+<% schedule.each do |calendar_event| %>
+  <%= calendar_event.to_s %><br />
+<% end %>
+</label>
+<br />
+<span style="margin-left:5px">
+	<label>Motivo de Anulaci&oacute;n:</label>
+</span>
+<br />
+<span style="display:block;position:relative;left:35px;">
+<%= select_tag("reservation[reason_rejection]", 
+  "<option value=''>Seleccione el motivo de la anulaci&oacute;n</option>" + 
+    options_for_select(Reservation::REJECT_REASONS.map {|rr| [rr[1], rr[0]]})) 
+%>
+</span>
+<br />
+  <span style="margin-left:5px">
+	<label>Observaciones:</label>
+  </span>
+
+  <span style="display:block;position:relative;left:35px;">
+  	<%= text_area_tag("reservation[notes]", "", :cols => 40, :rows => 3)%>
+  </span>
+  
+  <br />
+
+  <div>  	
+    <button style="position:relative;left:35px;" type="submit" id="reservation_cancel_button" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_REJECT %>"><%=t('reservation.button_cancel_by_covi_submit')%></button>
+  </div>
+  
+<% end %>
+</div>

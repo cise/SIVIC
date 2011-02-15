@@ -1,0 +1,61 @@
+
+<% content_for :javascript do  %>
+  $("#edit_reservation_<%=@reservation.id.to_s%>").submit(function(){
+    if ($("#reservation_<%=@reservation.id.to_s%>_reason_rejection").val() == "") 
+	{
+      alert("Debe seleccionar un motivo de rechazo");
+	  return false;
+	}
+    else
+	{
+	  parent.location.reload();
+	  return true;
+	}
+  });
+<% end %>
+
+<div>
+	<label><strong>Rechazo de la reservación:</strong></label>
+	<br />
+	<%= @reservation.title %>
+	
+	<br />
+<% form_for(@reservation) do |f| %>
+<% schedule = @reservation.calendar_events %>
+
+<label><strong>Horario de la reservación:</strong></label><br />
+<label class="main_date">
+<% schedule.each do |calendar_event| %>
+  <%= calendar_event.to_s %><br />
+<% end %>
+</label>
+<br />
+
+<span style="margin-left:5px">
+	<label>Motivo de Rechazo:</label>
+</span>
+<span style="display:block;position:relative;left:35px;">
+<%= select_tag("reservation[reason_rejection]", 
+  "<option value=''>Seleccione el motivo del rechazo</option>" + 
+    options_for_select(Reservation::REJECT_REASONS.map {|rr| [rr[1], rr[0]]})) 
+%>
+</span>
+<br />
+
+  <span style="margin-left:5px">
+	<label>Observaciones:</label>
+  </span>
+
+  <span style="display:block;position:relative;left:30px;">
+  	<%= text_area_tag("reservation[notes]", "", :cols => 40, :rows => 3)%>
+  </span>
+  
+  <br />
+  <br />
+  
+  <div>  	
+    <button style="position:relative;left:35px;" type="submit" id="reservation_cancel_button" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_REJECT %>"><%=t('reservation.button_reject_submit')%></button>
+  </div>
+  
+<% end %>
+</div>

@@ -1,0 +1,116 @@
+<% menu :admin %>
+
+<% content_for :sidebar do %>
+    <% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+      <%= render :partial => 'spaces/edit_space' %>
+    <% else %>
+      <%= render :partial => 'spaces/sidebar' %>
+    <% end %>
+<% end %>
+
+<% if space.role_for?(current_user, :name => 'Admin') || current_user.superuser? %>
+  <%= render :partial => 'spaces/admin_tabs' %>
+<% end %>
+
+<p>
+  <b><%=t('room.name')%>:</b>
+  <%=h @room.name %>
+</p>
+
+<p>
+  <b><%=t('room.description')%>:</b>
+  <%=h @room.description %>
+</p>
+
+<p>
+  <b><%=t('room.country')%>:</b>
+  <%=h @room.country %>
+</p>
+
+<p>
+  <b><%=t('room.city')%>:</b>
+  <%=h @room.city %>
+</p>
+
+<p>
+  <b><%=t('room.location')%>:</b>
+  <%=h @room.location %>
+</p>
+
+<p>
+  <b><%=t('room.phonenumber')%>:</b>
+  <%=h @room.phone_number %>
+</p>
+
+<p>
+  <b><%=t('room.capacity')%>:</b>
+  <%=h @room.capacity %>
+</p>
+
+<p>
+  <b><%=t('room.type')%>:</b>
+  <%=h @room.room_type == :public ? "Publica" : "Privada"%>
+</p>
+
+<p>
+  <b><%=t('room.equipment')%>:</b>
+  <%=h @room.equipment %>
+</p>
+
+<p>
+  <b><%=t('room.devices')%>:</b>
+  <%=h @room.devices %>
+</p>
+
+<p>
+  <b><%=t('room.type_light')%>:</b>
+  <%=h @room.light_type == "blancas" ? "Blancas" : "Calidas" %>
+</p>
+
+<p>
+  <b><%=t('room.bandwidth')%>:</b>
+  <%=h @room.bandwidth %>
+</p>
+
+<p>
+  <b><%= t('room.ip_address')%>:</b>
+  <%=h @room.ip_address %>
+</p>
+
+<p>
+  <b><%= t('room.department')%>:</b>
+  <%=h @room.ip_address %>
+</p>
+
+<p>
+  <b><%=t('room.service_type')%>:</b>
+  <%=h @room.service_type %>
+</p>
+
+<!--
+<p>
+  <b>Uri:</b>
+  <%=h @room.uri %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%=h @room.lng %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%=h @room.lat %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @room.user_id %>
+</p>
+-->
+<!--
+<% if logged_in? && current_agent.active? && (space.role_for?(current_user, :name => 'Admin') || current_user.superuser?) %>
+<%= link_to 'Editar Sala', edit_space_room_path(space, @room) %> |
+<% end %>
+<%= link_to 'Listado de Salas', space_rooms_path %>
+-->

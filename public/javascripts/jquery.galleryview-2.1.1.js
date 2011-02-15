@@ -508,7 +508,7 @@ var window_loaded = false;
 				'padding':'0',
 				'width':strip_width+'px',
 				'position':'absolute',
-				'zIndex':'900',
+				'zIndex':'0',
 				'top':(filmstrip_orientation=='vertical' && slide_method=='strip'?-((f_frame_height+opts.frame_gap)*iterator):0)+'px',
 				'left':(filmstrip_orientation=='horizontal' && slide_method=='strip'?-((f_frame_width+opts.frame_gap)*iterator):0)+'px',
 				'height':strip_height+'px'
@@ -606,7 +606,7 @@ var window_loaded = false;
 			var pointer = $('<div></div>');
 			pointer.addClass('pointer').appendTo(j_gallery).css({
 				 'position':'absolute',
-				 'zIndex':'1000',
+				 'zIndex':'0',
 				 'width':'0px',
 				 'fontSize':'0px',
 				 'lineHeight':'0%',

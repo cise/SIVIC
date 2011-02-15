@@ -1,5 +1,11 @@
 <% content_for :javascript do%>
 
+$(".cancel").click(function ()
+  {
+	$(window.location).attr('href', "<%= "http://" + Site.current.domain.to_s + space_path(@space)%>");
+
+  });
+
   $("#send_invitation_button").livequery('click',function(){ 
 
     // Build invitation message by putting its parts together
@@ -73,9 +79,11 @@
         * <%= t('invitation.legend.URL') %></p>
       </div>
 			
-			<div class="margin-up">
-				<input type="button" id="send_invitation_button" value="<%=t("button.send")%>" />
-			</div>
+	<div class="margin-up">
+		<button type="submit" id="send_invitation_button" class="basic_button blue_button" name="submit" value="<%=t("button.send")%>"> <%=t("button.send")%> </button>
+		<button type="button" id="send_invitation_button" class="basic_button blue_button cancel" name="submit" value="<%=t("button.cancel")%>"> <%=t("button.cancel")%> </button>
+				 
+	</div>
 	  <% end %>
 	</div>
 </div>

@@ -1,0 +1,15 @@
+<% name = reservation_id ? "reservation[country][#{reservation_id}]" : "reservation[country]"%>
+<% name = reservation_id ? "reservation[country]" : "reservation[country]"%>
+<% id = reservation_id ? "reservation_country_#{reservation_id}" : "reservation_country"%>
+
+<% countries_list = Room.getCountriesBySpaces(current_user.spaces).collect{|x| [x.country, x.country]} %>
+
+<div id="reservation_list_countries" class="margin-up">
+  <label for="country"><span class="red">* </span><%= t('reservation.country') %></label>
+  <%= select_tag(name, "<option>" + t('reservation.select_a_country') + "</option>" + options_for_select(countries_list), 
+      { :id => id, :onchange => '$(\'#reservation_list_rooms_invitation_' + reservation_id.to_s + '\').load(\'reservations/update_list_room_invitation\', { id: ' + reservation_id.to_s + ', country: $(\'#' + id + '\').val()})'} 
+                        ) %>
+</div>
+
+                           
+

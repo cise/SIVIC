@@ -1,0 +1,217 @@
+
+<% content_for :headers do  -%>
+  <%= javascript_include_tag 'jquery.filestyle', 'fckeditor/fckeditor', 'jquery.ba-bbq.min' %>
+<% end -%>
+
+<% content_for :javascript do %>
+
+/*
+ *  Expand and collapse thread
+ */
+  extend_thread = function(id){
+    $("#parent_" + id + " .extended_thread").show();
+    $("#parent_" + id + " .extend_thread").hide();
+    $("#parent_" + id + " .collapse_thread").show();
+    $("#message-body-" + id).hide();
+  }
+	
+  collapse_thread = function(id){
+    $("#parent_" + id + " .extended_thread").hide();
+    $("#parent_" + id + " .extend_thread").show();
+    $("#parent_" + id + " .collapse_thread").hide();
+    $("#message-body-" + id).show();
+  }  
+  
+  
+  $("input.home_menu_checkbox").click(function(){
+	  var contents;
+		var value = this.value
+		if ($.deparam.querystring().contents == null){
+      contents = "<%=Space.contents.map(&:to_s).join(",")%>".split(",");
+    }else{
+      contents = $.deparam.querystring().contents.split(",");
+    }
+		
+    if ($(this).attr("checked")){
+      contents.push(value);
+		}else{
+			contents = jQuery.grep(contents, function (a) {
+			  return a != value;
+			});
+		}
+		window.location=$.param.querystring("<%=home_path%>" + "?" + $.param.querystring(), "contents=" + contents.join(","));
+  });
+  
+  
+<% end %>
+
+<% content_for :search do  %>
+	<%= render :partial => 'search/form' %>
+<%end%>
+
+<% content_for :sidebar do  %>
+
+	<% if logged_in?%>
+		<div class="button_wrapper">
+			<%= link_to "<span>" + "Crear Nueva Reserva" + "</span>", new_reservation_path,:class => "new_space_link big_button orange_button"%>
+    </div>
+  <%end%>
+
+	<%= render :partial => 'profiles/user_spaces', :locals => {:show_user =>current_user, :title=>t('space.my_spaces')} %>
+
+  <%if !(current_user.spaces.empty?)%>
+    <%periods = select_periods(@events_of_user)%>
+  <%else%>
+    <%periods = [["today",[]], ["tomorrow",[]], ["week.this",[]], ["event.upcoming.other",[]]]%>
+  <%end%>
+
+	<div class="next-events margin-up">
+
+		<div class="next-events-title">
+			<h3>
+				<%=image_tag("icons/date.png",:class=>"icon") + " " + t('calendar.my')%>
+				<span class="small-font">(GMT<%= Time.zone.formatted_offset %>)</span>
+			</h3>
+    </div>
+
+    <%periods.each do |period|%>
+      <div class="next-events-section">
+        <%if period[1].empty?%>
+          <span class="bold"><%= t(period[0])%></span><br/>
+          <%=t('event.no_events')%>
+        <%else%>
+          <span class="bold"><%= t(period[0])%></span>
+          <ul>
+            <% for event in period[1] -%>
+              <li class="event">
+                <%event_link="<span class='red'>" + sanitize(event.title) + "</span> <br/> <span class='small-font unified_date'>" + event.start_date.to_formatted_s(:short) + " - " + event.end_date.to_formatted_s(:short) + "</span>"%>
+                <%=link_to event_link, space_event_path(event.space,event)%>
+                <%=link_to "", space_event_path(event.space,event),:class=>"box-link"%>
+              </li>
+            <%end%>
+          </ul>
+        <%end%>
+      </div>
+    <%end%> 
+
+	</div>
+ 
+  <div id="home-inbox-full" class="margin-up">
+    
+		<div id="home-inbox-title">
+    	<h3>
+    		<%=image_tag("icons/email.png",:class=>"icon")%>
+				<%= link_to t('inbox.my', :checked => PrivateMessage.inbox(current_user).select{|msg| !msg.checked}.size), user_messages_path(current_user), menu_options(:inbox, :id => "user_inbox_link")%>
+			</h3>
+		</div>
+	
+		<%if @private_messages.empty?%>
+	  	<div class="next-events-section">
+	    	<span><%=t("message.private.none")%></span>
+	  	</div> 	
+		<%else%>
+	    <%for private_message in @private_messages%>
+        <%if @sender.present?%>
+          <%@sender=User.find_with_disabled(private_message.sender_id)%>
+       		<div class="next-events-section">
+            <div class="user-logo">
+              <%=link_logo(@sender,:size=>32, :url => user_path(@sender), :title=>@sender.login) %>
+            </div>
+            <div class="home-inbox-message">
+              <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+              <br/>
+              <%= sanitize(first_words(private_message.body,35)) %>
+            </div>
+          </div>
+        <%else%>
+          <div class="next-events-section">
+            <div class="home-inbox-message">
+              <span class="home-inbox-topic"><%= link_to first_words(sanitize(private_message.title),25), user_messages_path(current_user, :message=>private_message.id) %></span>
+              <br/>
+              <%= sanitize(first_words(private_message.body,35)) %>
+            </div>
+          </div>
+        <%end%>
+		  <%end%>
+    <%end%>
+	</div>
+<%end%>  
+
+
+<% content_for :menu do  %>
+	<%= render :partial => "menu" %>
+<% end %>
+
+<div id="recent-activity">
+	<div id="line">
+      	<span class="bold"><%= "Nueva Reserva" %></span>
+    	</div>
+	<%for interval in intervals(@all_contents) do -%>
+		<%unless interval[:contents].empty? -%>
+			
+  	<%end -%>
+	
+
+	<% end -%>
+<div id="edit_public_profile">
+	
+<div class="profile_content_item">
+
+<% form_for(@reservation, :html => { :multipart => true}) do |f| %>
+  <%= f.error_messages %>
+  <div class="margin-up">
+	<label for="title"><%= t('reservation.title') %>:</label>
+	<%= f.text_field :title %>
+  </div>
+   <div class="margin-up">
+	<label for="description"><%= t('reservation.description') %>:</label>
+	<%= f.text_area :description,:cols => "40", :rows => "5"  %>
+  </div>
+   <div style="margin-left:70px">
+	<label for="type"><%= t('reservation.type') %>:</label>
+        <span style="margin-left:120px">
+          <%= f.radio_button :type, :public %><%= label_tag t('reservation.type_public') %></span>
+	  <%= f.radio_button :type, :private %><%= label_tag t('reservation.type_private') %>
+  </div>
+  <div class="margin-up">
+	<label for="vc_service"><%= t('reservation.service_vc') %>:</label>
+        <%= f.select(:vc_service, Room::SERVICE_TYPES, :include_blank => t('reservation.select_a_vcservice')) %>
+  </div>
+ 
+  <div id="reservation_list_countries"><%= render :partial => 'list_countries', :object => @reservation %></div>
+  <div id="reservation_list_rooms"><%= render :partial => 'list_rooms', :object => @reservation %></div>
+
+  <div style="margin-left:70px">
+	<%= link_to '[Buscar nuevas aulas]', "[Buscar nuevas aulas]" %>
+  </div>
+  <div class="margin-up">
+	<label for=":title"><%= t('reservation.reservation_schedule') %></label>
+	<% f.text_field :title %>
+   </div>
+  <div class="margin-up">
+	<label><strong><%= t('reservation.participants') %></strong></label>
+   </div>
+    <div style="margin-left:70px">
+		<% link_to '[' + t('reservation.add_participants')+']', "[Añadir participantes]" %>
+
+		<%= render :partial => 'new_invitation', :object => @reservation.requests, :locals => {:checked_users => @checked_users ? @checked_users : Array.new, :message => @message} %>
+
+  	</div>
+   <div style="margin-left:70px">
+   	<label><%= "" %></label>
+	<% f.text_area :description,:cols => "64", :rows => "5"   %>
+   </div>
+   <div style="margin-left:70px">
+	 <%= f.check_box(:aggrement) %><label for="public"><%= t('reservation.aggrement') %></label>
+   </div>
+   <br />
+   <div style="margin-left:70px">
+		<label><%= "* Campos Obligatorios" %></label>
+  	</div>
+  <div align="right">
+  	<button type="submit" class="basic_button blue_button"><%="Reservar"%></button>
+	</div>
+<% end %>
+</div>
+</div>
+</div>

@@ -44,6 +44,33 @@ class ApplicationController < ActionController::Base
     space || raise(ActiveRecord::RecordNotFound)
   end
 
+   before_filter :update_activity_time
+	
+	def session_expiry
+		reset_session
+		flash[:error] = t('session.error.expire')
+		redirect_to :controller => 'frontpage', :action => 'index'
+	end
+
+#	def update_activity_time
+#		session[:expires_at] = 30.minutes.from_now
+#	end
+
+	def update_activity_time
+         if logged_in?
+		from_now = 15.minutes.from_now
+		if session[:expires_at].blank?
+			session[:expires_at] = from_now
+		else
+			@time_left = (session[:expires_at].utc - Time.now.utc).to_i
+			unless @time_left > 0
+			session[:expires_at] = from_now
+			session_expiry
+		end
+         end
+	end
+end
+
   helper_method :space, :space!
 
   before_filter :not_activated_warning
@@ -51,7 +78,9 @@ class ApplicationController < ActionController::Base
     if authenticated? && ! current_agent.active?
       #if the account is going to be activated we only show the activaton flash not this one
       unless params[:controller] == "users" && params[:action]=="activate"
-        flash[:notice] = t('user.not_activated')
+        flash[:notice] = t('user.not_activated') + 
+                         "<br />Su cuenta debe estar activada para hacer reservaciones de salas." +
+                         "<br />Su solicitud para unirse a su institución está siendo procesada."
       end
     end
   end
@@ -61,7 +90,13 @@ class ApplicationController < ActionController::Base
     if current_user && current_user.is_a?(User) && current_user.timezone
       Time.zone = current_user.timezone
     else
-      Time.zone = 'Madrid'
+      Time.zone = 'UTC'
+    end
+    if current_user && current_user.is_a?(User) && authenticated? && current_agent.active? && !current_user.superuser?
+#      logger.error "space=#{current_user.main_space} Timezone=#{Time.zone.name} current_user.timezone=#{current_user.timezone} country_timezone=#{Country.find_by_code(current_user.main_space.country).timezone}"
+      if current_user.main_space && !Country.find_by_code(current_user.main_space.country).nil? && Time.zone.name != Country.find_by_code(current_user.main_space.country).timezone
+        flash.now[:notice] = "Su zona horaria es diferente a la de su institución principal. Para cambiarla haga <a href=\"#{edit_user_path(current_user)}\">click aquí</a>"
+      end
     end
   end
 
@@ -103,9 +138,7 @@ class ApplicationController < ActionController::Base
     end
     true
   end
-  
-  
-  
+ 
   private
   
   def accept_language_header_locale

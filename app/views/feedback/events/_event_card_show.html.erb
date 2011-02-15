@@ -1,0 +1,121 @@
+<% content_for :headers do %>
+  <%= javascript_include_tag 'jquery.filestyle','jquery.jcrop' %>
+<%end %>
+
+<% content_for :javascript do %>
+  <%= render :partial => 'logos/crop_logo.js.erb',
+    :locals => { :url_form   => precrop_space_event_logo_path(@event.space, @event),
+    :aspect_ratio => EventLogo::ASPECT_RATIO_S
+    } %>
+        
+<% end %>
+
+<div class="<%= event.is_happening_now? ? 'single_event current_single_event' : 'single_event'%>">
+  <ul class="group_links">
+    <li>
+      <%=link_to(image_tag("icons/exclamation.png", :alt => t('spam.report'),:class=>"icon"), spam_lightbox_space_event_path(@space,event),{:name => event.id, :class => 'spam_link', :title => t('spam.report')}) if logged_in? && event.spam != true %>
+    </li>
+    <!--<li>
+      <%=link_to image_tag("icons/comments-add.png",:alt => t('reply'),:class=>"icon" ), space_event_path(@space,event,:reply_to =>event.id),{:name => event.id, :class => 'reply_to_link', :title => t('comment.add_new')}if @space.authorize?([:create, :content],:to => current_user) %>
+    </li>-->
+    <li>
+      <%=link_to(image_tag("icons/pencil.png", :alt => t('edit'),:class=>"icon") , space_event_path(@space, event, :edit_event => event), :title => t('edit')) if event.authorize?(:update, :to => current_user) %>
+    </li>
+    <li>
+      <%=link_to(image_tag("icons/cancel.png", :alt => t('delete.one'),:class=>"icon") , space_event_path(@space, event),{:method => :delete, :title => t('delete.one'),:confirm => t('delete.confirm', :element => event.title)}) if event.authorize?(:delete, :to => current_user) && !event.is_happening_now?%>
+    </li>
+  </ul>
+  <div class="event_image">
+    <%if @event.logo %>
+      <div class="event_logo">
+        <%=logo(@event.logo, {:size => 64, :title=>t('logo.click_to_change')}) %>
+      </div>
+    <%elsif @event.has_date? %>
+      <div class="event_date_image">
+        <div class="event_day">
+          <%= sanitize(event.start_date.strftime("%d")) %>
+        </div>
+        <div class="event_month">
+          <%= localize(event.start_date, :format => "%b") %>
+        </div>
+        <div class="event_hour">
+          <%= event.get_formatted_hour %>
+        </div>
+      </div>
+	<%else%>
+		  <div class="event_date_image">
+            <div class="event_day"></div>
+          </div>
+    <%end %>
+  </div>
+  <p>
+    <%=link_to sanitize(highlight(event.title,@query)), space_event_path(@space, @event),:class=>"unified_event" %> <span class="updated"><%=t('created_time_ago', :time => sanitize(time_ago_in_words(@event.created_at))) %></span>
+  </p>
+  <ul>
+    <li class="main_date">
+      <%= t('when') %>: <%=@event.get_formatted_date %>
+    </li>
+    <%if event.location %>
+      <li class="main_text">
+        <%= t('where') %>: <%=sanitize(@event.location) %>
+      </li>
+    <%end %>
+      <li class="main_text">
+        <%= t('organizer') %>:<%isfirst=true %>
+
+        <%event.organizers.each do |org| %>
+          <%if isfirst %>
+            <%isfirst=false %>
+          <%else %>
+          ,<%end %>
+          <%=link_to(highlight(org.name,@query),user_path(org),:class=>"unified_user")%>
+        <%end %>
+      </li>
+  </ul>
+</div>
+
+<div id="jar">
+	<div class="button_wrapper grey_bar">
+	  <%=link_to ("<span>" + t('event.view_agenda') + "</span>"), space_event_path(@space, @event, :show_agenda => true), {:id=>"view_agenda", :class=>"grey_button basic_button #{'selected' if params[:show_agenda]} ",:title => t('event.view_agenda')} %>
+	  <%=link_to ("<span>" + t('event.view_repo') + "</span>"), space_event_path(@space, @event, :show_repository => true), {:id=>"view_repo", :class=>"grey_button basic_button #{'selected' if params[:show_repository]}",:title => t('event.view_repo')} %>
+	 
+	  <%unless @event.past?%>
+			<%if @event.has_streaming? || @event.is_in_person?%>
+		    <%=link_to ("<span>" + t('event.view_streaming') + "</span>"), space_event_path(@space, @event, :show_streaming => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_streaming? } #{'selected' if params[:show_streaming]}",:title => t("event.view_streaming#{ '_disabled' unless @event.show_streaming? }")} %>
+		  <%end%>
+			
+		  
+		  <%if (@event.is_virtual? && @event.web_interface?) || @event.is_in_person?%>
+		    <%=link_to ("<span>" + t('event.view_participation') + "</span>"), space_event_path(@space, @event, :show_participation => true), {:id=>"view_streaming", :class=>"grey_button basic_button #{ 'disabled_button' unless @event.show_participation?} #{'selected' if params[:show_participation]}",:title => t("event.view_participation_#{ 'disabled' unless @event.show_streaming? }")} %>
+		  <%end%>
+	  <%end%>
+		
+	  <%if @event.agenda.has_past_session_with_video? %>
+	    <%=link_to ("<span>" + t('event.view_recordings') + "</span>"), space_event_path(@space, @event, :show_video => @event.agenda.first_video_entry_id), {:id=>"view_recordings", :class=>"grey_button basic_button #{'selected' if params[:show_video]}",:title => t('event.view_recordings')} %>
+	  <%elsif @event.agenda.has_entries_with_video?%>
+		<%=link_to ("<span>" + t('event.view_recordings') + "</span>"),'#', {:id=>"view_recordings", :class=>"grey_button basic_button disabled_button",:title => t('event.view_recordings_disabled')} %>
+	  <%end %>
+	  <span class="separator">|</span>
+	  <%if event.authorize?(:update, :to => current_user) %>
+	    <div id="event_select">
+			  <%=link_to ("<span>" + t('event.action.select') + " | v </span>"),'dropdown', {:id=>"event_select", :class=>"event_select grey_button basic_button",:title => t('event.action.select')} %>
+				<ul id="actions_menu" style="display:none">
+					<li><%=link_to t('event.logo.button'),"javascript:change_logo();" %></li>
+	        <li><%=link_to t('icalendar.import'),"javascript:submit_icalendar();" %></li>
+	        <li><%=link_to t('invitation.title'), space_event_path(@space, @event, :new_invitations => @event)%></li>
+          <li><%=link_to t('event.group_invitation.button'),space_event_path(@space, @event, :group_invitation => @event)%></li>
+	        <li><%=link_to t('event.notification.button'),space_event_path(@space, @event, :notification => @event)%></li>
+          <% if @event.authorize?(:start, :to => current_user) && !@event.is_in_person? %>
+            <li><%=link_to t('event.start'), start_space_event_path(@space, @event), :method => :post %></li>
+          <% end %>
+				</ul>
+			</div>
+	  <%end %>
+	</div>
+	
+	<%if @event.agenda.present? %>
+		<%unless params[:show_video] || params[:show_streaming] || params[:show_participation] %>
+      <%= render :partial => "event_description" %>
+		<%end %>
+	<%end %>
+</div>

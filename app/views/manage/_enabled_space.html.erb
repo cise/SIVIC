@@ -1,6 +1,7 @@
 <div class="user enabled">
   <div class="links">
+    <%=link_to(image_tag("icons/pencil.png", :class=>"icon", :alt => t('edit')), "../spaces/#{space.permalink}/edit", {:class => 'edit_post_link', :title => t('edit')}) %>
     <%=link_to image_tag("icons/cancel.png", :alt => t('disable'), :title => t('space.disable')), space_path(space), :confirm => 'Are you sure?', :method => :delete%>
   </div>
-    <%=link_to space.name, space_path(space)%>
+    <%=link_to space.name + ((space.country && space.country != "") ? " (#{space.country})" : "" ), space_path(space)%>
 </div>

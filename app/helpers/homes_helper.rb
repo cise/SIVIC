@@ -39,9 +39,12 @@ module HomesHelper
   
   def path_for_home(p={})
     per_page = p[:per_page].present? ? p[:per_page] : params[:per_page]
+    type = p[:type].present? ? p[:type] : nil
+    country = p[:country].present? ? p[:country] : nil
+
     contents = (params[:contents].present? ? params[:contents].split(",") : Space.contents.map(&:to_s)) + [p[:add_content]] -[p[:rm_content]]
     
-    url_for(:per_page => per_page, :contents => contents.join(","))
+    url_for(:per_page => per_page, :type => type, :country => country, :contents => contents.join(","))
   end
   
   def home_menu_checkbox(name)

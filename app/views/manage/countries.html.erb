@@ -1,0 +1,38 @@
+<% content_for :search do  %>
+  <%= render :partial => 'search/form' %>
+<%end%>
+
+<%= render :partial => 'menu' %>
+
+<%content_for :sidebar do%>
+ <% if logged_in? && current_agent.active? && !current_user.spaces.empty? %>
+  <div class="button_wrapper">
+    <%= link_to "<span>" + t('countries.new') + "</span>", new_country_path,:class => "new_space_link big_button orange_button"%>
+  </div>
+  <%end%>
+<%end%>
+
+<div id="manage"> 
+<table width="675px">
+  <tr>
+    <th><strong><%= t('countries.code') %></strong></th>
+    <th><strong><%= t('countries.name') %></strong></th>
+    <th><strong><%= t('countries.timezone') %></strong></th>
+  </tr>
+
+<% @countries.each do |country| %>
+  <tr>
+    <td width="10%"><%=h country.code %></td>
+    <td width="30%"><%=h country.name %></td>
+    <td width="40%"><%=h country.timezone %></td>
+    <td width="20%">
+		<span align="right"><%= link_to(image_tag('icons/pencil.png', :class=> 'icon', :alt => t('edit')), edit_country_path(country)) %>
+		<%= link_to(image_tag('icons/cancel.png', :class=> 'icon', :alt => t('delete')), country, :confirm => 'Are you sure?', :method => :delete) %></span>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+</div>

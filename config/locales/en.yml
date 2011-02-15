@@ -20,10 +20,55 @@ en:
   activerecord: 
     attributes: 
       user: 
+        email: Email
         login: Login
+        password: Password
+        space_id: Institution
     errors: 
       full_messages: 
+        aggrement: 
+          blank: Agreement can not be blank.
+        body: 
+          blank: Body can not be blank.
+        code: 
+          blank: Code can not be blank.
+        description: 
+          blank: Description can not be blank.
+          length: The description is too short (100 character minimum).
+        email: 
+          blank: E-mail can not be blank.
+          format: Email is not valid.
+          length: Email is too short (5 characters minimum).
+        email_confirmation: Confirm email address can not be blank.
         format: "{{attribute}} {{message}}"
+        image: 
+          blank: Image and text are different.
+        ip_address: 
+          blank: The IP address can not be blank.
+          valida: The IP address is not valid.
+        mcunumber: 
+          blank: The MCU can not be blank.
+        model: 
+          blank: Model can not be blank.
+        name: 
+          blank: Name can not be blank.
+        password: 
+          blank: Password can not be blank.
+          length: Password is too short (4 charaters minimum).
+        password_confirmation: 
+          blank: Confirm password can not be blank.
+        room: 
+          blank: You must select a room
+        shared_ports: 
+          blank: The field shared ports can not be blank.
+        timezone: 
+          blank: You must select a Time Zone
+        title: 
+          blank: Title can not be blank.
+        total_ports: 
+          blank: The Port field can not be blank.
+        trade: 
+          blank: The model can not be blank.
       messages: 
         accepted: must be accepted
         blank: can't be blank
@@ -46,6 +91,15 @@ en:
         too_long: is too long (maximum is {{count}} characters)
         too_short: is too short (minimum is {{count}} characters)
         wrong_length: is the wrong length (should be {{count}} characters)
+      models: 
+        user: 
+          attributes: 
+            email: 
+              email: 
+                confirmation: does not match confirmation
+            password: 
+              password: 
+                confirmation: does not match confirmation
       template: 
         body: "There were problems with the following fields:"
         header: 
@@ -54,11 +108,14 @@ en:
   add: Add
   add_document: Add new document
   add_more_details: Add more details
+  add_website: Add Website
   address: Address
   admin: 
     one: Admin
     space: The administrator of {{spacename}}
   admission: 
+    accept: OK
+    deny: Deny
     errors: 
       candidate_equals_introducer: Candidate and introducer can't be the same person. (You should probably log out)
       candidate_has_role: already has a role
@@ -165,6 +222,7 @@ en:
   at: at
   attachment: 
     add: Add attachment
+    attach: Attach
     created: Attachment created successfully
     delete: Delete attachment
     deleted: Attachment successfully deleted
@@ -205,7 +263,7 @@ en:
   bad_request: Bad Request
   beta: (BETA)
   body: Body
-  button:
+  button: 
     cancel: Cancel
     create: Create
     edit: Edit
@@ -214,6 +272,7 @@ en:
     invite: Invite!
     next: Next Step
     other_spaces: Find other spaces
+    save: Save
     send: Send
     update: Update
     upload: Upload
@@ -224,7 +283,23 @@ en:
   cancel: Cancel
   caption: 
     add: Add a caption
+  category: 
+    confirm_delete: Erase the category?
+    created: Category created
+    description: Description
+    domain: 
+      one: Domain
+      other: Domains
+      without_categories: "{{domain}} has no categories"
+    editing: Editing Category
+    name: Category Name
+    new: New Category
+    one: Category
+    other: Categories
+    other_in_domain: Categories - {{domain}}
+    updated: Current category
   change: Change
+  change_password: Change Password
   change_pic: Change picture
   changed_mind: Changed your mind?
   chat: 
@@ -233,8 +308,8 @@ en:
     edit_enabled: Enable experimental chat at next login
     edit_question: Would you like to enable experimental chat feature?
     please_login_message: Please, login/register to participate
-    reconnect_message: Reconnect
     reconnect_button_message: Click to reconnect
+    reconnect_message: Reconnect
   check_mail: Please, check your email
   city: City
   click_here: Click here
@@ -254,6 +329,7 @@ en:
     recent: 
       other: Recent comments
     show_all: Show all comments
+  consider_and_reply: Please consider and respond to
   contact_information: Contact information
   container: 
     one: Container
@@ -277,8 +353,21 @@ en:
   conversation: 
     compress: Compress conversation
   could_not_find_anybody_with_that_email_address: Could not find anybody with that email address
+  countries: 
+    code: Code
+    create: Create country
+    edit: Edit country
+    gmt_offset: GMT
+    name: Name
+    new: New country
+    other: Countries
+    save: Save
+    successfully_created: The country has been successfully created
+    successfully_updated: The country has been successfully updated
+    timezone: Time Zone
   country: Country
   create: Create
+  create_: Create ...
   create_event: Create Event
   created_at: Created at
   created_at_date: "Created: {{date}}"
@@ -383,6 +472,7 @@ en:
   days: Days
   dblclick: Double click to edit...
   delete: 
+    cancel: Are you sure to cancel {{element}}?
     confirm: Delete {{element}}?
     one: Delete
     select: Select to delete
@@ -393,6 +483,7 @@ en:
     other: Details
   disable: Disable
   disabled: Disabled
+  discipline: Discipline
   docs: Docs
   document: 
     add: Add new document
@@ -463,6 +554,7 @@ en:
       myeventstitle1: You haven't created any event
     choose_location: Choose location
     colon: "Event:"
+    coming: Upcoming Activities
     connection: 
       info: Connection info for this event
       isabel: Isabel server
@@ -511,7 +603,7 @@ en:
       other: "{{size}} events were found"
     future: Future Event
     generate_pdf: Generate PDF
-    group_invitation:
+    group_invitation: 
       button: Invite mailing lists
       message_private_with_start_date: 
         in_person: "<p>I would like to invite you to <b>event 'event_name' in space {{space}}</b> on 'event_date'.</p><p>You can find more information about this event in <a href=\"event_url\">event_url</a></p><p>Please note that the event is part of a private space, so you need to be a registered user of the Virtual Conference Center to be able to send a join request to the space and have access to the event. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Kind regards,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
@@ -541,6 +633,7 @@ en:
       define3: ""
       description: Write a complete description
       edit: Edit your event
+      faq: FAQ
       in_agenda: in the agenda
       now: Now you can
       organisers: Select the space users that will organise this event
@@ -630,6 +723,7 @@ en:
     spam: Spam in events
     start: Start event
     started: Start request send successfully
+    steps: "Complete your event following steps:"
     streaming: 
       add: Add one.
       back: Back to streaming
@@ -713,6 +807,7 @@ en:
   from: From
   frontpage: 
     collaborate: 
+      sentence: Work
       sentence1: Organize your projects and activities
       sentence2: Participate in conferences and events
       sentence3: Create your own space and conferences
@@ -726,15 +821,18 @@ en:
       tags: Tags
     main_title: Global a hosting service for publishing and discovering videoconferences
     meet: 
+      sentence: Know
       sentence1: Discover best online videoconferences
       sentence2: Meet interesting people and groups
       sentence3: Video chat with your colleagues
     share: 
+      sentence: Share
       sentence1: Videoconference recording and streaming
       sentence2: Document and video repositories
       sentence3: Your contacts and relations
     stats: "{{vc}} videoconferences organized - {{vs}} videos stored"
   getting_started: Getting started!
+  grade: Title
   group: 
     add_to_group: Add To Group
     add_to_others: Add other Groups
@@ -759,6 +857,14 @@ en:
     not_found: hCard not found
   hello: Hello
   help: Help
+  help_cancelreservation: 
+    part1: To cancel a reservation CLARA virtual Videoconferencing (Beta)  1. Click on the icon to cancel reservations.
+    part2: "2. In the confirmation message by pressing the button OK. "
+    part3: 3. The reservation was canceled successfully.
+  help_covinoanswer: 
+    part1: When Covi not respond to a request CLARA Videoconferencing (Beta)  1. Inbox click the top menu.  2. Write the title and body of the message, and we click Add Users.
+    part2: 3. In the text box that appears, write VNOC and we click on user check box.
+    part3: 4. We selected user will appear and you click on the send button.
   help_createVC: 
     part1: To create a virtual congress in Global:<br><br>1. Click on <b>Events</b> tab.<br>2. Click on <b>Virtual Congress</b> on the right side of the page.
     part2: "3. Type a title and description for your event. <br>4. Type or select the space users organising the event. <br>5. Type the event\xE2\x80\x99s location.<br>6.\t \tChoose the participation modes, which let you decide how people can connect to the virtual meeting. <br>&nbsp; &nbsp; a. <b> Isabel </b> means the underlying open source video-conferencing software.<br> &nbsp;&nbsp; &nbsp;b.<b> Web </b> the opportunity to participate via web browser.  <br>7. Click on <b>Create</b> button."
@@ -790,6 +896,10 @@ en:
     part7: 6. You can add tags to your file. Tags allow you to find files easily.  Press enter to confirm each tag.
     part8: 7. Repeat step 4, 5 and 6 for each file you want to add.
     part9: "8. You can use the advanced editor to include content. This editor allows you to:"
+  help_createreservation: 
+    part1: "To make a reservation CLARA Videoconferencing (Beta)  1. Click Create New Book tab. "
+    part2: 2. Enter a title and description for the new reservation.  3. Choose the type of Videoconferencing  4. Type the location of the event.  5. Agreque the participants.  6. Consent to the use of the system.  7.Click OK button.
+    part3: "8. Once you have created the event, you looked at the following site: "
   help_createspace: 
     part1: "To create a space in Global Plaza:"
     part2: 1. Click on <a href={{url}}> My Home </a> item from the top bar.
@@ -797,7 +907,7 @@ en:
     part4: 3. Type a name and description for your space.
     part5: 4. Decide whether the space should be public. Collaborative spaces can be public, for anybody to watch what happens in them, or private, where members only have access to the activities of the space.
     part6: 5. If you want to enable a document repository, choose this option. <br>6. You can associate a mailing list to your group. It will allow you to send email messages to your group instead of having to pick out the individual addresses every time.<br>7. You can upload your own logo, create a text logo or select an image from the gallery.
-    part7: ""
+    part7: 6. You can associate a mailing list for your group. You can send emails to their group instead of selecting one of the addresses each time.
   help_createuser: 
     part1: "To create a user in Global Plaza:"
     part2: 1. Click on <a href={{url}}>register</a> item from the top menu bar.
@@ -831,9 +941,15 @@ en:
     part6: 5. You can <b>add tags</b> that you and others can use to find and filter content.  Press enter to confirm each tag.
     part7: 6. If you want to <b>notify</b> the document with a message on the wall, choose this option.
     part8: 7. Finally, click on <b>Upload</b> button to add the file to the document repository.
+  help_soliciteroom: 
+    part1: To request a new reservation at a new videoconferencing room CLARA (Beta)  1. Click on the icon of extending an invitation
+    part2: 2. Select the country, the room and click on OK.
+    part3: 3. Reserve successfully created new room.
   help_support: Help & Support
   help_title: 
     about_vcc: About Global Plaza
+    cancel_reservation: Cancel a reservation
+    covi_no_responde: What to do if the COVI not answer the authorization?
     create_VC: Creating a virtual congress
     create_VM: Creating a virtual meeting
     create_event: Creating an event
@@ -845,15 +961,22 @@ en:
     info: Here you can find information about the Global Plaza
     logging: Logging In to your account
     new_doc: Adding a new document
+    new_reservation: Create a reservation
+    solicitar_sala: How to request a reservation at a new room?
     topics: Topics
   help_vcc: 
+    faq: FAQ
     info: Here you can find information about the Global
     topics: Topics
   hide: Hide
   his_message_reads_thus: His message reads thus
   home: 
     activity: Recent Activity...
+    all: All
+    clara_events: Clara Events
+    last_events: Older Events
     my: My Home
+    network_events: Events in the network
     one: home
   icalendar: 
     add: Update and Add new entries
@@ -1022,6 +1145,26 @@ en:
   manage: Manage
   management: management
   mark_checkbox: Mark the suitable checkbox
+  mcu: 
+    action_create: Create
+    action_delete: Delete MCU
+    action_edit: Edit MCU
+    action_list: MCUs
+    action_new: Create new MCU
+    action_save: Save
+    created_successfully: MCU was created succesfully.
+    delete_confirm: Are you sure?
+    empty: MCU not found
+    ip_address: Ip address
+    mcunumber: MCU
+    model: Model
+    shared_ports: ports share
+    title_edit: Edit MCU
+    title_list: MCUs
+    title_new: New MCU
+    total_ports: Ports
+    trade: Trade
+    updated_successfully: MCU was updated succesfully
   message: 
     created: Message sent successfully
     error: 
@@ -1039,6 +1182,7 @@ en:
     send: Send Message
     sent: 
       other: Sent messages
+  mobile: Mobile
   more>>: more >>
   my_friends: My friends
   name: 
@@ -1056,6 +1200,8 @@ en:
       create: There was a problem publishing the news item
       delete: Error deleting news item
       update: News item could not be updated
+    home: 
+      zero: No headlines to display
     item_in_home: News item in space
     none: None
     none_to_show: No news items to show
@@ -1064,8 +1210,10 @@ en:
     publish_home: Publish news item at home
     updated: News item updated successfully
   next: Next
+  no_messages_in_forum: There are no posts in this forum
   no_messages_in_wall: There are no messages in the wall
   no_tags_found: No tags found
+  none: None
   not_going: I do not plan to attend
   now!: Now!
   number: 
@@ -1143,6 +1291,7 @@ en:
     error: 
       create: There was a problem updating your attendance information
   password: 
+    been_reset_email: "{{user}}, your password has been reset"
     confirm: Confirm password
     one: Password
     request: Password reset in {{sitename}}
@@ -1218,12 +1367,29 @@ en:
   privacy: Privacy
   private: Private
   private_message: 
+    notification: 
+      body: "{{user_sender}} has written a private message:"
+      subject: Has received a private message {{username}}
     send: Send private message
   profile: 
     created: Profile created successfully
     deleted: Profile deleted successfully
     description: 
       add: Write something about you
+    disciplines: 
+      agriculture: Agriculture, veterinary and environmental sciences
+      biological: Life Sciences
+      consumer: Consumer Sciences
+      engienery: Engineering
+      environmental: Environmental Science
+      exact: Sciences
+      humanities: Humam
+      medicine: Medicine and Health Sciences
+      multidisciplinary: Multidisciplinary
+      sea: Marine Science
+      social: Social Sciences
+      state: State Defense
+      techonlogy: Engineering and Technology
     error: 
       exist: Your profile already exists
     hcard: 
@@ -1235,11 +1401,101 @@ en:
     public: Public profile
     public_description: Anyone can access this information
     should_create: You should <a href={{path}}> create</a>  your profile. It is very useful.
+    subdisciplines: 
+      agriculture: 
+        agricultural: Agricultural sciences
+        environment: Science and environmental technology
+        fishing: Fishing
+        food: Food processing and technology
+        forestal: Forest Science
+        production: Animal and plant production
+        soil: Soil Sciences
+        veterinarian: Veterinary science
+      biological: 
+        cellular: Cellular and molecular biology
+        environment: Environmental Biology
+        evolution: Systemic and evolution
+        physiology: Physiology and developmental biology
+      consumer: 
+        domestic: Home Economics
+      engienery: 
+        chemical: Chemistry
+        electric: Electrical Engineering
+        mechanics: Mechanical
+        robotics: Robotics
+        technology: Information Technology
+      environmental: 
+        community: Community and Environment
+        health: Environmental Health
+      exact: 
+        astronomy: Astronomy & Astrophysics
+        chemical: Chemistry
+        earth: Earth sciences
+        information: Information science, computing and communication
+        math: Mathematics
+        microscopy: Electron Microscopy
+        physics: Physics
+        sismology: Seismology
+      humanities: 
+        all: All
+        arts: Arts
+        history: History
+        linguistic: Language, literature and culture
+        others: Other humanities
+        philosophy: Philosophy
+        religion: Religion
+      medicine: 
+        anatony: Anatomy and Physiology
+        biochemical: Biochemistry and clinical chemistry
+        clinic: Clinical Sciences
+        farmacology: Pharmacology
+        health: Public health and health services
+        inmunology: Clinical Immunology
+        microbiology: Clinical Microbiology
+        neurosciences: neuroscience
+        nutrition: Nutrition
+        others: Other medical sciences and health
+      multidisciplinary: 
+        multidisciplinary: Multidisciplinary
+      sea: 
+        antartic: Antarctic
+        fishing: Fishing
+      social: 
+        Psicology: Psychology
+        antropology: Anthropology
+        arquitecture: Architecture, urbanism
+        commerce: Business, management, tourism and services
+        economy: Economy
+        education: Education
+        geography: Geography
+        information: Information sciences and communication
+        others: Social hundred other
+        politics: Politics and political science
+        right: Law, justice and law
+        sociology: Sociology
+        studies: International studies and international cooperation
+      state: 
+        security: State Security
+      techonlogy: 
+        biotechnology: Biotechnology
+        chemical: Chemical Engineering
+        civil: Civil engineering
+        computing: Computers and information technology
+        electrical: Electrical and Electronic Engineering
+        geology: Geological
+        hidrology: Hydrology
+        industrial: Industrial Engineering
+        material: Materials Engineering
+        mecanic: Mechanical Engineering
+        nanotechnology: Nanotechnology
+        others: Other engineering and technologies
+        resources: Resource Engineering
     updated: Profile updated successfully
     visibility: Visibility
     visibility_description: Choose who will be able to see your private profile
     visibility_edit: Edit your profile visibility
     visibility_everybody: Everyone can see your private profile.
+    visibility_everyone: Anyone can see your profile private.
     visibility_members: Only registered members can see your private profile.
     visibility_nobody: Nobody can see your private profile.
     visibility_private_fellows: Only your partners in a private space can see your private profile.
@@ -1282,6 +1538,71 @@ en:
     info: Your request to join the space has been successfully sent to the space admins. An admin will take care of it as soon as possible
     sent: Request sent!
   request_change_password: Request to change your password
+  reservation: 
+    add_participants: Add participants
+    aggrement: Yes, I agree the policies use of the reserve system
+    button_accept_submit: Accept
+    button_approve_submit: Approve
+    button_decline_submit: Decline
+    button_new: Create New Reserve
+    button_new_submit: Reserve
+    button_reject_submit: Reject
+    country: Country
+    description: Description
+    description1: in approval process by COVI.
+    description2: in approval process by VNOC.
+    information: Information about types of VC
+    information_service: 
+      certified: 
+        description: Is a physical infrastructure, which has hardware and special adaptations to make a video.
+        title: Certified Room
+      title: Information Room Types
+      virtual: 
+        description: Is a connection to a central server switches allows communications and video conferencing from anywhere.
+        title: Virtual Rooms
+    invitation_message: Invite participants
+    notification: 
+      body: "{{username}} has requested the room {{room}} for the event  {{eventname}} in the institution {{space}}."
+      cancelled: 
+        body: "{{username}} has canceled the reservation for the use of the room {{room}} for the event {{eventname}} in the institution {{space}}."
+        footer: For more information please go to {{url}}
+        subject: "{{username}} has canceled the reservation for the use of the room {{room}} for the event {{eventname}} in the institution {{space}}"
+      footer: To approve or reject the application please go to {{url}}
+      processed: 
+        body: Your request has been {{action}} by {{username}} for the use of the room {{room}} for the event {{eventname}} in the institution {{space}}.
+        footer: To check the status of the invitations or the reason for refusal please go to {{url}}
+        subject: Your request has been {{action}} for the use of the room {{room}} for the event {{eventname}} in the institution {{space}}
+      request: 
+        body: "{{username}} invites you to participate in the event {{eventname}} which will be available in this schedule: {{schedule}}"
+        footer: To confirm or cancel your assistance, please go to {{url}}
+        processed: 
+          body: "Your invitation to {{username}} to participate in the event {{eventname}} has been {{action}} which will be available in this schedule: {{schedule}}"
+          footer: For more information please go to {{url}}
+          subject: Your invitation to {{username}} to participate in the event {{eventname}} has been {{action}}
+        subject: "{{username}} invites you to participate in the event {{eventname}}"
+      subject: "{{username}} has requested the room {{room}} for the event {{eventname}} in the institution {{space}}"
+      virtual: 
+        body: "{{username}} has requested the virtual room {{room}} with {{ports}} MCU port's for the event {{eventname}} in the institution {{space}}."
+        footer: Para aprobar o rechazar la solicitud por favor ingrese a {{url}}
+        subject: "{{username}} has requested the virtual room {{room}} for the use of the room {{eventname}} in the institution {{space}}"
+    num_port: "N\xC3\xBAmero de puntos"
+    participants: Participantes
+    reservation_schedule: Horario de reserva
+    room: Sala
+    search_new_room: Buscar nuevas salas
+    select_a_country: "Seleccione un pa\xC3\xADs"
+    select_a_discipline: Select a discipline
+    select_a_grade: Select a title
+    select_a_room: Seleccione una sala
+    select_a_space: Select an institution
+    select_a_subdiscipline: Select a subdiscipline
+    select_a_vcservice: Seleccione un servico de VC
+    service_vc: Servicio de VC
+    space: Main organizing institution
+    title: "T\xC3\xADtulo"
+    type: Tipo
+    type_private: Privada
+    type_public: "P\xC3\xBAblica"
   reset_password: Reset Password
   resource: 
     one: Resource
@@ -1309,6 +1630,67 @@ en:
     sucess_update: Role updated successfully...
     updated: Role was successfully updated.
     without_permissions: Role {{role}} hasn't any permissions
+  room: 
+    assign_covi: Assign COVI
+    bandwidth: Bandwidth
+    capacity: Capacity
+    certification_level: Certification Level
+    certification_levels: 
+      label: 
+        level_1: "\xE2\x98\x85     no certification"
+        level_2: "\xE2\x98\x85\xE2\x98\x85    starting certification"
+        level_3: "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85   evaluating to certification"
+        level_4: !binary |
+          4piF4piF4piF4piFICByb29tIGNlcnRpZmljYXRlZA==
+
+        level_5: "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85 room certificated in the last two years"
+      level_1: !binary |
+        4piF
+
+      level_2: !binary |
+        4piF4piF
+
+      level_3: !binary |
+        4piF4piF4piF
+
+      level_4: !binary |
+        4piF4piF4piF4piF
+
+      level_5: !binary |
+        4piF4piF4piF4piF4piF
+
+    city: City
+    country: Country
+    covi_asigned: Assigned COVI
+    created: Room created successfully
+    department: Department
+    description: Description
+    devices: Devices
+    editing: Edit Room
+    equipment: Equipment
+    institucion: Institution
+    ip_address: IP address
+    lat: Latitude
+    lng: Longitude
+    location: Location
+    message: 
+      successfully_created: The hall was created successfully.
+    name: Name
+    new: New room
+    other: Other
+    registered: Room registered
+    select_certification_level: Select a certification level
+    select_space: Select a space
+    service_type: Service Type
+    space_id: Space
+    type: Type
+    type_light: Type light
+    uri: URI
+    user_id: User
+  sar: 
+    room: VC room
+    select_a_country: Select a country
+    select_a_room: Select a room
   save: Save
   save_ch: Save changes
   screencast: 
@@ -1415,6 +1797,7 @@ en:
     add_user: 
       other: Add users to the space
     add_user_other: ""
+    admin: Admin institutions
     all: All Spaces
     allow_public_access: Allow public access?
     be_fan: Be Fan
@@ -1440,12 +1823,12 @@ en:
       none: No spaces found
       one: 1 space was found
       other: "{{size}} spaces were found"
-    group_not_belong: " do not belong to the same space as the group"
-    group_invitation:
+    group_invitation: 
       button: Invite mailing lists
       message_title: Invite mailing lists to join your space
       private: "<p>Please note that the space is private, so you need to be a registered user of the Virtual Conference Center to be able to send a join request and access the space. You can register here: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
       subject: "{{username}} invites you to space {{space}}"
+    group_not_belong: " do not belong to the same space as the group"
     invitation: 
     is_private: is a private space. Send a join request to the administrator of this space to let you in
     join: Join this space
@@ -1556,10 +1939,10 @@ en:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    from: "from"
+    from: from
     pm: pm
     start: Start time
-    to: "to"
+    to: to
   timezone: 
     one: Timezone
     set_up: You have not set up your time zone. <a href="{{path}}">Set it up now</a>
@@ -1606,6 +1989,7 @@ en:
     assist: Attending
     by_email: By email
     by_private_message: By private message
+    change_space: To change your main institution, you must delete this account and create a new
     confirm_password: Confirm Password
     delete_from_space: Delete user from space
     disable: Disable user
@@ -1692,6 +2076,7 @@ en:
     this: This week
   when: When
   where: Where
+  write_something: Write something about yourself.
   xmpp_server: 
     password_invalid: invalid password
   yesterday: Yesterday

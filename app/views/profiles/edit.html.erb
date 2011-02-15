@@ -38,6 +38,8 @@
 
 <% content_for :sidebar do  %>
   <div id="edit_profile_sidebar">
+ 
+  
 		<%if @profile.logo%>	
 			<div class="profile_logo">
 		    <%=logo(@user, :size => '128')%>
@@ -45,12 +47,12 @@
 			
 	    <ul class="first_options">
 	      <li id="change_pic"><%=t('change_pic')%></li>
-	      <li id="vcard_use"><%=t('vCard.use') %></li>
+	      <!--<li id="vcard_use"><%=t('vCard.use') %></li>--!>
 	    </ul>
 		<%else%>
 		  <ul class="first_options">
 	      <li id="change_pic"><%=t('avatar.upload')%></li>
-	      <li id="vcard_use"><%=t('vCard.use') %></li>
+	      <!--<li id="vcard_use"><%=t('vCard.use') %></li>--!>
 		  </ul>
 	  <%end%>
 
@@ -98,7 +100,7 @@
     <div class="<%= name %>"><%= msg %></div>
   <% end %>
 <%= error_messages_for :profile %>
-
+ <%= link_to t('change_password'), edit_user_path(current_user) %>
 <% form_for @profile, :url => user_profile_path(@user) , :html => { :multipart => true } do |f| %>
 
   <%= render :partial => 'form', :locals => { :f => f } %>

@@ -1,0 +1,18 @@
+<div id="home_list_countries" style="margin-left:25px">
+  <label><%= t('reservation.country') %></label>
+ 	 <%
+ variable="" 
+ if(params[:list_my_spaces])
+	variable+= "&list_my_spaces=true"
+ end
+ if(params[:all_my_spaces])
+	variable+= "&all_my_spaces=true"
+ end
+%>
+
+  <%= select_tag("space[country]",
+        "<option value=\"\">" + t('reservation.select_a_country') + "</option>" + options_for_select(Country.getCountries(current_user.spaces),params[:country_space]),
+		:onchange => '$(\'#profile_spaces\').load("/update_spaces?user_id='+current_user.id.to_s+variable+'&country_space=" + $(\'#space_country\').val())'
+      ) %>
+
+</div>

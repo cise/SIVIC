@@ -26,7 +26,18 @@
 					"script"
 				);
   });
-	
+
+	$("#status_select_<%=performance.id%>").livequery('change', function(){
+	  val = $(this).val();
+    $.post("<%=performance_path(performance)%>",{
+		      _method: "put", authenticity_token: "<%=form_authenticity_token()%>",
+					'performance[status]': val 
+					},
+					function(data){eval(data);},
+					"script"
+				);
+  });
+
 	$(".group_checkbox_<%=performance.id%>").livequery('click', function(){
 	  if($(this).is(":checked")){
 		  $(this).addClass("clicked_checkbox");
@@ -80,9 +91,13 @@
   		    <%if @space.is_last_admin?(user)%>
   		      Admin
   		    <%else%>
-  		      <%=select "performance", "role_id", @roles.collect {|p| [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
+  		      <%=select "performance", "role_id", @roles.collect {|p| p.name == "Admin" ? [ "COVI", p.id ] : [ p.name, p.id ]}, {:selected => performance.role_id}, {:id => "role_select_#{performance.id}",:class=>"small-font"} %>
   	      <%end%>	          
   		  </li>
+		  <li>
+		    <label><%= "Estado:" %></label>
+		    <%= select_tag("performance[status]", options_for_select([['Activo', 1], ['Inactivo', 0]], performance.status ? 1 : 0), {:id => "status_select_#{performance.id}",:class=>"small-font"}) %>
+		  </li>
       </ul>
   	 
       <div id="selected_groups_<%=performance.id%>" class="selected_groups">

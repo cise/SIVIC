@@ -1,0 +1,111 @@
+<% content_for :javascript do  %>
+$(".reservation_cancel_button").fancybox({
+    'hideOnContentClick' : false,
+	'frameWidth' : 450,
+	'frameHeight' : 450
+  });
+<% end %>
+
+<% if !reservation.nil? %>
+<% 
+schedule = reservation.calendar_events 
+first_day = schedule[0]
+%>
+<% if first_day %>
+<div class="event_image">
+  <div class="event_date_image">
+    <div class="event_day">
+      <%= first_day.starttime.strftime('%d') %>
+    </div>
+	
+    <div class="event_month">
+      <%= I18n.localize(first_day.starttime, :format => '%b') %>
+    </div>
+	
+    <div class="event_hour">
+      <%= first_day.starttime.strftime('%H:%M') %>
+    </div>
+  </div>
+</div>
+<% end %>
+<%= image_tag("icons/date.png", :class=>"icon", :title => reservation.title)%>
+<%= link_to sanitize(highlight(reservation.title,"votate")), :class => "unified_event" %>
+<!-- <span class="updated"><%= t('updated_time_ago', :time => ((Time.zone.now - reservation.updated_at)/1.day).to_i) %></span> -->
+
+<br />
+
+<label class="main_date">
+<% schedule.each do |calendar_event| %>
+  <%= calendar_event.to_s %><br />
+<% end %>
+</label>
+<br />
+<div>
+  <span style="margin-left:5px"><label>Ticket #:</label></span>
+  <span style="margin-left:40px"><label><%= reservation.id %></label></span>
+  <br />
+  
+  <span style="margin-left:66px"><label><%= t('reservation.service_vc')%>:</label></span>
+  <span style="margin-left:3px"><label><%= reservation.vc_service%></label></span>
+  <br />
+  
+  <span style="margin-left:66px"><label><%= t('reservation.description') %>:</label>
+  <span style="margin-left:15px"><label><%= reservation.room.name %></label></span>
+  <br />
+  
+<% if reservation.room.city && reservation.room.country %>
+  <span style="margin-left:152px"><label class="main_date">
+  	<%= reservation.room.city %>, <%= reservation.room.country %>
+  </label></span>
+  <br />
+<% end %>  
+
+<% if reservation.ports %>
+  <span style="margin-left:66px"><label>Puertos MCU:</label></span>
+  <span style="margin-left:15px"><label><%= reservation.ports %></label></span>
+  <br />
+<% end %>  
+  
+  <span style="margin-left:66px"><label>Solicitante: </label></span>
+  <span style="margin-left:24px"><%= reservation.user.profile.full_name %></label></span>
+  <br />
+  <br />
+
+<% if reservation.room.users_by_role("COVI")[0] %>
+<span style="margin-left:66px"><label><%= "Información sobre tecnico (COVI) asignado: " %></label></span>
+<span style="margin-left:24px"><label><%= reservation.room.users_by_role("COVI")[0].full_name %></label></span><br />
+<span style="margin-left:66px"><%= mail_to(reservation.room.users_by_role("COVI")[0].email) %></span><br />
+<span style="margin-left:66px"><%=link_to image_tag("./icons/email.png", :alt => "mail",:class=>"icon") , new_user_message_path(:user_id => current_user.login, :receiver => reservation.room.users_by_role("COVI")[0].id, :ticket => reservation.id),:id => "new_private_message_link" %></span>
+<%=link_to ("Mensaje Privado", new_user_message_path(:user_id => current_user.login, :receiver => reservation.room.users_by_role("COVI")[0].id, :ticket => reservation.id), :id => "new_private_message_link", :class=>"blue" )%> <br />
+<% if reservation.room.users_by_role("COVI")[0].profile.phone != nil %>
+<label>Teléfono: <%= reservation.room.users_by_role("COVI")[0].profile.phone %></label><br />
+<% end %>
+<% end %>
+<% if reservation.user != current_user %>
+
+<% form_for(reservation) do |f| %>
+
+  <span style="margin-left:66px"><%= text_area_tag("reservation[notes]", "", :cols => 70, :rows => 3)%></span>
+  <br />
+  
+<!--
+<span style="margin-left:66px"><label>Tipo de Rechazo</label></span>
+<%= select_tag(:country, options_for_select([['Ocupada', 1], ['Dañado', 2], ['En reparacion', 3]])) %>
+-->
+  <div class="button_wrapper grey_bar" >
+<!--
+<%=link_to ("<span>" + "Aceptar" + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => "Aceptar"} %>
+<%=link_to ("<span>" + "Rechazar" + "</span>"), 'javascript:closeTextLogo();closeUploadLogo();openGallery();', { :class=>"grey_button basic_button show_inv",:title => "Rechazar"} %>
+-->
+    <button type="submit" style="margin-left:57px; float:left" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_APPROVE %>"><%=t('reservation.button_approve_submit')%></button>
+    <!-- <button type="submit" class="basic_button blue_button" name="submit" value="<%= Reservation::ACTION_REJECT %>"><%=t('reservation.button_reject_submit')%></button> -->
+    <%=link_to "<span>Rechazar</span>", "/rejecting?reservation_id=#{reservation.id}", { :class=>"iframe basic_button blue_button reservation_cancel_button"} %>
+  </div>
+  
+<% end %>
+<% else %>
+<br />
+<label> NOTA: su reservaci&oacute;n deber&iacute;a ser autorizada en 24 horas.</label><br />
+<% end %>
+</div>
+<% end %>

@@ -1,0 +1,9 @@
+<div id="room_list_countries" class="margin-up">
+  <label for="country"><%= t('reservation.country') %></label>
+  <%= f.select(:country, Space.countries, {:prompt => t('reservation.select_a_country'),
+        :onchange => '$(\'#room_list_spaces\').load(\'update_list_space\', { country: $(\'#room_country\').val() })' }
+      ) %>
+</div>
+
+                           
+

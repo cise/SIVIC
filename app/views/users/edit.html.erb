@@ -1,15 +1,16 @@
 
 <%= error_messages_for 'user' %>
-
+<%=link_to ("<span>" + t('edit_profile') + "</span>"),edit_user_profile_path(@user) %>
 <div id="edit_account" class="blue_title"><h3><%= t('user.edit_account')%></h3></div>
 <% form_for user, :url => user_path(user.login_changed? ? user.login_was : user), :html => {:method => :put} do |f| -%>
 
 
-<%= render :partial => 'form' , :locals => { :f => f } %>
+<%= render :partial => 'form' , :locals => { :f => f, :editar => true } %>
 <div class="margin-up"><button type="submit" class="blue_button basic_button"><%=t('user.save.account')%></button></div>
 
 <% end -%><br/>
  
+<!-- 
 <div id="edit_openids" class="blue_title"><h3><%= t('user.openid.edit')%></h3></div>
 
 <div>
@@ -34,6 +35,7 @@
   </div>
   <% end -%><br/>
 </div>
+--!> 
 
 <div id="edit_account" class="blue_title"><h3><%= t('preferences')%></h3></div>
 

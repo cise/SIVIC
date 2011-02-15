@@ -22,7 +22,16 @@ class UserObserver < ActiveRecord::Observer
 
   def after_save(user)
     if user.class.password_recovery?
-      Notifier.deliver_activation(user) if user.recently_activated?
+      if user.recently_activated?
+        Notifier.deliver_activation(user)
+        
+        if user.space
+          join_request = user.space.join_requests.new(:comment => "Solicitud autogenerada")
+          join_request.candidate = user
+          join_request.save          
+        end
+      end
+      #Notifier.deliver_activation(user) if user.recently_activated?
       Notifier.deliver_lost_password(user) if user.recently_lost_password?
       Notifier.deliver_reset_password(user) if user.recently_reset_password?
     end

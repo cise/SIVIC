@@ -1,0 +1,127 @@
+<head>
+ <%= stylesheet_link_tag "screen", :media => "screen, projection" %>
+</head>
+<body>
+
+
+
+<table width="100%" height="100%">
+  <tr>
+    <td width="12%">&nbsp;</td>
+    <td colspan="7"><div align="center"><%=image_tag("http://" + Site.current.domain.to_s+"/images/clara.png", :class=>"icon",:title=> t('information.information4'),:style=>"margin-left:5%;")%> </div></td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div align="right"><%=image_tag("http://" + Site.current.domain.to_s+"/images/logo_clara_mini.png", :class=>"icon",:title=> "SIVIC",:style=>"margin-left:5%;")%></div></td>
+    <td colspan="5">M&aacute;s red, mejores videoconferencias.</td>
+    <td width="12%"><% if @space_logo != nil %>
+				<% if @space_logo.isNREN %>
+				      <%= image_tag("http://" + Site.current.domain.to_s+logo_image_path(@space_logo,{:size=>"h32", :title=> @space_logo.parent.name }))%>
+				<% else %>
+			      		<%= image_tag("http://" + Site.current.domain.to_s+logo_image_path(@space_logo.parent,{:size=>"h32", :title=> @space_logo.parent.name }))%>
+				<% end%>
+			<% end%> </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td colspan="5" rowspan="3">
+		<p style="text-align:left;color: #151515;font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; font-size: 15px;line-height: 16px;text-decoration: none;">
+		      <%=t('reservation.notification.request.body', :eventname=>@reservation.title, :username=>@user_sender.full_name, 
+:schedule => @reservation.calendar_events.join(", ")) %><br/><br/>
+      <%=t('reservation.notification.request.footer', :url=>@url)%>
+	</p>
+
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="9%">&nbsp;</td>
+    <td width="8%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div align="right"><%=image_tag("http://" + Site.current.domain.to_s+"/images/UE.png", :class=>"icon",:title=> "UE",:style=>"margin-left:5%;")%></div></td>
+    <td>&nbsp;</td>
+    <td><div align="left"><%=image_tag("http://" + Site.current.domain.to_s+"/images/alice2_logo.jpg", :class=>"icon",:title=> "ALICE2",:style=>"margin-left:5%;")%> </div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="3"><div align="center">
+	<p style="text-align:center;color: #999999;font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 10px;line-height: 16px;">
+	Este sistema fue desarrollado en alianza con:</p>
+	</div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div align="center">
+	<p style="text-align:center;color: #999999;font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; font-size: 10px;line-height: 16px;">
+	<img title="ESPOL" style="margin-left: 5%;" src="http://200.126.21.219/images/espol_logo.png" alt="Espol_logo"> 
+	</p></div>
+    </td>
+    <td><div align="center">
+	<img title="UPM" style="margin-left: 5%;" src="http://200.126.21.219/images/upm_logo.gif" alt="Upm_logo">
+	</div>
+    </td>
+    <td><div align="center">
+	<p style="text-align:center;color: #999999;font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; font-size: 10px;line-height: 16px;">
+	<img title="REDIRIS" style="margin-left: 5%;" src="http://200.126.21.219/images/rediris_logo.gif" alt="Rediris_logo">
+	</p>
+	</div></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>			
+			      
+
+
+
+

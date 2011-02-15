@@ -1,0 +1,43 @@
+<p>
+  <b> id:</b>
+  <%=h @reservation. id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @reservation.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @reservation.description %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%=h @reservation.type %>
+</p>
+
+<p>
+  <b>Vc service:</b>
+  <%=h @reservation.vc_service %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%=h @reservation.country %>
+</p>
+
+<p>
+  <b>Room:</b>
+  <%=h @reservation.room_id %>
+</p>
+
+<p>
+  <b>Aggrement:</b>
+  <%=h @reservation.aggrement %>
+</p>
+
+
+<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
+<%= link_to 'Back', reservations_path %>

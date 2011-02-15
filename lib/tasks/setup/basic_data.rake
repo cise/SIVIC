@@ -6,17 +6,17 @@ namespace :setup do
     desc "Clear basic data"
     task :clear => :environment do
       puts "* Clear Users"
-      User.destroy_all
+      User.delete_all
       puts "* Clear Spaces"
-      Space.destroy_all
+      Space.delete_all
       puts "* Clear Roles"
-      Role.destroy_all
+      Role.delete_all
       puts "* Clear Permissions"
-      Permission.destroy_all
+      Permission.delete_all
     end
 
     desc "Load all basic data"
-    task :all => [ :users, :spaces, :roles ]
+    task :all => [ :spaces, :users, :roles, :permissions ]
 
     desc "Load Basic data in test"
     task :test => "db:test:prepare" do
@@ -27,27 +27,28 @@ namespace :setup do
 
     desc "Load Users Data"
     task :users => :environment do
-      puts "* Create Administrator \"vcc\""
-      u = User.create :login => "vcc",
-                      :email => 'vcc@dit.upm.es',
+      puts "* Create Administrator \"VNOC\""
+      u = User.create :login => "vnoc",
+                      :email => 'vnoc@redclara.net',
                       :password => "admin",
                       :password_confirmation => "admin"
       u.update_attribute(:superuser,true)
       u.activate
-      u.profile!.update_attribute(:full_name, "Vcc")
+      u.profile!.update_attribute(:full_name, "VNOC Red CLARA")
 
     end
 
     desc "Load Spaces Data"
     task :spaces => :environment do
-      puts "* Create Space \"VCC Start Page\""
-      Space.create :name => "VCC Start Page",
-                   :description => "Virtual Conference Centre (VCC)",
+      puts "* Create Space \"Red CLARA\""
+      Space.create :name => "Red CLARA",
+                   :description => "CLARA Videoconferencias",
                    :public => true,
-                   :default_logo => "models/front/space.png"
+                   :default_logo => "models/front/clara.gif",
+                   :skin => "default"
     end
 
-    desc "Load Spaces Data"
+    desc "Load Permissions Data"
     task :permissions => :environment do
       puts "* Create Permissions"
 
@@ -67,6 +68,17 @@ namespace :setup do
 
       # Permission applied to Group
       Permission.find_or_create_by_action_and_objective "manage", "group"
+
+      clara_space = Space.find_by_name("Red CLARA")
+      vnoc_user = User.find_by_login("vnoc")
+      admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
+
+      Performance.create :stage_id => clara_space.id,
+                             :stage_type => 'Space',
+                             :role_id => admin_role.id,
+                             :agent_id => vnoc_user.id,
+                             :agent_type => 'User'
+
     end
 
     desc "Load Roles Data"
@@ -104,7 +116,7 @@ namespace :setup do
       admin_role.permissions << Permission.find_by_action_and_objective('update', 'performance')
       admin_role.permissions << Permission.find_by_action_and_objective('delete', 'performance')
       admin_role.permissions << Permission.find_by_action_and_objective('manage', 'group')
-
+      
       user_role = Role.find_or_create_by_name_and_stage_type "User", "Space"
       user_role.permissions << Permission.find_by_action_and_objective('read',   nil)
       user_role.permissions << Permission.find_by_action_and_objective('create', 'content')

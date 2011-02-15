@@ -29,6 +29,134 @@ class Profile < ActiveRecord::Base
   
   # The order implies inclusion: everybody > members > public_fellows > private_fellows
   VISIBILITY = [:everybody, :members, :public_fellows, :private_fellows, :nobody]
+
+  DISCIPLINES = [
+    [I18n.t("profile.disciplines.agriculture"), :agriculture ],
+	[I18n.t("profile.disciplines.biological"), :biological],
+	[I18n.t("profile.disciplines.consumer"), :consumer],
+	[I18n.t("profile.disciplines.sea"), :sea],
+	[I18n.t("profile.disciplines.exact"), :exact],
+	[I18n.t("profile.disciplines.social"), :social],
+	[I18n.t("profile.disciplines.state"), :state],
+	[I18n.t("profile.disciplines.humanities"), :humanities],
+	[I18n.t("profile.disciplines.engienery"), :engienery],
+	[I18n.t("profile.disciplines.techonlogy"), :techonlogy],
+	[I18n.t("profile.disciplines.medicine"), :medicine],
+	[I18n.t("profile.disciplines.multidisciplinary"), :multidisciplinary]
+  ]
+  
+   AGRICULTURE = [
+    [I18n.t("profile.subdisciplines.agriculture.agricultural"),  :agricultural],
+	[ I18n.t("profile.subdisciplines.agriculture.forestal"), :forestal],
+	[ I18n.t("profile.subdisciplines.agriculture.soil"), :soil],
+	[ I18n.t("profile.subdisciplines.agriculture.veterinarian"), :veterinarian],
+	[ I18n.t("profile.subdisciplines.agriculture.fishing"), :fishing],
+	[ I18n.t("profile.subdisciplines.agriculture.production"), :production],
+	[ I18n.t("profile.subdisciplines.agriculture.environment"), :environment],
+	[ I18n.t("profile.subdisciplines.agriculture.food"), :food]
+  ]
+
+  ENVIROMENTAL = [
+    [ I18n.t("profile.subdisciplines.environmental.community"), :community],
+	[ I18n.t("profile.subdisciplines.environmental.health"), :health]
+  ]
+
+  BIOLOGICAL = [
+   [ I18n.t("profile.subdisciplines.biological.cellular"), :cellular],
+   [ I18n.t("profile.subdisciplines.biological.physiology"), :physiology],
+   [ I18n.t("profile.subdisciplines.biological.environment"), :environment],
+   [ I18n.t("profile.subdisciplines.biological.evolution"), :evolution]  
+  ]
+ 
+  CONSUMER  = [
+   [ I18n.t("profile.subdisciplines.consumer.domestic"), :domestic]
+  ]
+  
+  SEA = [
+   [ I18n.t("profile.subdisciplines.sea.fishing"), :fishing]
+  ]
+  
+  EXACT = [
+    [ I18n.t("profile.subdisciplines.exact.math"), :math],
+	[ I18n.t("profile.subdisciplines.exact.information"), :information],
+	[ I18n.t("profile.subdisciplines.exact.physics"), :physics],
+	[ I18n.t("profile.subdisciplines.exact.astronomy"), :astronomy],
+	[ I18n.t("profile.subdisciplines.exact.chemical"), :chemical],
+	[ I18n.t("profile.subdisciplines.exact.earth"), :earth],
+	[ I18n.t("profile.subdisciplines.exact.microscopy"), :microscopy],
+	[ I18n.t("profile.subdisciplines.exact.sismology"), :sismology]
+  ]
+
+  SOCIAL = [
+    [ I18n.t("profile.subdisciplines.social.arquitecture"), :arquitecture],
+	[ I18n.t("profile.subdisciplines.social.education"), :education],
+	[ I18n.t("profile.subdisciplines.social.economy"), :economy],
+	[ I18n.t("profile.subdisciplines.social.commerce"), :commerce],
+	[ I18n.t("profile.subdisciplines.social.studies"), :studies],
+	[ I18n.t("profile.subdisciplines.social.politics"), :politics],
+	[ I18n.t("profile.subdisciplines.social.sociology"), :sociology],
+	[ I18n.t("profile.subdisciplines.social.antropology"), :antropology],
+	[ I18n.t("profile.subdisciplines.social.geography"), :geography],
+	[ I18n.t("profile.subdisciplines.social.Psicology"), :Psicology],
+	[ I18n.t("profile.subdisciplines.social.right"), :right],
+	[ I18n.t("profile.subdisciplines.social.information"), :information],
+	[ I18n.t("profile.subdisciplines.social.others"), :others]
+  ]
+  
+  STATE = [
+    [ I18n.t("profile.subdisciplines.state.security"), :security]
+  ]
+  
+  HUMANITIES = [
+    [ I18n.t("profile.subdisciplines.humanities.arts"), :arts],
+	[ I18n.t("profile.subdisciplines.humanities.linguistic"), :linguistic],
+	[ I18n.t("profile.subdisciplines.humanities.history"), :history],
+	[ I18n.t("profile.subdisciplines.humanities.philosophy"), :philosophy],
+	[ I18n.t("profile.subdisciplines.humanities.religion"), :religion],
+	[ I18n.t("profile.subdisciplines.humanities.others"), :others],
+	[ I18n.t("profile.subdisciplines.humanities.all"), :all]
+  ]
+    
+  ENGIENERY = [
+    [ I18n.t("profile.subdisciplines.engienery.technology"), :technology],
+	[ I18n.t("profile.subdisciplines.engienery.robotics"), :robotics],
+	[ I18n.t("profile.subdisciplines.engienery.mechanics"), :mechanics],
+	[ I18n.t("profile.subdisciplines.engienery.chemical"), :chemical],
+	[ I18n.t("profile.subdisciplines.engienery.electric"), :electric]
+  ]
+  
+  TECHONLOGY = [
+    [ I18n.t("profile.subdisciplines.techonlogy.chemical"), :chemical],
+	[ I18n.t("profile.subdisciplines.techonlogy.civil"), :civil],
+	[ I18n.t("profile.subdisciplines.techonlogy.computing"), :computing],
+	[ I18n.t("profile.subdisciplines.techonlogy.material"), :material],
+	[ I18n.t("profile.subdisciplines.techonlogy.electrical"), :electrical],
+	[ I18n.t("profile.subdisciplines.techonlogy.industrial"), :industrial],
+	[ I18n.t("profile.subdisciplines.techonlogy.resources"), :resources],
+	[ I18n.t("profile.subdisciplines.techonlogy.others"), :others],
+	[ I18n.t("profile.subdisciplines.techonlogy.nanotechnology"), :nanotechnology],
+	[ I18n.t("profile.subdisciplines.techonlogy.biotechnology"), :biotechnology],
+	[ I18n.t("profile.subdisciplines.techonlogy.mecanic"), :mecanic],
+	[ I18n.t("profile.subdisciplines.techonlogy.hidrology"), :hidrology],
+	[ I18n.t("profile.subdisciplines.techonlogy.geology"), :geology]
+  ]
+
+  MEDICINE = [
+    [ I18n.t("profile.subdisciplines.medicine.clinic"), :clinic],
+	[ I18n.t("profile.subdisciplines.medicine.inmunology"), :nmunology],
+	[ I18n.t("profile.subdisciplines.medicine.microbiology"), :microbiology],
+	[ I18n.t("profile.subdisciplines.medicine.anatony"), :anatony],
+	[ I18n.t("profile.subdisciplines.medicine.neurosciences"), :neurosciences],
+	[ I18n.t("profile.subdisciplines.medicine.farmacology"), :farmacology],
+	[ I18n.t("profile.subdisciplines.medicine.health"), :health],
+	[ I18n.t("profile.subdisciplines.medicine.others"), :others],
+	[ I18n.t("profile.subdisciplines.medicine.biochemical"), :biochemical],
+	[ I18n.t("profile.subdisciplines.medicine.nutrition"), :nutrition]
+  ]
+
+  MULTIDISCIPLINARY = [
+    [ I18n.t("profile.subdisciplines.multidisciplinary.multidisciplinary"), :multidisciplinary]
+  ]
   
   before_validation do |profile|
     if profile.url
@@ -39,7 +167,38 @@ class Profile < ActiveRecord::Base
   end
 
   before_validation :from_vcard
-
+  
+  def self.subdisciplines(disciplines)
+ 	if disciplines == "agriculture"
+		return Profile::AGRICULTURE
+	elsif disciplines == "environmental"
+ 		return Profile::ENVIROMENTAL
+	elsif disciplines == "biological"
+ 		return Profile::BIOLOGICAL
+	elsif disciplines == "consumer"
+ 		return Profile::CONSUMER
+	elsif disciplines == "sea"
+ 		return Profile::SEA
+	elsif disciplines == "exact"
+ 		return Profile::EXACT
+	elsif disciplines == "social"
+ 		return Profile::SOCIAL
+	elsif disciplines == "state"
+ 		return Profile::STATE
+	elsif disciplines == "humanities"
+ 		return Profile::HUMANITIES
+	elsif disciplines == "engienery"
+ 		return Profile::ENGIENERY
+	elsif disciplines == "techonlogy"
+ 		return Profile::TECHONLOGY
+	elsif disciplines == "medicine"
+ 		return Profile::MEDICINE
+	elsif disciplines == "multidisciplinary"
+ 		return Profile::MULTIDISCIPLINARY
+	else
+		return Profile::DISCIPLINES
+	end	
+ end
   def validate
     errors.add_to_base(@vcard_errors) if @vcard_errors.present?
   end

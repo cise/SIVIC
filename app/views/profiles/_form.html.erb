@@ -1,6 +1,6 @@
 <%prefix_select = f.select :prefix_key, [[t('title_formal.mr'), 'title_formal.mr'], [t('title_formal.mrs'), 'title_formal.mrs'], [t('title_formal.ms'), 'title_formal.ms'], [t("other"), "other"]]%>
 <%prefix_input = "<div class='switch_js'> #{f.text_field :prefix_key} #{link_to 'suggest','javascript:suggest_prefix()'} </div>"%>
-
+<% lista_grado= [['Licenciado'],['Magister'],['Doctorado'],['Postdoctorado'],['Sin grado']] %>
 <%content_for :javascript do %>
  $("#profile_prefix_key").livequery("change",function(){
   if ($("#profile_prefix_key option:selected").attr("value")== "other"){
@@ -48,12 +48,23 @@
 		<div class="margin-up"><label for="country"><%= t('country') %></label>
 		<%= f.text_field :country %></div>
 		
+		 <div id="profile_disciplines">
+    		<div id="profile_list_disciplines"><%= render :partial => 'list_disciplines', :object => @profile, :locals => { :f => f } %></div>
+    		<div id="profile_list_subdisciplines"><%= render :partial => 'list_subdisciplines', :object => @profile, :locals => { :f => f } %></div>
+  		</div>
+		
+		<div class="margin-up">
+			<label for="grade"><%= t('grade') %></label>
+			<%= select(:profile, :grade, lista_grado,
+             { :include_blank => t('reservation.select_a_grade') }) %>
+		</div>
+		
 		<h4 class="margin-up"><%= t('description') %></h4>
-		<div class="margin-up" id="profile_description"><label for="description"><%= "Write something about you" %></label>
+		<div class="margin-up" id="profile_description"><label for="description"><%= t('write_something') %></label>
 		<%= f.text_area :description, :size => "34x7" %></div>
 		
 		<h4><%= t('url') %></h4>
-		<div class="margin-up"><label for="url"><%= "Add your website" %></label>
+		<div class="margin-up"><label for="url"><%= t('add_website') %></label>
 		<%= f.text_field :url%></div>
 	</div>
 </div>
