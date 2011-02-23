@@ -23,7 +23,7 @@
     <td width="12%"><% if @space_logo != nil %>
 				<% if @space_logo.isNREN %>
 				      <%= image_tag("http://" + Site.current.domain.to_s+logo_image_path(@space_logo,{:size=>"h32", :title=> @space_logo.name }))%>
-				<% else %>
+				<% elsif !@space_logo.parent.nil? %>
 			      		<%= image_tag("http://" + Site.current.domain.to_s+logo_image_path(@space_logo.parent,{:size=>"h32", :title=> @space_logo.parent.name }))%>
 				<% end%>
 			<% end%> </td>

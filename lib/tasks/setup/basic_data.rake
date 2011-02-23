@@ -57,6 +57,7 @@ namespace :setup do
       Room.create :name => "Sala Virtual",
                   :description => "Sala Virtual RedCLARA Videoconferencias",
                   :room_type => Room::SERVICE_TYPE_VIRTUAL,
+                  :country => 'CL',
                   :space_id => clara_space.id
     end
 

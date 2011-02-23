@@ -20,64 +20,62 @@ es:
   activerecord: 
     attributes: 
       user: 
-        email: Correo electrónico
+        email: "Correo electr\xC3\xB3nico"
         login: Login
-        password: Contraseña
-        space_id: Institución
+        password: "Contrase\xC3\xB1a"
+        space_id: "Instituci\xC3\xB3n"
     errors: 
       attributes: 
-      full_messages:
-        aggrement:
-           blank: Debe aceptar las ploticas de uso.
-        title:
-           blank: Titulo no puede estar en blanco.
-        description:
-           blank: "Descripci\xC3\xB3n no puede estar en blanco."
-           length: "La Descripci\xC3\xB3n es demasiado corta(100 caracteres m\xC3\xADnimo)."
-        body:
-           blank: Cuerpo no puede estar en blanco.
-        aggrement:
-           blank: Acuerdo no puede estar en blanco.
-        code:
-           blank: "C\xC3\xB3digo no puede estar en blanco."
-        email:
-           blank: "Correo electr\xC3\xB3nico no puede estar en blanco."
-           length: "Correo electr\xC3\xB3nico es demasiado corto (5 caracteres m\xC3\xADnimo)."
-           format: "Correo electr\xC3\xB3nico no es v\xC3\xA1lido."
-        email_confirmation: "Confirmar correo electrónico no puede estar en blanco."
-        horario:
-           blank: "Elija un horario para la reserva"
-        ip_address:
-           blank: "La direcci\xC3\xB3n IP no puede estar en blanco."
-           valida: "La direcci\xC3\xB3n IP no es valida."
-        model:
-           blank: "Modelo no puede estar en blanco."
-        mcunumber:
-           blank: "El MCU no puede estar en blanco."
-        name:
-            blank: "Nombre no puede estar en blanco."
-        participante:
-            blank: "Elija un paticipante para la reserva"
-        password:
-           blank: "Contraseña no puede estar en blanco."
-           length: "Contraseña es demasiado corta(4 carateres m\xC3\xADnimo)."
-        password_confirmation:
-           blank: "Confirmar contraseña no puede estar en blanco."
-        ports:
-           blank: "Puertos no puede estar en blanco."
-        room:
-           blank: "Debe seleccionar una sala"
-        shared_ports:
-           blank: "El campo puertos compartidos no puede estar en blanco."
-        trade:
-           blank: "El modelo no puede estar en blanco."
-        timezone:
-           blank: "Debe seleccionar una Zona Horaria"
-        total_ports:
-           blank: "El campo puertos no puede estar en blanco."
-        image:
-           blank: "Imagen y texto son diferentes."
+      full_messages: 
+        aggrement: 
+          blank: Acuerdo no puede estar en blanco.
+        body: 
+          blank: Cuerpo no puede estar en blanco.
+        code: 
+          blank: "C\xC3\xB3digo no puede estar en blanco."
+        description: 
+          blank: "Descripci\xC3\xB3n no puede estar en blanco."
+          length: "La Descripci\xC3\xB3n es demasiado corta(100 caracteres m\xC3\xADnimo)."
+        email: 
+          blank: "Correo electr\xC3\xB3nico no puede estar en blanco."
+          format: "Correo electr\xC3\xB3nico no es v\xC3\xA1lido."
+          length: "Correo electr\xC3\xB3nico es demasiado corto (5 caracteres m\xC3\xADnimo)."
+        email_confirmation: "Confirmar correo electr\xC3\xB3nico no puede estar en blanco."
         format: "{{attribute}} {{message}}"
+        horario: 
+          blank: Elija un horario para la reserva
+        image: 
+          blank: Imagen y texto son diferentes.
+        ip_address: 
+          blank: "La direcci\xC3\xB3n IP no puede estar en blanco."
+          valida: "La direcci\xC3\xB3n IP no es valida."
+        mcunumber: 
+          blank: El MCU no puede estar en blanco.
+        model: 
+          blank: Modelo no puede estar en blanco.
+        name: 
+          blank: Nombre no puede estar en blanco.
+        participante: 
+          blank: Elija un paticipante para la reserva
+        password: 
+          blank: "Contrase\xC3\xB1a no puede estar en blanco."
+          length: "Contrase\xC3\xB1a es demasiado corta(4 carateres m\xC3\xADnimo)."
+        password_confirmation: 
+          blank: "Confirmar contrase\xC3\xB1a no puede estar en blanco."
+        ports: 
+          blank: Puertos no puede estar en blanco.
+        room: 
+          blank: Debe seleccionar una sala
+        shared_ports: 
+          blank: El campo puertos compartidos no puede estar en blanco.
+        timezone: 
+          blank: Debe seleccionar una Zona Horaria
+        title: 
+          blank: Titulo no puede estar en blanco.
+        total_ports: 
+          blank: El campo puertos no puede estar en blanco.
+        trade: 
+          blank: El modelo no puede estar en blanco.
       messages: 
         accepted: debe ser aceptado
         blank: no puede estar en blanco
@@ -101,14 +99,14 @@ es:
         too_short: "es demasiado corto ({{count}} caracteres m\xC3\xADnimo)"
         wrong_length: no tiene la longitud correcta ({{count}} caracteres exactos)
       models: 
-        user:
-          attributes:
-            email:
-              email:
-                confirmation: no coincide con la confirmación
-            password:
-              password:
-                confirmation: no coincide con la confirmación
+        user: 
+          attributes: 
+            email: 
+              email: 
+                confirmation: "no coincide con la confirmaci\xC3\xB3n"
+            password: 
+              password: 
+                confirmation: "no coincide con la confirmaci\xC3\xB3n"
       template: 
         body: "Se encontraron problemas en los siguientes campos:"
         header: 
@@ -117,14 +115,14 @@ es:
   add: Agregar
   add_document: "A\xC3\xB1adir nuevo documento"
   add_more_details: "A\xC3\xB1adir m\xC3\xA1s detalles"
-  add_website: "Agregue su website."
+  add_website: Agregue su website.
   address: "Direcci\xC3\xB3n"
   admin: 
     one: Admin
     space: El administrador de {{spacename}}
-  admission:
+  admission: 
     accept: Aceptar
-    deny: Denegar 
+    deny: Denegar
     errors: 
       candidate_equals_introducer: "El candidato y el invitador no pueden ser la misma persona (seguramente tenga que salir de la sesi\xC3\xB3n)"
       candidate_has_role: ya tiene un rol
@@ -246,7 +244,7 @@ es:
       one: "Se encontr\xC3\xB3 1 archivo adjunto"
       other: Se encontraron {{size}} archivos adjuntos
     home: 
-      one: Archivo en la institución {{space}}
+      one: "Archivo en la instituci\xC3\xB3n {{space}}"
     info: "Informaci\xC3\xB3n sobre el documento"
     loading: "Cargando informaci\xC3\xB3n del documento ..."
     new: Nuevo archivo adjunto
@@ -276,12 +274,12 @@ es:
   bad_request: "Petici\xC3\xB3n inv\xC3\xA1lida"
   beta: (BETA)
   body: Cuerpo
-  button:
+  button: 
     cancel: Cancelar
     create: Crear
     edit: Editar
     finish: Terminar
-    go: "Aceptar"
+    go: Aceptar
     invite: "\xC2\xA1Invitar!"
     next: Siguiente paso
     other_spaces: "M\xC3\xA1s instituciones"
@@ -365,21 +363,21 @@ es:
   conversation: 
     compress: "Contraer conversaci\xC3\xB3n"
   could_not_find_anybody_with_that_email_address: "No se ha encontrado a nadie con esa direcci\xC3\xB3n de correo"
+  countries: 
+    code: "C\xC3\xB3digo"
+    create: "Crear pa\xC3\xADs"
+    edit: "Editar pa\xC3\xADs"
+    gmt_offset: GMT
+    name: Nombre
+    new: "Nuevo pa\xC3\xADs"
+    other: Paises
+    save: Guardar
+    successfully_created: "El pa\xC3\xADs ha sido creado exitosamente"
+    successfully_updated: "El pa\xC3\xADs ha sido actualizado exitosamente"
+    timezone: Zona Horaria
   country: !binary |
     UGHDrXM=
 
-  countries:
-    code: Código 
-    create: Crear país
-    edit: Editar país
-    gmt_offset: GMT
-    name: Nombre
-    new: Nuevo país
-    other: Paises
-    timezone: Zona Horaria
-    save: Guardar
-    successfully_created: 'El país ha sido creado exitosamente'
-    successfully_updated: 'El país ha sido actualizado exitosamente'
   create: Crear
   create_: Crear...
   create_event: Crear Evento
@@ -494,8 +492,8 @@ es:
 
   dblclick: Haga doble clic para editar...
   delete: 
-    confirm: "\xC2\xBFEst\xC3\xA1 seguro de eliminar {{element}}?"
     cancel: "\xC2\xBFEst\xC3\xA1 seguro de cancelar {{element}}?"
+    confirm: "\xC2\xBFEst\xC3\xA1 seguro de eliminar {{element}}?"
     one: "\xC2\xBFEst\xC3\xA1 seguro que desea eliminar?"
     select: Seleccionar para eliminar
   deny: "No"
@@ -519,7 +517,7 @@ es:
     copy_link: "Si no puede hacer clic en el enlace de arriba, por favor copie y pegue la l\xC3\xADnea siguiente en el navegador: <br/> {{Url}}"
     dear: Estimado {{name}},
     invitation_result: 
-      admin_side: "{{name}} ha {{action}} la invitaci\xC3\xB3n a la institución {{spacename}}"
+      admin_side: "{{name}} ha {{action}} la invitaci\xC3\xB3n a la instituci\xC3\xB3n {{spacename}}"
       user_side: El administrador del espacio {{spacename}} ha {{action}} su solicitud para participar
     join_request: Solicitud para participar
     kind_regards: Un cordial saludo,
@@ -623,24 +621,24 @@ es:
       other: Se han encontrado {{size}} eventos
     future: Evento futuro
     generate_pdf: Generar PDF
-    group_invitation:
+    group_invitation: 
       button: Invitar lista de correo
       message_private_with_start_date: 
-        in_person: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date'.</p><p>Ud. puede encontrar mas informacion sobre este evento en <a href=\"event_url\">event_url</a></p><p>Por favor note que el evento es parte de una institucion privada, así que necesita estar registrado como usuario para ser capaz de enviar una solicitud de unirse a la institución y tener acceso al evento. Puede registrarse aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Saludos cordiales,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        meeting: "<p>Me gustaria invitarle al <b>event 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date'. El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deberá ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        teleconference: "<p>Me gustaria invitarle al <b>evento 'event_name'  en la instituci\xC3\xB3n  {{space}}</b> el 'event_date'. El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deberá ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aquí:  <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        in_person: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date'.</p><p>Ud. puede encontrar mas informacion sobre este evento en <a href=\"event_url\">event_url</a></p><p>Por favor note que el evento es parte de una institucion privada, as\xC3\xAD que necesita estar registrado como usuario para ser capaz de enviar una solicitud de unirse a la instituci\xC3\xB3n y tener acceso al evento. Puede registrarse aqu\xC3\xAD: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Saludos cordiales,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        meeting: "<p>Me gustaria invitarle al <b>event 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date'. El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deber\xC3\xA1 ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aqu\xC3\xAD: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleconference: "<p>Me gustaria invitarle al <b>evento 'event_name'  en la instituci\xC3\xB3n  {{space}}</b> el 'event_date'. El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deber\xC3\xA1 ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aqu\xC3\xAD:  <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_private_without_start_date: 
-        in_person: "<p>Me gustaria invitarle al <b>event 'event_name'  en la instituci\xC3\xB3n  {{space}}</b>.</p><p>Ud. puede encontrar mas informacion sobre este evento en<a href=\"event_url\">event_url</a></p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deberá ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        meeting: "<p>Me gustaria invitarle al<b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b>. El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deberá ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aquí:<a href=\"{{register_url}}\">{{register_url}}</a></p><p>>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-        teleconference: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b>.El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deberá ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aquí:<a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        in_person: "<p>Me gustaria invitarle al <b>event 'event_name'  en la instituci\xC3\xB3n  {{space}}</b>.</p><p>Ud. puede encontrar mas informacion sobre este evento en<a href=\"event_url\">event_url</a></p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deber\xC3\xA1 ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aqu\xC3\xAD: <a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        meeting: "<p>Me gustaria invitarle al<b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b>. El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deber\xC3\xA1 ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aqu\xC3\xAD:<a href=\"{{register_url}}\">{{register_url}}</a></p><p>>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleconference: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b>.El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Tenga en cuenta que el evento es parte de un espacio privado, por lo que deber\xC3\xA1 ser un usuario registrado del Centro Virtual de la Conferencia para poder enviar una solicitud para unirse el espacio y tener acceso al evento. Puede registrarse aqu\xC3\xAD:<a href=\"{{register_url}}\">{{register_url}}</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_public_with_start_date: 
-        in_person: <p>Me gustaria invitarle al <b>evento 'event_name' en la institución  {{space}}</b> en 'event_date'.</p><p>Ud. puede encontrar mas informacion sobre este evento en <a href="event_url">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
-        meeting: <p>Me gustaria invitarle al <b>evento 'event_name' en la institución  {{space}}</b> en 'event_date'. El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p>><p>Puede encontrar más información sobre este evento en<a href="event_url">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
-        teleconference: <p>Me gustaria invitarle al <b>evento 'event_name' en la institución {{space}}</b> en 'event_date'.El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en<a href="event_url">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        in_person: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b> en 'event_date'.</p><p>Ud. puede encontrar mas informacion sobre este evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        meeting: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b> en 'event_date'. El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p>><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en<a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleconference: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b> en 'event_date'.El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en<a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_public_without_start_date: 
-        in_person: <p>Me gustaria invitarle al <b>event 'event_name' en la institución {{space}}</b>.</p><p>Puede encontrar más información sobre este evento en <a href="event_url">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
-        meeting: <p>Me gustaria invitarle al <b>evento 'event_name' en la institución  {{space}}</b>.  El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en <a href="event_url">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
-        teleconference: <p>Me gustaria invitarle al<b>evento 'event_name' en la institución {{space}}</b>.El evento se celebrará una reunión virtual con la participación fácil a través del sistema de Isabel.</p><p>Puede encontrar más información sobre este evento en <a href="event_url">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>
+        in_person: "<p>Me gustaria invitarle al <b>event 'event_name' en la instituci\xC3\xB3n {{space}}</b>.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        meeting: "<p>Me gustaria invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n  {{space}}</b>.  El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+        teleconference: "<p>Me gustaria invitarle al<b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b>.El evento se celebrar\xC3\xA1 una reuni\xC3\xB3n virtual con la participaci\xC3\xB3n f\xC3\xA1cil a trav\xC3\xA9s del sistema de Isabel.</p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en <a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: Invitar a las listas de correo para participar en el evento
       subject: "{{username}} invites you to event {{eventname}} in space {{space}}"
     has: Este evento se ha
@@ -655,7 +653,7 @@ es:
       faq: Preguntas Frecuentes
       in_agenda: en el programa
       now: Ahora puede
-      organisers: "Seleccione los usuarios de la institución que organizar\xC3\xA1n este evento"
+      organisers: "Seleccione los usuarios de la instituci\xC3\xB3n que organizar\xC3\xA1n este evento"
       without_str: "Para recibir streaming y/o grabaci\xC3\xB3n, por favor ind\xC3\xADquelo en su planificaci\xC3\xB3n"
     home: 
       one: Evento en el espacio {{space}}
@@ -693,15 +691,15 @@ es:
       label: "Personalice su mensaje de notificaci\xC3\xB3n"
       legend: 
         name: "'Nombre' ser\xC3\xA1 reemplazado en el mensaje por el nombre del receptor."
-      message_beginning_with_start_date: "<p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en la institución {{space}}</b> el 'event_date': </p>"
-      message_beginning_without_start_date: <p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en la institución {{space}}:</b> </p>
+      message_beginning_with_start_date: "<p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date': </p>"
+      message_beginning_without_start_date: "<p> 'Nombre', </p><p> Acerca del <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}:</b> </p>"
       message_ending: "<p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre el evento en <a href=\"event_url\">event_url</a> </p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
       message_title: "Enviar una notificaci\xC3\xB3n a los asistentes"
       personal: "Escriba su mensaje personal aqu\xC3\xAD."
       select_all_attendants: Seleccionar todos los asistentes
       selected_attendants: "Asistentes a los que notificar:"
       show_all_attendants: Mostrar todos los asistentes
-      subject: "{{username}} le ha enviado una notificaci\xC3\xB3n acerca del evento {{eventname}} en la institución {{space}}"
+      subject: "{{username}} le ha enviado una notificaci\xC3\xB3n acerca del evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
       title: Notificar a los asistentes del evento
     now: "Eventos en curso:"
     one: Evento
@@ -726,7 +724,7 @@ es:
     player: Reproductor
     recording: 
       button_disabled: "Este bot\xC3\xB3n se activar\xC3\xA1 cuando el evento tenga alguna grabaci\xC3\xB3n"
-      notice: La gente debe tener derechos de acceso a esta institución para ver estos videos
+      notice: "La gente debe tener derechos de acceso a esta instituci\xC3\xB3n para ver estos videos"
       one: Video del evento
       other: Videos del evento
       recorded: Videos grabados
@@ -822,11 +820,11 @@ es:
     loading: "El formulario se est\xC3\xA1 cargando..."
   from: Desde
   frontpage: 
-    collaborate:
-      sentence: Colaborar 
+    collaborate: 
+      sentence: Colaborar
       sentence1: Organice sus proyectos y actividades
       sentence2: Participe en conferencias y eventos
-      sentence3: Cree su propia institución y conferencias
+      sentence3: "Cree su propia instituci\xC3\xB3n y conferencias"
     elements: 
       comments: Comentarios
       conferences: Conferencias
@@ -836,14 +834,14 @@ es:
       spaces: Instituciones
       tags: Etiquetas
     main_title: "CLARA VideoConferencias (Beta): un servicio para la reserva, publicaci\xC3\xB3n y el descubrimiento de videoconferencias"
-    meet:
+    meet: 
       sentence: Conocer
       sentence1: Descubra las mejores videoconferencias online
       sentence2: Conozca gente y grupos interesantes
       sentence3: Videoconferencia con sus colegas
-    share:
-      sentence: Compartir 
-      sentence1: "Reservas de videoconferencias"
+    share: 
+      sentence: Compartir
+      sentence1: Reservas de videoconferencias
       sentence2: "Repositorios de v\xC3\xADdeos y documentos"
       sentence3: Sus contactos y relaciones
     stats: "{{vc}} videoconferencias organizadas - {{vs}} v\xC3\xADdeos almacenados"
@@ -874,32 +872,28 @@ es:
   hello: Hola
   help: Ayuda
   help_cancelreservation: 
-    part1: "Para cancelar una reserva virtual en CLARA VideoConferencias(Beta):<br><br>  1. Clic en el icono de Cancelar Reserva."
+    part1: Para cancelar una reserva virtual en CLARA VideoConferencias(Beta):<br><br>  1. Clic en el icono de Cancelar Reserva.
     part2: "2. En el mensaje de confirmaci\xC3\xB3n presionamos en el boton OK.<br>"
-    part3: "3. La reserva se ha cancelado exitosamente."
-  help_covinoanswer:
+    part3: 3. La reserva se ha cancelado exitosamente.
+  help_covinoanswer: 
     part1: "Cuando el covi no responde a una petici\xC3\xB3n en CLARA VideoConferencias(Beta):<br><br>  1. Clic en Bandeja de Entrada del menu superior.<br> 2. Escribimos el titulo y el cuerpo del mensaje,y damos clic en Agregar Usuarios."
     part2: "3. En la caja de texto que aparece, escribimos vnoc y damos clic en casilla de verificaci\xC3\xB3n del usuario."
-    part3: "4. Nos aparecera el usuario seleccionado y damos clic en el boton Enviar."
+    part3: 4. Nos aparecera el usuario seleccionado y damos clic en el boton Enviar.
   help_createVC: 
     part1: "Para crear una reuni\xC3\xB3n virtual en CLARA VideoConferencias(Beta):<br><br>  1. Haga clic en la pesta\xC3\xB1a <b>Eventos</b>.<br> 2. Haga clic en <b>Congreso virtual</b> en la parte derecha de la p\xC3\xA1gina."
-    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros de la institución que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n, los cuales le permiten decidir la manera como las personas se pueden conectar a una reuni\xC3\xB3n virtual. <br>&nbsp; &nbsp; a. <b> Isabel</b>, la herramienta de c\xC3\xB3digo abierto que gestiona videoconferencias.<br> &nbsp;&nbsp; &nbsp;b.<b> Web</b>, la oportunidad de participar en una videconferencia a trav\xC3\xA9s del navegador. <br>7. Clic on <b>Create</b> button."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros de la instituci\xC3\xB3n que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n, los cuales le permiten decidir la manera como las personas se pueden conectar a una reuni\xC3\xB3n virtual. <br>&nbsp; &nbsp; a. <b> Isabel</b>, la herramienta de c\xC3\xB3digo abierto que gestiona videoconferencias.<br> &nbsp;&nbsp; &nbsp;b.<b> Web</b>, la oportunidad de participar en una videconferencia a trav\xC3\xA9s del navegador. <br>7. Clic on <b>Create</b> button."
     part3: "8. Una vez que haya creado el evento, usted puede:<br><li><a href={{agenda}}>Definir la agenda del evento</a> <li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripci\xC3\xB3n completa de su evento<li> Editar su evento<li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createVM: 
     part1: "Para crear una reuni\xC3\xB3n virtual en CLARA VideoConferencias(Beta):<br><br>  1. Haga clic en la pesta\xC3\xB1a <b>Eventos</b>.<br> 2. Haga clic en <b>Reuni\xC3\xB3n virtual</b> en la parte derecha de la p\xC3\xA1gina."
-    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros de la institución que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n, los cuales le permiten decidir la manera como las personas se pueden conectar a una reuni\xC3\xB3n virtual. <br>&nbsp; &nbsp; a. <b> Isabel</b>, la herramienta de c\xC3\xB3digo abierto que gestiona videoconferencias.<br> &nbsp;&nbsp; &nbsp;b.<b> Web</b>, la oportunidad de participar en una videconferencia a trav\xC3\xA9s del navegador. <br>7. Clic on <b>Create</b> button."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4.  Escriba o seleccione los miembros de la instituci\xC3\xB3n que organizar\xC3\xA1n el evento.<br>  5. Escriba la localizaci\xC3\xB3n del evento<br> 6. Seleccione los modos de participaci\xC3\xB3n, los cuales le permiten decidir la manera como las personas se pueden conectar a una reuni\xC3\xB3n virtual. <br>&nbsp; &nbsp; a. <b> Isabel</b>, la herramienta de c\xC3\xB3digo abierto que gestiona videoconferencias.<br> &nbsp;&nbsp; &nbsp;b.<b> Web</b>, la oportunidad de participar en una videconferencia a trav\xC3\xA9s del navegador. <br>7. Clic on <b>Create</b> button."
     part3: "8. Una vez que haya creado el evento, usted puede:<br><li><a href={{agenda}}>Definir la agenda del evento</a><li>Reservar los recursos necesarios para realizar la videoconferencia <li> Invitar a gente<li> Escribir una descripci\xC3\xB3n completa de su evento<li> Editar su evento<li> Importar a icalendar<li>  Notificar a los asistentes"
   help_createevent: 
     part1: "<a href={{url}} class=\"big_button red_button\" target=\"_blank\"><span>Ver screencast </a></span><br><br><br>Para crear un evento en CLARA VideoConferencias(Beta): <br><br>1. Haga clic en la pesta\xC3\xB1a <b>Eventos</b>."
     part2: "2. Puede crear un evento directamente en la secci\xC3\xB3n de <b>Crear evento</b> en la derecha de la p\xC3\xA1gina. CLARA VideoConferencias(Beta) ofrece soporte a tres tipos de eventos, de acuerdo a sus necesidades: <br><li><b><a href={{url_meeting}}> Reuni\xC3\xB3n</a></b> est\xC3\xA1 principalmente dise\xC3\xB1ado para dar soporte a reuniones f\xC3\xADsicas o reuniones offiline en las cuales no es necesario grabar v\xC3\xADdeo (streaming). Este tipo de reuni\xC3\xB3n es ideal para la gesti\xC3\xB3n de una reuni\xC3\xB3n m\xC3\xA1s simple - como crear y modificar una agenda que las personas pueden consultar o importar a sus agendas. Asimismo, se permite proporcionar los documentos necesarios para la reuni\xC3\xB3n o compartir posteriormente las fotos tomadas en la reuni\xC3\xB3n .<li><b><a href={{url_vm}}>Reuni\xC3\xB3n virtual</a></b> es un evento apropiado para reuniones online o reuniones f\xC3\xADsicas con un fuerte componente virtual, lo que significa que tanto los participantes locales como remotos tendr\xC3\xA1n la oportunidad de comunicarse de forma interactiva<li><b><a href={{url_vc}}>Congreso virtual</a></b> es muy similar a la <i>reuni\xC3\xB3n virtual</i> pero orientado para grandes eventos, tanto en tama\xC3\xB1o como en complejidad. Por lo general, este tipo de evento requiere el soporte de un operador en sala."
   help_createmeeting: 
     part1: "Para crear una reuni\xC3\xB3n en CLARA VideoConferencias(Beta):<br><br>  1. Haga clic en la pesta\xC3\xB1a <b>Eventos</b>.<br>  2. Haga clic en <b>Reuni\xC3\xB3n</b> en la parte derecha de la p\xC3\xA1gina."
-    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4. Escriba o seleccione los miembros de la institución que organizar\xC3\xA1n el evento. <br> 5. Escriba la localizaci\xC3\xB3n del evento.<br>  6. Haga clic en el bot\xC3\xB3n <b>Crear</b>."
+    part2: "3. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su evento.<br>  4. Escriba o seleccione los miembros de la instituci\xC3\xB3n que organizar\xC3\xA1n el evento. <br> 5. Escriba la localizaci\xC3\xB3n del evento.<br>  6. Haga clic en el bot\xC3\xB3n <b>Crear</b>."
     part3: "7. Una vez se haya creado el evento, usted puede: <br><li><a href={{agenda}}>Definir la agenda del evento</a><li>Invitar personas<li>Escribir una descripci\xC3\xB3n completa<li>Editar su evento<li>Importar un icalendar<li>Notificar a los asistentes"
-  help_createreservation:
-    part1: "Para crear una reservaci\xC3\xB3n en CLARA VideoConferencias(Beta):<br><br>  1. Haga clic en la pesta\xC3\xB1a <b>Crear Nueva Reserva</b>.<br>"
-    part2: "2. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su nueva reserva.<br>  3. Escoga el tipo de Videoconferencia <br> 4. Escriba la localizaci\xC3\xB3n del evento.<br>  5. Agreque los participantes del evento.<br> 6. Acepte las politicas de uso del sistema.<br> 7.Haga clic en el bot\xC3\xB3n <b>Aceptar</b>."
-    part3: "8. Una vez se haya creado el evento, usted observara la siguiente pagina: <br>"
   help_createpost: 
     part1: "Para crear un mensaje en el muro de CLARA VideoConferencias(Beta):"
     part10: "a. Ver el c\xC3\xB3digo fuente en HTML"
@@ -916,13 +910,17 @@ es:
     part7: "6. Usted puede a\xC3\xB1adir etiquetas a su archivo. Las etiquetas le permitir\xC3\xA1n encontrar f\xC3\xA1cilmente los archivos. Pulse <b> enter</b> para confirmar cada etiqueta."
     part8: "7. Repita los pasos 4, 5 y 6 por cada archivo que desee a\xC3\xB1adir.."
     part9: "8. Puede utilizar el editor avanzado para editar/formatear/escribir contenido. Este editor le permite:"
+  help_createreservation: 
+    part1: "Para crear una reservaci\xC3\xB3n en CLARA VideoConferencias(Beta):<br><br>  1. Haga clic en la pesta\xC3\xB1a <b>Crear Nueva Reserva</b>.<br>"
+    part2: "2. Escriba un t\xC3\xADtulo y una descripci\xC3\xB3n para su nueva reserva.<br>  3. Escoga el tipo de Videoconferencia <br> 4. Escriba la localizaci\xC3\xB3n del evento.<br>  5. Agreque los participantes del evento.<br> 6. Acepte las politicas de uso del sistema.<br> 7.Haga clic en el bot\xC3\xB3n <b>Aceptar</b>."
+    part3: "8. Una vez se haya creado el evento, usted observara la siguiente pagina: <br>"
   help_createspace: 
-    part1: "Para crear una institución en CLARA VideoConferencias(Beta):"
+    part1: "Para crear una instituci\xC3\xB3n en CLARA VideoConferencias(Beta):"
     part2: "1. Haga clic en la opci\xC3\xB3n <a href={{url}}>Inicio</a> de la barra de superior."
-    part3: "2. Haga clic en el bot\xC3\xB3n <b>Crear una nueva institución</b>"
-    part4: "3. Escriba un nombre y una descripci\xC3\xB3n para su institución."
-    part5: "4. Decida si la institución debe ser p\xC3\xBAblico. Instituciones colaborativos pueden ser p\xC3\xBAblicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde s\xC3\xB3lo sus miembros tienen accceso a las actividades de la institución."
-    part6: "5. Si desea habilitar un repositorio de documentos, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros.<br>7. Puede asignar un logo a su institución, subiendo su propio logo, creando un logo basado en un texto o seleccionar una imagen de la galer\xC3\xADa. "
+    part3: "2. Haga clic en el bot\xC3\xB3n <b>Crear una nueva instituci\xC3\xB3n</b>"
+    part4: "3. Escriba un nombre y una descripci\xC3\xB3n para su instituci\xC3\xB3n."
+    part5: "4. Decida si la instituci\xC3\xB3n debe ser p\xC3\xBAblico. Instituciones colaborativos pueden ser p\xC3\xBAblicos en donde cualquier usuario puede ver lo que sucede en ellos, o privados, en donde s\xC3\xB3lo sus miembros tienen accceso a las actividades de la instituci\xC3\xB3n."
+    part6: "5. Si desea habilitar un repositorio de documentos, seleccione esta opci\xC3\xB3n. <br>6. Puede asociar una lista de correo a su grupo. Esto le permitir\xC3\xA1 enviar correos electr\xC3\xB3nicos a su grupo en lugar de tener que enviarlos de manera individual a cada uno de los miembros.<br>7. Puede asignar un logo a su instituci\xC3\xB3n, subiendo su propio logo, creando un logo basado en un texto o seleccionar una imagen de la galer\xC3\xADa. "
     part7: "6. Puede asociar una lista de correo para su grupo. Se le permitir\xC3\xA1 enviar mensajes de correo electr\xC3\xB3nico a su grupo en lugar de tener que seleccionar una de las direcciones cada vez."
   help_createuser: 
     part1: "Para crear un usuario en CLARA VideoConferencias(Beta):"
@@ -956,30 +954,30 @@ es:
     part6: "5. Puede <b>a\xC3\xB1adir etiquetas</b> que usted y otros usuarios pueden utilizar para encontrar y filtrar contenido. Pulse <b>enter</b> para confirmar cada etiqueta."
     part7: "6. Si desea <b>notificar</b> la subida de ficheros con un mensaje en el muro, elija esta opci\xC3\xB3n."
     part8: "7. Por \xC3\xBAltimo, haga clic en el bot\xC3\xB3n <b>Subir</b> para a\xC3\xB1adir el archivo al repositorio."
-  help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_soliciteroom: 
-    part1: "Para solicitar una nueva reserva en una nueva sala en CLARA VideoConferencias(Beta):<br> 1. Clic en el icono de ampliar una invitacion"
+    part1: Para solicitar una nueva reserva en una nueva sala en CLARA VideoConferencias(Beta):<br> 1. Clic en el icono de ampliar una invitacion
     part2: "2. Seleccionar el pa\xC3\xADs, la sala y dar clic en Aceptar."
-    part3: "3. Reserva de nueva sala creada exitosamente."
+    part3: 3. Reserva de nueva sala creada exitosamente.
+  help_support: "Ayuda y soporte t\xC3\xA9cnico"
   help_title: 
     about_vcc: Acerca de CLARA VideoConferencias (Beta)
-    covi_no_responde: "Que hacer si el COVI no responde la autorizacion?"
+    cancel_reservation: Cancelar una reserva
+    covi_no_responde: Que hacer si el COVI no responde la autorizacion?
     create_VC: "Creaci\xC3\xB3n de un congreso virtual"
     create_VM: "Creaci\xC3\xB3n de una reuni\xC3\xB3n virtual"
     create_event: "Creaci\xC3\xB3n de un evento"
     create_meeting: "Creaci\xC3\xB3n de una reuni\xC3\xB3n"
     create_post: Publicar un mensaje en el muro
-    create_space: "Creaci\xC3\xB3n de una institución"
+    create_space: "Creaci\xC3\xB3n de una instituci\xC3\xB3n"
     create_user: "Creaci\xC3\xB3n de un usuario"
     define_agenda: Definir la agenda del evento
     info: "Aqu\xC3\xAD puede encontrar informaci\xC3\xB3n sobre CLARA VideoConferencias(Beta)"
     logging: "Iniciar  sesi\xC3\xB3n con su cuenta "
     new_doc: "A\xC3\xB1adir un nuevo documento"
+    new_reservation: Crear una reserva
+    solicitar_sala: Como solicitar una reserva en una nueva sala?
     topics: Temas
-    new_reservation: "Crear una reserva"
-    solicitar_sala: "Como solicitar una reserva en una nueva sala?"
-    cancel_reservation: "Cancelar una reserva"
-  help_vcc:
+  help_vcc: 
     faq: Preguntas Frecuentes
     info: "Aqu\xC3\xAD usted puede encontrar informaci\xC3\xB3n sobre CLARA VideoConferencias"
     topics: Temas
@@ -987,12 +985,12 @@ es:
   his_message_reads_thus: "Su mensaje dice as\xC3\xAD"
   home: 
     activity: Actividad reciente...
-    my: Inicio
-    one: Inicio
     all: Todos
-    last_events: Eventos Pasados
     clara_events: Eventos Clara
+    last_events: Eventos Pasados
+    my: Inicio
     network_events: "M\xC3\xA1s Eventos"
+    one: Inicio
   icalendar: 
     add: Actualizar y agregar nuevas entradas
     conflictive1: "Una entrada de su iCalendar ya exist\xC3\xADa en CLARA VideoConferencias(Beta) y se ha modificado. Debe actualizarla manualmente para evitar problemas."
@@ -1044,8 +1042,8 @@ es:
     email: "Correo electr\xC3\xB3nico"
     hide_all_users: Ocultar todos los usuarios
     info_event: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n sobre este evento en 'event_url'"
-    info_space: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca de esta institución en  <a href=\"{{space_url}}\">{{space_url}}</a>"
-    info_users: Puede ver la lista de usuarios de la institución en  <a href="{{users_url}}">{{users_url}}</a>
+    info_space: "Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca de esta instituci\xC3\xB3n en  <a href=\"{{space_url}}\">{{space_url}}</a>"
+    info_users: "Puede ver la lista de usuarios de la instituci\xC3\xB3n en  <a href=\"{{users_url}}\">{{users_url}}</a>"
     introducer: Introductor
     label: "Personalice su mensaje de invitaci\xC3\xB3n"
     legend: 
@@ -1054,18 +1052,18 @@ es:
     logout_and_reload: "Usted no es el usuario que recibi\xC3\xB3 esta invitaci\xC3\xB3n, por favor, cierre la sesi\xC3\xB3n y vuelva a intentarlo"
     message_title: Invite a gente a este evento
     message_with_start_date: 
-      in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la institución {{space}}</b>, el 'event_date'.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la institución {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la institución {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b>, el 'event_date'.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b> el 'event_date'. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     message_without_start_date: 
-      in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la institución {{space}}</b>.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la institución {{space}}</b>. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
-      teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la institución {{space}}</b>. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      in_person: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b>.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      meeting: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b>. El evento ser\xC3\xA1 una reuni\xC3\xB3n virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
+      teleconference: "<p>Me gustar\xC3\xADa invitarle al <b>evento 'event_name' en la instituci\xC3\xB3n {{space}}</b>. El evento ser\xC3\xA1 una conferencia virtual en la que podr\xC3\xA1 participar f\xC3\xA1cilmente mediante el sistema Isabel.</p><p>Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}} </p><p>Puede encontrar m\xC3\xA1s informaci\xC3\xB3n acerca del evento en <a href=\"event_url\">event_url</a></p><p>Un cordial saludo,<br/><br/>{{username}}<br/>{{useremail}}<br/>{{userorg}}</p>"
     new: 
       other: Nuevas invitaciones
     not_accepted: no aceptado
-    not_created: "no ha podido ser invitado a esta institución porque ya pertenece a \xC3\xA9l"
-    not_created_2: "no ha podido ser invitado a esta institución porque ya hab\xC3\xADa sido invitado"
+    not_created: "no ha podido ser invitado a esta instituci\xC3\xB3n porque ya pertenece a \xC3\xA9l"
+    not_created_2: "no ha podido ser invitado a esta instituci\xC3\xB3n porque ya hab\xC3\xADa sido invitado"
     not_found: "Invitaci\xC3\xB3n no encontrada"
     not_pending: 
       other: No hay invitaciones pendientes
@@ -1084,14 +1082,14 @@ es:
     show: Unirse a {{group}}
     show_all_users: Mostrar todos los usuarios
     sign: Atentamente, ((nombre de usuario))
-    space: "Me gustar\xC3\xADa invitarle a la institución {{space}} en CLARA VideoConferencias(Beta)."
-    subject: "{{username}} le ha invitado a un evento en la institución {{space}}"
+    space: "Me gustar\xC3\xADa invitarle a la instituci\xC3\xB3n {{space}} en CLARA VideoConferencias(Beta)."
+    subject: "{{username}} le ha invitado a un evento en la instituci\xC3\xB3n {{space}}"
     title: Invitar a la gente
-    title2: "Invitaci\xC3\xB3n a la institución"
+    title2: "Invitaci\xC3\xB3n a la instituci\xC3\xB3n"
     to_accept: "Para aceptar mi invitaci\xC3\xB3n, por favor visite <a href={{url}}>{{url}}</a>"
     to_accept_space: "Para aceptar mi invitaci\xC3\xB3n, por favor visite {{url}}"
-    to_event: "{{username}} le ha invitado al evento {{eventname}} en la institución {{space}}"
-    to_space: ((Nombre de usuario)) le invita a la institución {{space}}
+    to_event: "{{username}} le ha invitado al evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
+    to_space: "((Nombre de usuario)) le invita a la instituci\xC3\xB3n {{space}}"
     was_processed: 
       accepted: "La invitaci\xC3\xB3n ya fue aceptada"
       discarded: "La invitaci\xC3\xB3n ya ha sido descartada"
@@ -1103,15 +1101,15 @@ es:
   join: Unirse
   join_request: 
     accepted: "Petici\xC3\xB3n aceptada"
-    already_sent: "Usted ya ha enviado una petici\xC3\xB3n para unirse a esta institución"
+    already_sent: "Usted ya ha enviado una petici\xC3\xB3n para unirse a esta instituci\xC3\xB3n"
     ask_subject: "{{candidate}} quiere participar en {{space}}"
-    asked: "<b>{{candidate}}</b> quiere participar en la institución {{space}}, administrado por usted:"
-    asked_anonymous: "Alguien quiere participar en la institución {{space}}, administrado por usted:"
-    created: "Su petici\xC3\xB3n ha sido enviada a los administradores de la institución"
+    asked: "<b>{{candidate}}</b> quiere participar en la instituci\xC3\xB3n {{space}}, administrado por usted:"
+    asked_anonymous: "Alguien quiere participar en la instituci\xC3\xB3n {{space}}, administrado por usted:"
+    created: "Su petici\xC3\xB3n ha sido enviada a los administradores de la instituci\xC3\xB3n"
     discarded: "Petici\xC3\xB3n descartada"
-    joined: Usted ya es miembro de la institución
+    joined: "Usted ya es miembro de la instituci\xC3\xB3n"
     label: "Personalice su solicitud de participaci\xC3\xB3n"
-    message_title: Solicitar a los administradores de la institución unirse
+    message_title: "Solicitar a los administradores de la instituci\xC3\xB3n unirse"
     not_logged_in: Necesita estar registrado para solicitar unirse
     not_pending: 
       other: "No hay peticiones de uni\xC3\xB3n pendientes"
@@ -1122,8 +1120,8 @@ es:
       other: "Peticiones de uni\xC3\xB3n pendientes"
     personal: "Escribe el texto de su personal aqu\xC3\xAD."
     send: Enviar solicitud de Ingreso
+    title: CLARA VideoConferencias > Unirse
     to_accept: Para responder a la solicitud por favor visite <a href="{{url}}">{{url}}</a>
-    title: "CLARA VideoConferencias > Unirse"
     updated: "Petici\xC3\xB3n actualizada"
   join_to_site: Unirse a {{site}}
   keywords: Palabras clave (*)
@@ -1146,11 +1144,11 @@ es:
   logo: 
     click_to_change: Haga clic para cambiar el logotipo
     created: "Logo creado con \xC3\xA9xito"
-    crop: Cortar logo de la institución
+    crop: "Cortar logo de la instituci\xC3\xB3n"
     current: Logo actual
     empty: "El logo est\xC3\xA1 vac\xC3\xADo"
     error: 
-      not_valid: "El logo de la institución no es v\xC3\xA1lido"
+      not_valid: "El logo de la instituci\xC3\xB3n no es v\xC3\xA1lido"
     one: Logo
   logout: Salir {{user}}
   mailing_list: 
@@ -1160,7 +1158,7 @@ es:
   manage: Administrar
   management: "gesti\xC3\xB3n"
   mark_checkbox: "Marque la casilla de verificaci\xC3\xB3n adecuada"
-  mcu:
+  mcu: 
     action_create: Crear
     action_delete: Eliminar MCU
     action_edit: Editar MCU
@@ -1168,9 +1166,9 @@ es:
     action_new: Crear nueva MCU
     action_save: Guardar
     created_successfully: La MCU fue creada exitosamente.
-    delete_confirm: Está seguro?
+    delete_confirm: "Est\xC3\xA1 seguro?"
     empty: No existen MCU registradas
-    ip_address: Dirección IP
+    ip_address: "Direcci\xC3\xB3n IP"
     mcunumber: MCU
     model: Modelo
     shared_ports: Puertos compartidos
@@ -1189,7 +1187,7 @@ es:
     one: Mensaje
     other: Mensajes
     private: 
-      cant: "No puede enviar mensajes privados porque no tiene contactos en ninguna institución"
+      cant: "No puede enviar mensajes privados porque no tiene contactos en ninguna instituci\xC3\xB3n"
       editing: Editar mensaje privado
       new: Nuevo mensaje privado
       none: No hay mensajes
@@ -1218,7 +1216,7 @@ es:
     home: 
       one: ""
       zero: No hay noticias para mostrar
-    item_in_home: Noticia en la institución
+    item_in_home: "Noticia en la instituci\xC3\xB3n"
     none: Ninguno
     none_to_show: No hay noticias para mostrar
     other: Noticias
@@ -1370,13 +1368,13 @@ es:
       other: "{{size}} mensajes fueron encontrados"
       show_all: Mostrar todos los resultados
     home: 
-      one: Mensaje en la institución {{space}}
+      one: "Mensaje en la instituci\xC3\xB3n {{space}}"
     latest: "\xC3\x9Altimos mensajes"
     none_created: "N \xC2\xBA mensajes creados"
     none_recent: No hay mensajes recientes
     one: Mensaje
     other: Mensajes
-    other_in_space: Mensajes en la institución {{space}}
+    other_in_space: "Mensajes en la instituci\xC3\xB3n {{space}}"
     show_expanded_pref: "\xC2\xBFC\xC3\xB3mo le gustar\xC3\xADa ver sus mensajes?"
     updated: Mensaje actualizado
     wall: Muro
@@ -1385,118 +1383,29 @@ es:
   privacy: Privacidad
   private: Privado
   private_message: 
-    send: Enviar mensaje privado
     notification: 
-      subject: Ha recibido un mensaje privado de {{username}}
       body: "{{user_sender}} le ha escrito un mensaje privado:"
+      subject: Ha recibido un mensaje privado de {{username}}
+    send: Enviar mensaje privado
   profile: 
     created: Perfil se ha creado correctamente.
     deleted: Perfil ha sido borrado exitosamente.
     description: 
       add: Escriba algo sobre usted
-    disciplines:
+    disciplines: 
       agriculture: Agricultura, veterinaria y ciencias del medio ambiente
-      environmental: Ciencias Ambientales
-      biological: Ciencias biológicas
+      biological: "Ciencias biol\xC3\xB3gicas"
       consumer: Ciencias del Consumidor
-      sea: Ciencias del mar
+      engienery: "Ingenier\xC3\xADa"
+      environmental: Ciencias Ambientales
       exact: Ciencias exactas
-      social: Ciencias sociales
-      state: Defensa del Estado
       humanities: Humamidades
-      engienery: Ingeniería
-      techonlogy: Ingeniería y tecnología
       medicine: Medicina y ciencias de la salud
       multidisciplinary: Multidiciplinario
-    subdisciplines:
-      agriculture:
-        agricultural: Ciencias agrícolas
-        forestal: Ciencias forestales
-        soil: Ciencias del suelo
-        veterinarian: Ciencias veterinarias
-        fishing: Pesca
-        production: Producción animal y vegetal
-        environment: Ciencia y tecnología del medio ambiente
-        food: Procesamiento y tecnología de alimentos
-      environmental:
-        community: Comunidad y Ambiente
-        health: Salud Ambiental
-      biological:
-        cellular: Biología celular y molecular
-        physiology: Fisiología y biología del desarrollo
-        environment: Biología ambiental
-        evolution: Sistémica y evolución
-      consumer:
-        domestic: Economía doméstica
-      sea:
-        fishing: Pesca
-        antartic: Antártico
-      exact:
-        math: Matemáticas
-        information: Ciencias de la información, computación y comunicación
-        physics: Física
-        astronomy: Astronomía y astrofísica
-        chemical: Química
-        earth: Ciencias de la tierra
-        microscopy: Microscopía Electrónica
-        sismology: Sismología
-      social:
-        arquitecture: Arquitectura, urbanismo
-        education: Educación
-        economy: Economía
-        commerce: Comercio, administración, turismo y servicios
-        studies: Estudios internacionales y cooperación internacional
-        politics: Política y ciencia política
-        sociology: Sociología
-        antropology: Antropología
-        geography: Geografía
-        Psicology: Psicología
-        right: Derecho, justicia y legislación
-        information: Ciencias de la información y comunicación
-        others: Otras cienas sociales
-      state:
-        security: Seguridad del Estado
-      humanities: 
-        arts: Artes
-        linguistic: Lingüística, letras y cultura
-        history: Historia
-        philosophy: Filosofía
-        religion: Religión
-        others: Otras humanidades
-        all: Todas  
-      engienery:
-        technology: Tecnologías de la información
-        robotics: Robótica
-        mechanics: Mecánica
-        chemical: Química
-        electric: Ingeniería Eléctrica
-      techonlogy:
-        chemical: Ingeniería química
-        civil: Ingeniería civil
-        computing: Computación y tecnologías de la información
-        material: Ingeniería de materiales
-        electrical: Ingeniería eléctrica y electrónica
-        industrial: Ingeniería industrial
-        resources: Ingeniería de recursos
-        others: Otras ingenierías y tecnologías
-        nanotechnology: Nanotecnología
-        biotechnology: Biotecnología
-        mecanic: Ingeniería mecánica
-        hidrology: Hidrología
-        geology: Ingeniería geológica
-      medicine:
-        clinic: Ciencias clínicas
-        inmunology: Inmunología clínica
-        microbiology: Microbiología clínica
-        anatony: Anatomía y fisiología
-        neurosciences: neurociencias
-        farmacology: Farmacología
-        health: Salud pública y servicios de salud
-        others: Otras ciencias médicas y de la salud
-        biochemical: Bioquímica y química clínica
-        nutrition: Nutrición
-      multidisciplinary:
-        multidisciplinary: Multidisciplinario
+      sea: Ciencias del mar
+      social: Ciencias sociales
+      state: Defensa del Estado
+      techonlogy: "Ingenier\xC3\xADa y tecnolog\xC3\xADa"
     error: 
       exist: Su perfil ya existe
     hcard: 
@@ -1508,6 +1417,95 @@ es:
     public: "Perfil p\xC3\xBAblico"
     public_description: "Cualquier persona puede acceder a esta informaci\xC3\xB3n"
     should_create: "Usted debe <a href={{path}}>crear</a> su perfil. Es muy \xC3\xBAtil."
+    subdisciplines: 
+      agriculture: 
+        agricultural: "Ciencias agr\xC3\xADcolas"
+        environment: "Ciencia y tecnolog\xC3\xADa del medio ambiente"
+        fishing: Pesca
+        food: "Procesamiento y tecnolog\xC3\xADa de alimentos"
+        forestal: Ciencias forestales
+        production: "Producci\xC3\xB3n animal y vegetal"
+        soil: Ciencias del suelo
+        veterinarian: Ciencias veterinarias
+      biological: 
+        cellular: "Biolog\xC3\xADa celular y molecular"
+        environment: "Biolog\xC3\xADa ambiental"
+        evolution: "Sist\xC3\xA9mica y evoluci\xC3\xB3n"
+        physiology: "Fisiolog\xC3\xADa y biolog\xC3\xADa del desarrollo"
+      consumer: 
+        domestic: "Econom\xC3\xADa dom\xC3\xA9stica"
+      engienery: 
+        chemical: "Qu\xC3\xADmica"
+        electric: "Ingenier\xC3\xADa El\xC3\xA9ctrica"
+        mechanics: "Mec\xC3\xA1nica"
+        robotics: "Rob\xC3\xB3tica"
+        technology: "Tecnolog\xC3\xADas de la informaci\xC3\xB3n"
+      environmental: 
+        community: Comunidad y Ambiente
+        health: Salud Ambiental
+      exact: 
+        astronomy: "Astronom\xC3\xADa y astrof\xC3\xADsica"
+        chemical: "Qu\xC3\xADmica"
+        earth: Ciencias de la tierra
+        information: "Ciencias de la informaci\xC3\xB3n, computaci\xC3\xB3n y comunicaci\xC3\xB3n"
+        math: "Matem\xC3\xA1ticas"
+        microscopy: "Microscop\xC3\xADa Electr\xC3\xB3nica"
+        physics: "F\xC3\xADsica"
+        sismology: "Sismolog\xC3\xADa"
+      humanities: 
+        all: Todas
+        arts: Artes
+        history: Historia
+        linguistic: "Ling\xC3\xBC\xC3\xADstica, letras y cultura"
+        others: Otras humanidades
+        philosophy: "Filosof\xC3\xADa"
+        religion: "Religi\xC3\xB3n"
+      medicine: 
+        anatony: "Anatom\xC3\xADa y fisiolog\xC3\xADa"
+        biochemical: "Bioqu\xC3\xADmica y qu\xC3\xADmica cl\xC3\xADnica"
+        clinic: "Ciencias cl\xC3\xADnicas"
+        farmacology: "Farmacolog\xC3\xADa"
+        health: "Salud p\xC3\xBAblica y servicios de salud"
+        inmunology: "Inmunolog\xC3\xADa cl\xC3\xADnica"
+        microbiology: "Microbiolog\xC3\xADa cl\xC3\xADnica"
+        neurosciences: neurociencias
+        nutrition: "Nutrici\xC3\xB3n"
+        others: "Otras ciencias m\xC3\xA9dicas y de la salud"
+      multidisciplinary: 
+        multidisciplinary: Multidisciplinario
+      sea: 
+        antartic: "Ant\xC3\xA1rtico"
+        fishing: Pesca
+      social: 
+        Psicology: "Psicolog\xC3\xADa"
+        antropology: "Antropolog\xC3\xADa"
+        arquitecture: Arquitectura, urbanismo
+        commerce: "Comercio, administraci\xC3\xB3n, turismo y servicios"
+        economy: "Econom\xC3\xADa"
+        education: "Educaci\xC3\xB3n"
+        geography: "Geograf\xC3\xADa"
+        information: "Ciencias de la informaci\xC3\xB3n y comunicaci\xC3\xB3n"
+        others: Otras cienas sociales
+        politics: "Pol\xC3\xADtica y ciencia pol\xC3\xADtica"
+        right: "Derecho, justicia y legislaci\xC3\xB3n"
+        sociology: "Sociolog\xC3\xADa"
+        studies: "Estudios internacionales y cooperaci\xC3\xB3n internacional"
+      state: 
+        security: Seguridad del Estado
+      techonlogy: 
+        biotechnology: "Biotecnolog\xC3\xADa"
+        chemical: "Ingenier\xC3\xADa qu\xC3\xADmica"
+        civil: "Ingenier\xC3\xADa civil"
+        computing: "Computaci\xC3\xB3n y tecnolog\xC3\xADas de la informaci\xC3\xB3n"
+        electrical: "Ingenier\xC3\xADa el\xC3\xA9ctrica y electr\xC3\xB3nica"
+        geology: "Ingenier\xC3\xADa geol\xC3\xB3gica"
+        hidrology: "Hidrolog\xC3\xADa"
+        industrial: "Ingenier\xC3\xADa industrial"
+        material: "Ingenier\xC3\xADa de materiales"
+        mecanic: "Ingenier\xC3\xADa mec\xC3\xA1nica"
+        nanotechnology: "Nanotecnolog\xC3\xADa"
+        others: "Otras ingenier\xC3\xADas y tecnolog\xC3\xADas"
+        resources: "Ingenier\xC3\xADa de recursos"
     updated: Perfil actualizado correctamente.
     visibility: Visibilidad
     visibility_description: "Elija qui\xC3\xA9n podr\xC3\xA1 ver su perfil privado."
@@ -1516,8 +1514,8 @@ es:
     visibility_everyone: Todos pueden ver su perfil privado.
     visibility_members: "S\xC3\xB3lo los usuarios registrados pueden ver su perfil privado."
     visibility_nobody: Nadie puede ver su perfil privado.
-    visibility_private_fellows: "S\xC3\xB3lo sus compa\xC3\xB1eros en una institución privado pueden ver su perfil privado."
-    visibility_public_fellows: "S\xC3\xB3lo sus compa\xC3\xB1eros en una institución p\xC3\xBAblico o privado pueden ver su perfil privado."
+    visibility_private_fellows: "S\xC3\xB3lo sus compa\xC3\xB1eros en una instituci\xC3\xB3n privado pueden ver su perfil privado."
+    visibility_public_fellows: "S\xC3\xB3lo sus compa\xC3\xB1eros en una instituci\xC3\xB3n p\xC3\xBAblico o privado pueden ver su perfil privado."
   province: Provincia
   public: "P\xC3\xBAblicos"
   read: Leer
@@ -1532,7 +1530,7 @@ es:
   register_as_admin: Registrarse como administrador
   register_as_invited: Registrarse como invitado
   register_as_user: Registrarse como usuario
-  register_now: "¡Reg\xC3\xADstrese AHORA!"
+  register_now: "\xC2\xA1Reg\xC3\xADstrese AHORA!"
   remarks: Comentarios
   remember_me: Recordarme
   remove: Eliminar
@@ -1544,7 +1542,7 @@ es:
     add_document: "A\xC3\xB1adir nuevo documento"
     add_tags: Agregar etiquetas
     download: Descargar
-    enable: "¿Habilitar repositorio de documentos?"
+    enable: "\xC2\xBFHabilitar repositorio de documentos?"
     loading: Actualizando el repositorio de documentos ...
     need_javascript: Por favor, active Javascript para poder trabajar con el repositorio de documentos
     one: Docs
@@ -1553,84 +1551,86 @@ es:
     search: "Buscar documentos:"
   request: 
     default: solicitar
-    info: "Su solicitud para participar en esta institución ha sido enviada con \xC3\xA9xito a los administradores de la institución. Un administrador se encargar\xC3\xA1 de su solicitud  tan pronto como sea posible"
-    sent: "¡Solicitud enviada!"
+    info: "Su solicitud para participar en esta instituci\xC3\xB3n ha sido enviada con \xC3\xA9xito a los administradores de la instituci\xC3\xB3n. Un administrador se encargar\xC3\xA1 de su solicitud  tan pronto como sea posible"
+    sent: "\xC2\xA1Solicitud enviada!"
   request_change_password: "Solicitar cambiar su contrase\xC3\xB1a"
-  reservation:
-    aggrement: Sí acepto las politicas de uso del sistema de reservas
+  reservation: 
     add_participants: "A\xC3\xB1adir Participantes"
-    button_new: Crear Nueva Reserva
+    aggrement: "S\xC3\xAD acepto las politicas de uso del sistema de reservas"
     button_accept_submit: Aceptar
     button_approve_submit: Aprobar
     button_cancel_by_covi_submit: Anular
     button_decline_submit: Declinar
+    button_new: Crear Nueva Reserva
     button_new_submit: Reservar
     button_reject_submit: Rechazar
-    country: País
+    country: !binary |
+      UGHDrXM=
+
     description: "Descripci\xC3\xB3n"
     description1: "En proceso de aprobaci\xC3\xB3n por el COVI."
     description2: "En proceso de aprobaci\xC3\xB3n por el VNOC."
     information: "Informaci\xC3\xB3n sobre Tipos de Video Conferencia"
-    information_port: "Información sobre Número de puntos"
-    information_port_text: "Es equivalente al numero de sala virtuales que se utilizará para la videoconferencia, y puede ser diferente al número de usuarios que podrán existir por cada sala virtual"
+    information_port: "Informaci\xC3\xB3n sobre N\xC3\xBAmero de puntos"
+    information_port_text: "Es equivalente al numero de sala virtuales que se utilizar\xC3\xA1 para la videoconferencia, y puede ser diferente al n\xC3\xBAmero de usuarios que podr\xC3\xA1n existir por cada sala virtual"
     information_service: 
-      title: "Informaci\xC3\xB3n sobre Tipos de Sala"
-      certified:
-        title: "Sala Certificada"
+      certified: 
         description: "Es una infraestructura f\xC3\xADsica, la cual cuenta con equipos f\xC3\xADsicos y adecuaciones especiales para realizar una videoconferencia."
-      virtual:
-        title: "Salas Virtual"
+        title: Sala Certificada
+      title: "Informaci\xC3\xB3n sobre Tipos de Sala"
+      virtual: 
         description: "Es una conexi\xC3\xB3n a un servidor central que conmuta las comunicaciones y permite realizar la videoconferencia desde cualquier lugar."
+        title: Salas Virtual
     invitation_message: Invite a los participantes
     more_information: "M\xC3\xA1s Informaci\xC3\xB3n"
-    notification:
-      subject: "{{username}} ha solicitado la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
+    notification: 
       body: "{{username}} ha solicitado la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}."
-      footer: "Para aprobar o rechazar la solicitud por favor ingrese a {{url}}"
-      cancelled:
-        subject: "{{username}} ha cancelado la reservacion para el uso de la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
-        body: "{{username}} ha cancelado la reservacion para el uso de la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}."
-        reasons: "La reservaci\xC3\xB3n ha sido cancelada debido a {{reasons}}."
-        covi_notes: "Comentarios del COVI: {{covi_notes}}"
+      cancelled: 
         available_rooms: "Puede solicitar una nueva reserva en las siguientes salas: {{available_rooms}}"
-        no_available_rooms: "Lamentablemente, no existen salas disponibles en el horario solicitado."
+        body: "{{username}} ha cancelado la reservacion para el uso de la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}."
+        covi_notes: "Comentarios del COVI: {{covi_notes}}"
         footer: "Para mayor informaci\xC3\xB3n por favor ingrese a {{url}}"
-      processed:
-        subject: "Su solicitud ha sido {{action}} para el uso de la sala {{room}} para el evento {{eventname}} en la institución {{space}}"
-        body: "Su solicitud ha sido {{action}} por {{username}} para el uso de la sala {{room}} para el evento {{eventname}} en la institución {{space}}."
-        room_info: "Para soporte comunicarse con {{covi_name}} ({{covi_email}}). {{room}} est\xC3\xA1 ubicada en {{room_location}}."
+        no_available_rooms: Lamentablemente, no existen salas disponibles en el horario solicitado.
+        reasons: "La reservaci\xC3\xB3n ha sido cancelada debido a {{reasons}}."
+        subject: "{{username}} ha cancelado la reservacion para el uso de la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
+      footer: Para aprobar o rechazar la solicitud por favor ingrese a {{url}}
+      processed: 
+        body: "Su solicitud ha sido {{action}} por {{username}} para el uso de la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}."
         covi_notes: "Indicaciones del COVI: {{covi_notes}}"
-        footer: "Para revisar el estado de las invitaciones o el motivo del rechazo por favor ingrese a {{url}}"
-      request:
+        footer: Para revisar el estado de las invitaciones o el motivo del rechazo por favor ingrese a {{url}}
+        room_info: "Para soporte comunicarse con {{covi_name}} ({{covi_email}}). {{room}} est\xC3\xA1 ubicada en {{room_location}}."
+        subject: "Su solicitud ha sido {{action}} para el uso de la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
+      request: 
+        body: "{{username}} lo invita a participar del evento {{eventname}} que se llevar\xC3\xA1 a cabo en el(los) siguiente(s) horario(s): {{schedule}}"
+        footer: "Para confirmar su asistencia o declinar la invitaci\xC3\xB3n, por favor ingrese a {{url}}"
+        processed: 
+          body: "Su invitacion a {{username}} para participar del evento {{eventname}} sido {{action}} que se llevar\xC3\xA1 a cabo en el(los) siguiente(s) horario(s): {{schedule}}"
+          footer: "Para mayor informaci\xC3\xB3n, por favor ingrese a {{url}}"
+          subject: Su invitacion a {{username}} para participar del evento {{eventname}} sido {{action}}
         subject: "{{username}} lo invita a participar del evento {{eventname}}"
-        body: "{{username}} lo invita a participar del evento {{eventname}} que se llevará a cabo en el(los) siguiente(s) horario(s): {{schedule}}"
-        footer: "Para confirmar su asistencia o declinar la invitación, por favor ingrese a {{url}}"
-        processed:
-          subject: "Su invitacion a {{username}} para participar del evento {{eventname}} sido {{action}}"
-          body: "Su invitacion a {{username}} para participar del evento {{eventname}} sido {{action}} que se llevará a cabo en el(los) siguiente(s) horario(s): {{schedule}}"
-          footer: "Para mayor información, por favor ingrese a {{url}}"
-      virtual:
-        subject: "{{username}} ha solicitado la sala virtual {{room}} para el evento {{eventname}} en la institución {{space}}"
-        body: "{{username}} ha solicitado la sala virtual {{room}} con {{ports}} puerto(s) de MCU para el evento {{eventname}} en la institución {{space}}."
-        footer: "Para aprobar o rechazar la solicitud por favor ingrese a {{url}}"
-    num_port: Número de puntos
+      subject: "{{username}} ha solicitado la sala {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
+      virtual: 
+        body: "{{username}} ha solicitado la sala virtual {{room}} con {{ports}} puerto(s) de MCU para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}."
+        footer: Para aprobar o rechazar la solicitud por favor ingrese a {{url}}
+        subject: "{{username}} ha solicitado la sala virtual {{room}} para el evento {{eventname}} en la instituci\xC3\xB3n {{space}}"
+    num_port: "N\xC3\xBAmero de puntos"
     participants: Participantes
     reservation_schedule: Horario de reserva
     room: Sala
     search_new_room: Buscar nuevas salas
+    select_a_country: "Seleccione un pa\xC3\xADs"
     select_a_discipline: Seleccione una disciplina
-    select_a_subdiscipline: Seleccione una subdisciplina
-    select_a_country: Seleccione un país
-    select_a_room: Seleccione una sala
-    select_a_vcservice: Seleccione un servico de VC
-    select_a_space: Seleccione una institución
     select_a_grade: Seleccione un titulo
+    select_a_room: Seleccione una sala
+    select_a_space: "Seleccione una instituci\xC3\xB3n"
+    select_a_subdiscipline: Seleccione una subdisciplina
+    select_a_vcservice: Seleccione un servico de VC
     service_vc: Tipo de sala
-    space: Institución organizadora principal
-    title: Título
+    space: "Instituci\xC3\xB3n organizadora principal"
+    title: "T\xC3\xADtulo"
     type: Tipo Videoconferencia
-    type_public: Pública
     type_private: Privada
+    type_public: "P\xC3\xBAblica"
   reset_password: "Cambiar Contrase\xC3\xB1a"
   resource: 
     one: Recurso
@@ -1640,7 +1640,7 @@ es:
     add_global: "A\xC3\xB1adir rol global..."
     added: "Rol {{role}} a\xC3\xB1adido exitosamente a {{agent}}"
     change: Cambiar rol...
-    confirm_delete: "¿\xC2\xBFBorrar Rol?"
+    confirm_delete: "\xC2\xBF\xC2\xBFBorrar Rol?"
     created: Rol creado satisfactoriamente.
     editing: Editando Rol
     go_to_manage: "Ir a la gesti\xC3\xB3n de roles"
@@ -1659,82 +1659,99 @@ es:
     sucess_update: Rol actualizado exitosamente ...
     updated: Rol actualizado satisfactoriamente
     without_permissions: El rol {{role}} no tiene permisos
-  room:
+  room: 
     assign_covi: Asignar COVI
     bandwidth: Ancho de banda
     capacity: Capacidad
-    certification_level: Nivel de Certificación
+    certification_level: "Nivel de Certificaci\xC3\xB3n"
     certification_levels: 
-      label:
+      label: 
         level_0: "Pendiente por Evaluaci\xC3\xB3n"
-        level_1: ★     Sala no certificada
-        level_2: ★★    Iniciado trabajo de certificación
-        level_3: ★★★   En evaluacion para ser certificada
-        level_4: ★★★★  Sala certificada
-        level_5: ★★★★★ Sala certificada en los últimos dos años
+        level_1: "\xE2\x98\x85     Sala no certificada"
+        level_2: "\xE2\x98\x85\xE2\x98\x85    Iniciado trabajo de certificaci\xC3\xB3n"
+        level_3: "\xE2\x98\x85\xE2\x98\x85\xE2\x98\x85   En evaluacion para ser certificada"
+        level_4: !binary |
+          4piF4piF4piF4piFICBTYWxhIGNlcnRpZmljYWRh
+
+        level_5: !binary |
+          4piF4piF4piF4piF4piFIFNhbGEgY2VydGlmaWNhZGEgZW4gbG9zIMO6bHRp
+          bW9zIGRvcyBhw7Fvcw==
+
       level_0: " "
-      level_1: ★
-      level_2: ★★
-      level_3: ★★★
-      level_4: ★★★★
-      level_5: ★★★★★
+      level_1: !binary |
+        4piF
+
+      level_2: !binary |
+        4piF4piF
+
+      level_3: !binary |
+        4piF4piF4piF
+
+      level_4: !binary |
+        4piF4piF4piF4piF
+
+      level_5: !binary |
+        4piF4piF4piF4piF4piF
+
     city: Ciudad
-    country: País
+    country: !binary |
+      UGHDrXM=
+
     covi_asigned: COVI Asignado
     created: Sala creada exitosamente
     delete_confirm: "Est\xC3\xA1 seguro que desea eliminar la sala?"
-    description: Descripción
     department: Departamento
+    description: "Descripci\xC3\xB3n"
     devices: Dispositivos
     editing: Editar Sala
     equipment: Equipamiento
-    ip_address: Dirección IP
+    institucion: "Instituci\xC3\xB3n"
+    invitation: 
+      body: "{{username}} {{estado}} la invitaci\xC3\xB3n a la reservaci\xC3\xB3n {{reservation}}"
+      subject: "Invitaci\xC3\xB3n a la reserva {{reservation}} fue contesta"
+    ip_address: "Direcci\xC3\xB3n IP"
     lat: Latitud
-    location: Dirección
-    institucion: Institución
-    invitation:
-         subject: "Invitación a la reserva {{reservation}} fue contesta"
-         body: "{{username}} {{estado}} la invitación a la reservación {{reservation}}"
     lng: Longitud
+    location: "Direcci\xC3\xB3n"
     message: 
       successfully_created: La sala fue creada exitosamente.
       successfully_updated: La sala fue modificada exitosamente.
     name: Nombre
     new: Crear Nueva Sala
     no_available: No existen salas registradas en sus instituciones.
-    notification:
-        subject: "Se ha realizado cambios en la sala {{room}}"
-        body: "Se solicita recalificar la sala {{room}} de la institución {{space}}."
-        footer: "Para realizar la recalificación por favor ingrese a {{url}}"
-    notification_create:
-        subject: "Se ha creado una nueva sala"
-        body: "Se solicita calificar la sala {{room}} de la institución {{space}}."
-        footer: "Para realizar la calificación por favor ingrese a {{url}}"
+    notification: 
+      body: "Se solicita recalificar la sala {{room}} de la instituci\xC3\xB3n {{space}}."
+      footer: "Para realizar la recalificaci\xC3\xB3n por favor ingrese a {{url}}"
+      subject: Se ha realizado cambios en la sala {{room}}
+    notification_create: 
+      body: "Se solicita calificar la sala {{room}} de la instituci\xC3\xB3n {{space}}."
+      footer: "Para realizar la calificaci\xC3\xB3n por favor ingrese a {{url}}"
+      subject: Se ha creado una nueva sala
     other: Salas
     pending: "Pendiente por Evaluaci\xC3\xB3n"
     phonenumber: "Tel\xC3\xA9fono"
-    registered: Salas registradas
     reevaluation: Estado
+    reevaluation_aprove: Aprobado
     reevaluation_text: "Pendiente de Re-Evaluaci\xC3\xB3n"
-    reevaluation_aprove: "Aprobado"
+    registered: Salas registradas
+    select_certification_level: "Seleccione el nivel de certificaci\xC3\xB3n"
     select_space: Seleccione espacio
-    select_certification_level: Seleccione el nivel de certificación
     service_type: Servicios a brindar
     space_id: Espacio
     type: Tipo
     type_light: Tipo de luz
     uri: URI
     user_id: Usuario
-  sar:
-    message:
-      welcome: Bievenido al Sistema Automatizado de Reservación de Salas de Videoconferencia (SAR)
+  sar: 
+    message: 
+      welcome: "Bievenido al Sistema Automatizado de Reservaci\xC3\xB3n de Salas de Videoconferencia (SAR)"
     select_a_country: Seleccione un pais
     select_a_room: Seleccione una sala
   save: Guardar
   save_ch: Guardar los cambios
   screencast: 
     button: Ver screencast
-    help: "¿Necesita ayuda? Vea el "
+    help: "\xC2\xBFNecesita ayuda? Vea el "
     sidebar: 
       title: Screencasts
     title: screencast
@@ -1768,7 +1785,7 @@ es:
       no_dots: Buscar mensajes
     results: "Resultados de la b\xC3\xBAsqueda"
     space: 
-      dots: Buscar institución...
+      dots: "Buscar instituci\xC3\xB3n..."
     switch: "Cambiar a b\xC3\xBAsqueda global"
     users: Buscar usuarios
   searching_in: "Usted est\xC3\xA1 buscando en"
@@ -1781,8 +1798,8 @@ es:
   session: 
     error: 
       exist: "Usted ya est\xC3\xA1 conectado"
-      fill: Por favor, complete estos datos
       expire: "Tu sesi\xC3\xB3n ha expirado."
+      fill: Por favor, complete estos datos
     should_create: "Usted debe crear su perfil, es muy \xC3\xBAtil"
   share_participate_discuss: Compartir, participar, discutir
   should_check_email_to_activate_account: "Debe comprobar su correo electr\xC3\xB3nico para activar su cuenta."
@@ -1838,55 +1855,55 @@ es:
   space: 
     about: Acerca de
     add_user: 
-      other: "A\xC3\xB1adir usuarios a la institución"
-    admin: "Administración de instituciones"
+      other: "A\xC3\xB1adir usuarios a la instituci\xC3\xB3n"
+    admin: "Administraci\xC3\xB3n de instituciones"
     all: Todas las instituciones
-    allow_public_access: "¿Permitir acceso p\xC3\xBAblico?"
+    allow_public_access: "\xC2\xBFPermitir acceso p\xC3\xBAblico?"
     be_fan: Ser aficionado
     clic: Haga clic para editar ...
     clic_logo: Haga clic para cambiar su logo
-    configuration: "Configuraci\xC3\xB3n de la institución"
-    confirm: "\xC2\xBFEst\xC3\xA1s seguro de que desea dejar esta institución?"
-    country_none: "Debe elegir un País"
-    create_own: Crear una nueva institución
-    created: Institución creada correctamente.
-    delete: Eliminar institución
-    deleted: Institución eliminada correctamente
-    description_none: "Una descripci\xC3\xB3n de la institución deber\xC3\xA1 ser dada para crear una nueva institución"
-    disabeld: "La institución con \xC3\xA9xito con discapacidad."
-    disable: Deshabilitar institución
-    disabled: institución deshabilitada correctamente
-    does_not_belong: "no pertenece a ninguna institución"
+    configuration: "Configuraci\xC3\xB3n de la instituci\xC3\xB3n"
+    confirm: "\xC2\xBFEst\xC3\xA1s seguro de que desea dejar esta instituci\xC3\xB3n?"
+    country_none: "Debe elegir un Pa\xC3\xADs"
+    create_own: "Crear una nueva instituci\xC3\xB3n"
+    created: "Instituci\xC3\xB3n creada correctamente."
+    delete: "Eliminar instituci\xC3\xB3n"
+    deleted: "Instituci\xC3\xB3n eliminada correctamente"
+    description_none: "Una descripci\xC3\xB3n de la instituci\xC3\xB3n deber\xC3\xA1 ser dada para crear una nueva instituci\xC3\xB3n"
+    disabeld: "La instituci\xC3\xB3n con \xC3\xA9xito con discapacidad."
+    disable: "Deshabilitar instituci\xC3\xB3n"
+    disabled: "instituci\xC3\xB3n deshabilitada correctamente"
+    does_not_belong: "no pertenece a ninguna instituci\xC3\xB3n"
     edit_description: "editar la descripci\xC3\xB3n de"
     edit_name: editar el nombre de
-    enable: Habilitar la institución
-    enabled: institución habilitada correctamente.
+    enable: "Habilitar la instituci\xC3\xB3n"
+    enabled: "instituci\xC3\xB3n habilitada correctamente."
     error: 
-      enabled: "Institución {{name}} ya est\xC3\xA1 habilitado"
+      enabled: "Instituci\xC3\xB3n {{name}} ya est\xC3\xA1 habilitado"
     found: 
       none: No se han encontrado instituciones
-      one: Se ha encontrado 1 institución
+      one: "Se ha encontrado 1 instituci\xC3\xB3n"
       other: Se han encontrado {{size}} instituciones
-    group_not_belong: no pertenecen a la misma institución que el grupo
-    group_invitation:
+    group_invitation: 
       button: Invitar lista de correo
-      message_title: Invite una lista de correo a unirse a su institución
-      private: "<p>Por favor note que la institución es privada, así que usted debe ser un usuario registrado de CLARA VideoConferencias (Beta) para poder unirse y acceder a la institución. Se puede registrar aquí: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
+      message_title: "Invite una lista de correo a unirse a su instituci\xC3\xB3n"
+      private: "<p>Por favor note que la instituci\xC3\xB3n es privada, as\xC3\xAD que usted debe ser un usuario registrado de CLARA VideoConferencias (Beta) para poder unirse y acceder a la instituci\xC3\xB3n. Se puede registrar aqu\xC3\xAD: <a href=\"{{register_url}}\">{{register_url}}</a></p>"
       subject: "{{username}} te invita a {{space}}"
-    is_private: "es una institución privada. Env\xC3\xADe una solicitud de participaci\xC3\xB3n al administrador de la institución"
-    join: "\xC3\x9Anete a esta institución"
+    group_not_belong: "no pertenecen a la misma instituci\xC3\xB3n que el grupo"
+    is_private: "es una instituci\xC3\xB3n privada. Env\xC3\xADe una solicitud de participaci\xC3\xB3n al administrador de la instituci\xC3\xB3n"
+    join: "\xC3\x9Anete a esta instituci\xC3\xB3n"
     join_invitation: 
-      clarify_registered: "Por favor, introduzca la contrase\xC3\xB1a para poder participar en esta institución."
-      clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el CLARA VideoConferencias(Beta) y participar en esta institución."
-      title: "\xC3\x9Anete a la institución  >"
+      clarify_registered: "Por favor, introduzca la contrase\xC3\xB1a para poder participar en esta instituci\xC3\xB3n."
+      clarify_unregistered: "Por favor, introduzca su nombre completo y una contrase\xC3\xB1a para registrarse en el CLARA VideoConferencias(Beta) y participar en esta instituci\xC3\xB3n."
+      title: "\xC3\x9Anete a la instituci\xC3\xB3n  >"
     join_pending: "Su solicitud de participaci\xC3\xB3n en la instituci\xC3\xB3n {{space}} est\xC3\xA1 siendo procesada"
     join_pendings: "Su solicitud de participaci\xC3\xB3n est\xC3\xA1 siendo procesada"
-    leave: Dejar esta institución
-    logo: Logo de la institución
+    leave: "Dejar esta instituci\xC3\xB3n"
+    logo: "Logo de la instituci\xC3\xB3n"
     logo_selected: 
       close: Cerrar
       close_gallery: "Cerrar la galer\xC3\xADa"
-      default_message: "El logo de la institución ser\xC3\xA1 el siguiente:"
+      default_message: "El logo de la instituci\xC3\xB3n ser\xC3\xA1 el siguiente:"
       enter_text: "Introduzca un texto para generar logos:"
       generate_logo: Generar
       open_gallery: "Abrir la galer\xC3\xADa"
@@ -1894,30 +1911,30 @@ es:
       upload_logo: Cargar su propio logo
       upload_logo_text: "Seleccione un logo para subir:"
       upload_text: Subir
-    main: Institución principal
+    main: "Instituci\xC3\xB3n principal"
     member_of: Miembros de instituciones
     my_spaces: Mis instituciones
-    name_none: Un nombre a la institución debe se dado para crear una nueva institución
-    one: Institución
+    name_none: "Un nombre a la instituci\xC3\xB3n debe se dado para crear una nueva instituci\xC3\xB3n"
+    one: "Instituci\xC3\xB3n"
     other: Instituciones
     popular: 
       other: Instituciones populares
     possesion: Mis instituciones
     private: Instituciones privados
     public: 
-      one: "Institución p\xC3\xBAblica"
+      one: "Instituci\xC3\xB3n p\xC3\xBAblica"
       other: "Instituciones p\xC3\xBAblicas"
     recent: 
       other: Instituciones Recientes
-    search: Buscar institución...
+    search: "Buscar instituci\xC3\xB3n..."
     select: Instituciones
-    select_space_id: Seleccione su institución
-    skin: Tema
+    select_space_id: "Seleccione su instituci\xC3\xB3n"
     show: Mostar instituciones
     show_all: Ver todos las instituciones
-    subscribed_to_none: "No est\xC3\xA1 suscrito a ninguna institución"
+    skin: Tema
+    subscribed_to_none: "No est\xC3\xA1 suscrito a ninguna instituci\xC3\xB3n"
     update_logo: Actualizar logo
-    updated: Institución actualizada correctamente
+    updated: "Instituci\xC3\xB3n actualizada correctamente"
     upload_none: Usted tiene que seleccionar un logo para subirlo
   spam: 
     created: Un mensaje reportando spam ha sido enviado correctamente al administrador de CLARA VideoConferencias(Beta). Gracias
@@ -1935,8 +1952,8 @@ es:
   stage_type: Tipo de escenario
   start_now!: Inicie ahora!
   street: Calle
-  subject: Tema
   subdiscipline: Subdisciplina
+  subject: Tema
   support: 
     array: 
       last_word_connector: ", y"
@@ -1989,10 +2006,10 @@ es:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-    from: "desde"
+    from: desde
     pm: pm
     start: Hora de inicio
-    to: "hasta"
+    to: hasta
   timezone: 
     one: Zona Horaria
     set_up: Usted no ha configurado su zona horaria. <a href="{{path}}">Configurarlo ahora</a>
@@ -2032,8 +2049,8 @@ es:
     active: 
       other: Usuarios activos
     add: 
-      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por una institución, coma o punto y coma, y reg\xC3\xADstrelos"
-      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga clic en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de correo electr\xC3\xB3nico como miembros de la institución y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
+      instruction: "Para a\xC3\xB1adir nuevos usuarios, introduzca una o varias direcciones de correo electr\xC3\xB3nico separadas por una instituci\xC3\xB3n, coma o punto y coma, y reg\xC3\xADstrelos"
+      note: "Por ejemplo:\"John Silver \"<\"jsilver@example.com\">\", jct@dit.es; Aaron aaron@example.net  y haga clic en \"Registrar como usuario\". Esto registrar\xC3\xA1 estas direcciones de correo electr\xC3\xB3nico como miembros de la instituci\xC3\xB3n y les enviar\xC3\xA1 un correo electr\xC3\xB3nico de validaci\xC3\xB3n."
     add_more: "A\xC3\xB1adir usuarios >>"
     admin: Admin
     administrators: Administradores
@@ -2041,10 +2058,10 @@ es:
     block: Bloquear usuario
     by_email: "A trav\xC3\xA9s de correo electr\xC3\xB3nico"
     by_private_message: "A trav\xC3\xA9s de mensaje privado"
-    change_space: "Si desea cambiar su institución principal, deberá eliminar esta cuenta y crear una nueva"
-    confirm_email: "Confirmar correo electrónico"
+    change_space: "Si desea cambiar su instituci\xC3\xB3n principal, deber\xC3\xA1 eliminar esta cuenta y crear una nueva"
+    confirm_email: "Confirmar correo electr\xC3\xB3nico"
     confirm_password: "Confirmar contrase\xC3\xB1a"
-    delete_from_space: Eliminar el usuario de la institución
+    delete_from_space: "Eliminar el usuario de la instituci\xC3\xB3n"
     disable: Deshabilitar usuario
     disabled: Usuario deshabilitado
     e-mail: "Correo electr\xC3\xB3nico"
@@ -2052,7 +2069,7 @@ es:
     email: "Correo electr\xC3\xB3nico"
     email_confirmation: "Confirmar correo electr\xC3\xB3nico"
     enable: Habilitar usuario
-    enabled: "Usuario habilitado correctamente."
+    enabled: Usuario habilitado correctamente.
     error: 
       enabled: "El usuario {{name}} ya est\xC3\xA1 habilitado"
     feed: 
@@ -2074,14 +2091,14 @@ es:
       sign: Atentamente, 'firma'
     invite: Invitar personas
     invite_email: Invitar personas por e-mail
-    invite_from_space_by_email: Invitar usuarios de su institución
+    invite_from_space_by_email: "Invitar usuarios de su instituci\xC3\xB3n"
     invited: Usuarios ya invitados
     list_by: Lista de
     login: Login
     lost_password: "\xC2\xBFHa olvidado su contrase\xC3\xB1a?"
     noactivity: "{{user}} no tiene actividad reciente"
     not_activated: "Su cuenta no est\xC3\xA1 activada. Por favor, revise su correo electr\xC3\xB3nico para activarlo."
-    not_assist: "Personas que no asistir\xC3\xA1n a este evento"
+    not_assist: Personas que no han confirmado asistencia
     not_confirmed: Personas que no han confirmado
     notifications: "\xC2\xBFDe qu\xC3\xA9 manera desea recibir las notificaciones?"
     one: Usuario
@@ -2140,7 +2157,7 @@ es:
   where: !binary |
     RMOzbmRl
 
-  write_something: "Escriba algo acerca de Usted."
+  write_something: Escriba algo acerca de Usted.
   xmpp_server: 
     password_invalid: "la contrase\xC3\xB1a no es v\xC3\xA1lida"
   yesterday: Ayer
