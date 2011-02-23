@@ -204,11 +204,12 @@ class User < ActiveRecord::Base
   end
     
   def main_space
-    stages(:type => "Space").first || Space.find_by_name("Red CLARA")
+#    stages(:type => "Space").first || Space.root
+     agent_performances.select{|x| x.stage_type == "Space" && !x.stage.nil? && x.role == Space.role("Admin")}.map {|y| y.stage }.first
   end
 
   def isCoviNREN
-    stages(:type => "Space", :role => "COVI").select{|x| x.parent == Space.find_by_name("Red CLARA")}.size > 0
+    agent_performances.select{|x| x.stage_type == "Space" && !x.stage.nil? && x.role == Space.role("Admin") && x.stage.parent == Space.root}.size > 0
   end
 
   def fullname_email_space 

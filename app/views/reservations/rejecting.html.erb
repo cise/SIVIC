@@ -1,14 +1,15 @@
 
 <% content_for :javascript do  %>
   $("#edit_reservation_<%=@reservation.id.to_s%>").submit(function(){
-    if ($("#reservation_<%=@reservation.id.to_s%>_reason_rejection").val() == "") 
+    if ($("#reservation_reason_rejection").val() == "") 
 	{
       alert("Debe seleccionar un motivo de rechazo");
 	  return false;
 	}
     else
 	{
-	  parent.location.reload();
+	  parent.location.href = "http://<%=Site.current.domain.to_s%><%=root_path%>";
+//         parent.location.reload(true);
 	  return true;
 	}
   });

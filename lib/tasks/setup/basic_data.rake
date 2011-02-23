@@ -16,7 +16,7 @@ namespace :setup do
     end
 
     desc "Load all basic data"
-    task :all => [ :spaces, :users, :roles, :permissions ]
+    task :all => [ :spaces, :users, :rooms, :roles, :permissions ]
 
     desc "Load Basic data in test"
     task :test => "db:test:prepare" do
@@ -31,7 +31,8 @@ namespace :setup do
       u = User.create :login => "vnoc",
                       :email => 'vnoc@redclara.net',
                       :password => "admin",
-                      :password_confirmation => "admin"
+                      :password_confirmation => "admin",
+                      :timezone => "Santiago"
       u.update_attribute(:superuser,true)
       u.activate
       u.profile!.update_attribute(:full_name, "VNOC Red CLARA")
@@ -47,6 +48,18 @@ namespace :setup do
                    :default_logo => "models/front/clara.gif",
                    :skin => "default"
     end
+
+    desc "Load Rooms Data"
+    task :rooms => :environment do
+      puts "* Create Room Virtual"
+      clara_space = Space.root
+
+      Room.create :name => "Sala Virtual",
+                  :description => "Sala Virtual RedCLARA Videoconferencias",
+                  :room_type => Room::SERVICE_TYPE_VIRTUAL,
+                  :space_id => clara_space.id
+    end
+
 
     desc "Load Permissions Data"
     task :permissions => :environment do
@@ -69,7 +82,7 @@ namespace :setup do
       # Permission applied to Group
       Permission.find_or_create_by_action_and_objective "manage", "group"
 
-      clara_space = Space.find_by_name("Red CLARA")
+      clara_space = Space.root
       vnoc_user = User.find_by_login("vnoc")
       admin_role = Role.find_or_create_by_name_and_stage_type "Admin", "Space"
 
@@ -79,6 +92,16 @@ namespace :setup do
                              :agent_id => vnoc_user.id,
                              :agent_type => 'User'
 
+      covi_role = Role.find_or_create_by_name_and_stage_type "COVI", "Room"
+
+      # usuario VNOC tiene rol VNOC en todas las salas 
+      Room.all.each do |room|
+        Performance.create :stage_id => room.id,
+                           :stage_type => 'Room',
+                           :role_id => covi_role.id,
+                           :agent_id => vnoc_user.id,
+                           :agent_type => 'User'
+      end
     end
 
     desc "Load Roles Data"
@@ -129,6 +152,15 @@ namespace :setup do
       invited_role.permissions << Permission.find_by_action_and_objective('read', nil)
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'content')
       invited_role.permissions << Permission.find_by_action_and_objective('read', 'performance')
+
+      covi_role = Role.find_or_create_by_name_and_stage_type "COVI", "Room"
+      covi_role.permissions << Permission.find_by_action_and_objective('read', nil)
+      covi_role.permissions << Permission.find_by_action_and_objective('create', 'content')
+      covi_role.permissions << Permission.find_by_action_and_objective('read', 'content')
+      covi_role.permissions << Permission.find_by_action_and_objective('update', 'content')
+      covi_role.permissions << Permission.find_by_action_and_objective('delete', 'content')
+      covi_role.permissions << Permission.find_by_action_and_objective('manage', 'group')
+
     end
   end
 end

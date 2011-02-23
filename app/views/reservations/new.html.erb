@@ -30,7 +30,7 @@
     //$('#reservation_list_rooms').load('reservations/update_list_room', { country: ''});
     $('#reservation_public_private_certified').show();
     $('#reservation_private').hide();
-    if ($('#reservation_virtual_room_id').val() == "9") {
+    if ($('#reservation_virtual_room_id').val() == "<%= Room.room_virtual.id %>") {
       $('#reservation_virtual_room_id').val($('#reservation_room_id').val());
     }
   }
@@ -42,7 +42,7 @@
     else {
       $('#reservation_public_private_certified').show();
       $('#reservation_private_virtual').hide();
-      if ($('#reservation_virtual_room_id').val() == "9") {
+      if ($('#reservation_virtual_room_id').val() == "<%= Room.room_virtual.id %>") {
         $('#reservation_virtual_room_id').val($('#reservation_room_id').val());
       }
     }
@@ -52,7 +52,7 @@
     $('#reservation_private_virtual').show();
     $('#reservation_public_private_certified').hide();
     if ($('#reservation_virtual_room_id')) {
-      $('#reservation_virtual_room_id').val("9");
+      $('#reservation_virtual_room_id').val("<%= Room.room_virtual.id %>");
     }
   }
 

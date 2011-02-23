@@ -207,7 +207,7 @@ function cropImage (c){
 			</div>
 
 			<% else %>
-                          <% if @parent == Space.find_by_name("Red CLARA") %>
+                          <% if @parent == Space.root %>
                             <div>
 			    <label for="country" id= "space_country_label"><%= t('country') + ":" %></label><br/>
 			    <div class='error' id="error_country" style="display:none" ><%= escape_javascript(t('space.country_none'))%></div> 

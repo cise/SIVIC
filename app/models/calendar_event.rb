@@ -42,8 +42,8 @@ class CalendarEvent < ActiveRecord::Base
       errors.add_to_base("Inicio debe ser menor que Fin")
     end
   end
-  
-  def update_events(events, event)
+
+  def update_calendar_events(events, event)
     events.each do |e|
       begin 
         st, et = e.starttime, e.endtime

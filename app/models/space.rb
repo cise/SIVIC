@@ -307,12 +307,22 @@ class Space < ActiveRecord::Base
     for group in self.groups
       Group.disable_list(group,group.mailing_list)
     end
+    for child in childs
+      child.disable
+    end
   end
 
   def enable
     self.update_attribute(:disabled,false)
     for group in self.groups
       Group.enable_list(group,group.mailing_list)
+    end
+    for child in Space.find_with_disabled(:all, :conditions => ["parent_id = ?", id])
+      child.enable
+    end
+    parent = Space.find_with_disabled(:first, :conditions => ["id = ?", parent_id])
+    if !parent.nil?
+      parent.update_attribute(:disabled,false)
     end
   end
 
@@ -360,7 +370,7 @@ class Space < ActiveRecord::Base
   end
 
   def self.getNRENs
-    clara = find_by_name("Red CLARA")
+    clara = Space.root
     find_all_by_parent_id(clara.id, :order => "name")
   end
 
@@ -374,7 +384,11 @@ class Space < ActiveRecord::Base
     return sp.count > 0;
   end
 
+  def self.root
+    find(:first, :conditions => ["parent_id is null"])
+  end
+
   def isNREN
-    parent == Space.find_by_name("Red CLARA") ? true : false
+    parent == Space.root ? true : false
   end
 end

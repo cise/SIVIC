@@ -79,7 +79,7 @@
 			return true;
 		}
     });*/
-	
+		
 	$(".accept").click(function () 
 	{
 		id_reservacion= $(this).attr("id");
@@ -97,7 +97,7 @@
  
     });
 	
-	
+
 <% end %>
 
 <% content_for :search do  %>
@@ -114,7 +114,7 @@
     </div>
   <%end%>
 
-  <% if logged_in? && current_agent.active? && current_user.isCoviNREN %>
+  <% if logged_in? && current_agent.active? && (current_user.isCoviNREN || current_user.superuser)%>
     <br />
     <div class="button_wrapper">
       <%= link_to "<span>" + t('space.create_own') + "</span>", new_space_path(:parent => current_user.main_space.id), :class => "new_space_link big_button orange_button"%>

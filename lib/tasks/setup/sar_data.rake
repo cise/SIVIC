@@ -367,6 +367,10 @@ namespace :setup do
     task :rooms => :environment do
       puts "* Clear Rooms"
       Room.destroy_all
+      rooms_without_virtual = Room.find(:all)
+      rooms_without_virtual.delete(Room.find_by_room_type(Room::SERVICE_TYPE_VIRTUAL))
+      rooms_without_virtual.each(&:destroy)
+
       
       puts "* Create Rooms for institutions"
       espol = Space.find(:first, :conditions => ["name = 'ESPOL'"])
@@ -467,14 +471,6 @@ namespace :setup do
       vnoc_role.permissions << Permission.find_by_action_and_objective('update', 'performance')
       vnoc_role.permissions << Permission.find_by_action_and_objective('delete', 'performance')
       vnoc_role.permissions << Permission.find_by_action_and_objective('manage', 'group')
-
-      covi_role = Role.find_or_create_by_name_and_stage_type "COVI", "Room"
-      covi_role.permissions << Permission.find_by_action_and_objective('read', nil)
-      covi_role.permissions << Permission.find_by_action_and_objective('create', 'content')
-      covi_role.permissions << Permission.find_by_action_and_objective('read', 'content')
-      covi_role.permissions << Permission.find_by_action_and_objective('update', 'content')
-      covi_role.permissions << Permission.find_by_action_and_objective('delete', 'content')
-      covi_role.permissions << Permission.find_by_action_and_objective('manage', 'group')
 
       authorizer_role = Role.find_or_create_by_name_and_stage_type "Authorizer", "Reservation"
       authorizer_role.permissions << Permission.find_by_action_and_objective('read', nil)

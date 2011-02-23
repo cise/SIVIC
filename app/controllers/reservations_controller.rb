@@ -60,12 +60,13 @@ class ReservationsController < ApplicationController
     @reservation.requests.build
 
     respond_to do |format|
-      if authenticated? && ! current_agent.active?
+      if !authenticated? || !current_agent.active? || !logged_in? 
         format.html { redirect_back_or_default root_path }
-      else
-        if logged_in? && current_user.timezone == nil
-          flash[:notice] = t('timezone.set_up', :path => edit_user_path(current_user))
-        end
+      elsif Room.find(:all, :conditions => ["space_id in (?)", current_user.spaces]).size == 0
+        flash[:notice] = t('room.no_available')
+        format.html { redirect_back_or_default root_path }
+      else          
+        flash[:notice] = t('timezone.set_up', :path => edit_user_path(current_user)) if current_user.timezone == nil
         format.html # new.html.erb
         format.xml  { render :xml => @reservation }
       end
@@ -83,7 +84,7 @@ class ReservationsController < ApplicationController
   def create
     covi=false
 	
-    @main_space = current_user.agent_performances.select {|x| x.stage_type = 'Space'}.first.stage
+    @main_space = current_user.main_space
     unless  current_user.spaces.empty?
       @events_of_user = Event.in(current_user.spaces).all(:order => "start_date")
     end
@@ -132,7 +133,7 @@ class ReservationsController < ApplicationController
 			end		
 		 end
 	  end
-
+logger.error "reservation=>id=#{@reservation.id} title=#{@reservation.title} space_id=#{@reservation.space_id} params_space_id=#{params[:reservation][:space_id]}"
       if (@reservation.save)
         for user_id in @checked_users 
           invitation = Request.new
@@ -188,47 +189,6 @@ class ReservationsController < ApplicationController
         end
 
         @reservation.room.cancel_reservations(@reservation)
-=begin
-        # Crear evento
-        event = Event.new(
-          :name => @reservation.title, :description => @reservation.description,
-          :web_interface => 1, :isabel_interface => 1, :sip_interface => 0, 
-          :ids => @reservation.requests.collect {|x| x.recipient_id}, 
-          :invite_msg => I18n.t(
-            "reservation.notification.request.body", :eventname=>@reservation.title, 
-            :username => @reservation.user.full_name, 
-            :schedule => @reservation.calendar_events.map {|x| x.to_s }.join(", ")
-          ) + ".\n\r" + I18n.t('reservation.notification.request.footer', :url => "http://#{Site.current.domain}/" )
-        )
-
-        event.container = @reservation.room.space
-        event.author = @reservation.user
-        event.invit_introducer_id = @reservation.user.id
-
-        event.save
-        
-        @reservation.event_id = event.id
-        # crear fechas de evento
-        for calendar_event in @reservation.calendar_events
-          agenda_entry = AgendaEntry.new(:title => @reservation.title, :description => @reservation.description,
-            :start_time => calendar_event.starttime, :end_time => calendar_event.endtime)
-          agenda_entry.agenda = event.agenda
-          agenda_entry.author = @reservation.user
-
-          logger.debug "instance agenda_entry = #{agenda_entry}"          
-          if !agenda_entry.save
-            message = ""
-            agenda_entry.errors.full_messages.each {|msg| message += msg + "  <br/>"}
-            logger.debug "error messages = #{message}"  
-          end
-        end
-
-        # Actualizar estado de invitaciones
-        for request in @reservation.requests
-          request.status = Request::STATUS_PENDING
-          request.save
-        end
-=end
       
       # Rechazar
       elsif params[:submit] == Reservation::ACTION_REJECT
@@ -251,59 +211,71 @@ class ReservationsController < ApplicationController
     elsif params[:submit] == Reservation::ACTION_ACCEPT_INVITATION ||
           params[:submit] == Reservation::ACTION_DECLINE_INVITATION
       request = Request.find(params[:request_id])
+logger.error "request status = #{request.status}"
+      if request.status == Request::STATUS_PENDING
+        # Aceptar
+        if params[:submit] == Reservation::ACTION_ACCEPT_INVITATION
+          request.status = Request::STATUS_ACCEPTED
+          logger.debug "new reservation country = #{params[:reservation][:country][@reservation.id]} room_id = #{params[:reservation][:room_id][@reservation.id]}"  
+          new_reservation = Reservation.new
+          new_reservation.title = @reservation.title
+          new_reservation.description = @reservation.description
+          new_reservation.reservation_type = @reservation.reservation_type
+          new_reservation.vc_service = Room::SERVICE_TYPE_CERTIFIED          
+          new_reservation.ports == @reservation.ports if new_reservation.is_private?
+          new_reservation.space_id = @reservation.space_id
+          new_reservation.country = params[:reservation][:country]
+          new_reservation.room_id = params[:reservation][:room_id]
+          new_reservation.aggrement = true
+          new_reservation.state = Reservation::STATE_PENDING
+          if new_reservation.room_id!=nil
+            room1 = Room.find(new_reservation.room_id)
+            room_users= room1.users_by_role("COVI")
 
-      # Aceptar
-      if params[:submit] == Reservation::ACTION_ACCEPT_INVITATION
-        request.status = Request::STATUS_ACCEPTED
-        logger.debug "new reservation country = #{params[:reservation][:country][@reservation.id]} room_id = #{params[:reservation][:room_id][@reservation.id]}"  
-        new_reservation = Reservation.new
-        new_reservation.title = @reservation.title
-        new_reservation.description = @reservation.description
-        new_reservation.vc_service = @reservation.vc_service
-        new_reservation.space_id = @reservation.space_id
-        new_reservation.country = params[:reservation][:country][@reservation.id.to_s]
-        new_reservation.room_id = params[:reservation][:room_id][@reservation.id.to_s]
-        new_reservation.aggrement = true
-        new_reservation.state = Reservation::STATE_PENDING
-        if new_reservation.room_id!=nil
-          room1 = Room.find(new_reservation.room_id)
-          room_users= room1.users_by_role("COVI")
-
-          if room_users.size > 0
-            for room_user in room_users 
-              if room_user.id == current_user.id
-                covi=true
-                new_reservation.state = Reservation::STATE_APPROVED
-                new_reservation.admin_id = current_user.id
-              end        
-            end                
+            if room_users.size > 0
+              for room_user in room_users 
+                if room_user.id == current_user.id
+                  covi=true
+                  new_reservation.state = Reservation::STATE_APPROVED
+                  new_reservation.admin_id = current_user.id
+                end        
+              end                
+            end
           end
+
+          new_reservation.user_id = current_user.id
+          new_reservation.parent_id = @reservation.id
+
+          # Obtener fechas de calendario
+new_calendar_events = Array.new
+for calendar_event in @reservation.calendar_events
+  new_calendar_event = CalendarEvent.new (:starttime => calendar_event.starttime, :endtime => calendar_event.endtime, 
+:title => calendar_event.title, :description => calendar_event.description)
+  new_calendar_events.push new_calendar_event
+end
+new_reservation.calendar_events = new_calendar_events
+          new_reservation.horario = "horario"
+          new_reservation.participante = "participante"
+  #        if params[:calendar_events] != nil
+  #          calendar_events_ids = params[:calendar_events].strip().split(' ')
+  #          calendar_events = CalendarEvent.find(calendar_events_ids)
+  #          new_reservation.calendar_events = calendar_events 
+  #        end
+
+        # Declinar
+        elsif params[:submit] == Reservation::ACTION_DECLINE_INVITATION
+          request.status = Request::STATUS_DECLINED
         end
-
-        new_reservation.user_id = current_user.id
-        new_reservation.parent_id = @reservation.id
-
-        # Obtener fechas de calendario
-        new_reservation.calendar_events = @reservation.calendar_events
-#        if params[:calendar_events] != nil
-#          calendar_events_ids = params[:calendar_events].strip().split(' ')
-#          calendar_events = CalendarEvent.find(calendar_events_ids)
-#          new_reservation.calendar_events = calendar_events 
-#        end
-
-      # Declinar
-      elsif params[:submit] == Reservation::ACTION_DECLINE_INVITATION
-        request.status = Request::STATUS_DECLINED
+        request.save
+logger.error "request status after save = #{request.status}"
+        #ivan
+        @reservation.id_invitacion=request.id
       end
-
-      request.save
-	  #ivan
-	  @reservation.id_invitacion=request.id
     end
     
     respond_to do |format|
-      if params[:submit] != Reservation::ACTION_ACCEPT_INVITATION && 
-         params[:submit] != Reservation::ACTION_DECLINE_INVITATION
+      if params[:submit] == Reservation::ACTION_APPROVE ||
+         params[:submit] == Reservation::ACTION_REJECT 
 logger.error "notes=#{params[:reservation][:notes]}"
         if @reservation.update_attributes(params[:reservation])
           flash[:notice] = 'La reservación fue ' + @reservation.state + ' exitosamente.'
@@ -315,21 +287,26 @@ logger.error "notes=#{params[:reservation][:notes]}"
           format.xml  { render :xml => @reservation.errors, :status => :unprocessable_entity }
         end
       else
-        if params[:submit] == Reservation::ACTION_ACCEPT_INVITATION
-          if new_reservation.save
-            flash[:notice] = 'La reservación fue creada exitosamente.'
-            # format.html { redirect_to(new_reservation) }
+        if @reservation.state == Reservation::STATE_APPROVED || @reservation.state == Reservation::STATE_REJECTED
+          if params[:submit] == Reservation::ACTION_ACCEPT_INVITATION
+            if new_reservation.save
+              flash[:notice] = 'La reservación fue creada exitosamente.'
+              # format.html { redirect_to(new_reservation) }
+              format.html { redirect_to root_path }
+              format.xml  { head :ok }
+            else
+              logger.error "#{new_reservation.errors.each{|attr,msg| "#{attr} - #{msg}. "}}"
+              flash[:notice] = 'Ocurrio un error al enviar la reservacion. ' 
+              format.html { redirect_to root_path }
+  #            format.html { render :text => new_reservation.errors }
+              format.xml  { render :xml => @reservation.errors, :status => :unprocessable_entity }
+            end
+          elsif params[:submit] == Reservation::ACTION_DECLINE_INVITATION
+            flash[:notice] = 'La invitación fue declinada exitosamente.'
             format.html { redirect_to root_path }
-            format.xml  { head :ok }
-          else
-logger.error "#{new_reservation.errors.each{|attr,msg| "#{attr} - #{msg}. "}}"
-            flash[:notice] = 'Ocurrio un error al enviar la reservacion. ' 
-            format.html { redirect_to root_path }
-#            format.html { render :text => new_reservation.errors }
-            format.xml  { render :xml => @reservation.errors, :status => :unprocessable_entity }
           end
         else
-          flash[:notice] = 'La invitación fue declinada exitosamente.'
+          flash[:notice] = 'El evento al que estaba siendo invitado ha sido cancelado. Disculpe las molestias.'
           format.html { redirect_to root_path }
         end
       end

@@ -4,6 +4,7 @@
 <% last ||= false -%>
 <% show_author ||= false -%>
 
+<% if !reservation.room.space.nil? %>
 <div id="parent_<%=thread.id%>" class="pending-request even_thread post_cloud">
 	 <div id="header-pending-request-<%=thread.id%>" class="header-pending-request">
 		
@@ -47,3 +48,4 @@
 		<%= render :partial => "reservations/invitation", :locals => { :request => thread } %>	
 	</div>
 </div>
+<% end %>

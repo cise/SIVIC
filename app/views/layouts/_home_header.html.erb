@@ -6,11 +6,11 @@
   <span id="small-title">
   <%=link_to (image_tag("icons/MyHome3.png",:class=>"icon") + " " + t('home.my'), root_path ) %>
   </span>
-<% if @main_space && !@main_space.disable %>
+<% if @main_space && !@main_space.disabled %>
     <span id="small-title" style = "padding-left:20px;">
 	<%= link_to logo(@main_space,{:size=>"h32", :title=> @main_space.name }) + @main_space.name, space_path(@main_space) %>
     </span><br />
-    <% if @main_space.parent_id? %>
+    <% if !@main_space.parent.nil?  %>
     <span id="small-title">
     	<%= link_to logo(@main_space.parent,{:size=>"h32", :title=> @main_space.parent.name }) + @main_space.parent.name, space_path(@main_space.parent) %>
     </span>

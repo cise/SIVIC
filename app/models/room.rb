@@ -62,6 +62,10 @@ class Room < ActiveRecord::Base
     find(:all, :conditions => ["space_id in (?)", spaces.collect {|s| s.id}]).select {|r| r.available(new_calendar_events)}
   end
 
+  def self.room_virtual
+    find(:first, :conditions => ["room_type = ?", Room::SERVICE_TYPE_VIRTUAL])
+  end
+
   def available(new_calendar_events)
     logger.error "room= #{id}"
 

@@ -9,6 +9,7 @@ $("a#cancel_by_covi_link").fancybox({
   });
 <% end %>
 
+<% if !thread.room.space.nil? %>
 <div id="parent_<%=thread.id%>" class="pending-reservation even_thread post_cloud">
   <div id="header-pending-reservation-<%=thread.id%>" class="header-pending-reservation">
     <div class="thread_content thread">
@@ -88,3 +89,4 @@ $("a#cancel_by_covi_link").fancybox({
     <% end %>
   </div>
 </div>
+<% end %>

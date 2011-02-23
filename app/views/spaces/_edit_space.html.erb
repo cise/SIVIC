@@ -115,7 +115,7 @@
 	 
 <%end%>
 
-<% if logged_in? && ( current_user.superuser? || (current_user.isCoviNREN && @space.parent == Space.find_by_name("Red CLARA")) ) %>
+<% if logged_in? && ( current_user.superuser? || (current_user.isCoviNREN && @space.parent == Space.root) ) %>
   <div class="button_wrapper">
     <%= link_to "<span>" + t('space.create_own') + "</span>", "/spaces/new?parent=#{@space.id}",:class => "new_space_link big_button orange_button"%>
   </div>

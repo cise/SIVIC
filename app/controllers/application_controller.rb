@@ -93,8 +93,10 @@ end
       Time.zone = 'UTC'
     end
     if current_user && current_user.is_a?(User) && authenticated? && current_agent.active? && !current_user.superuser?
-#      logger.error "space=#{current_user.main_space} Timezone=#{Time.zone.name} current_user.timezone=#{current_user.timezone} country_timezone=#{Country.find_by_code(current_user.main_space.country).timezone}"
-      if current_user.main_space && !Country.find_by_code(current_user.main_space.country).nil? && Time.zone.name != Country.find_by_code(current_user.main_space.country).timezone
+user_timezone_offset = Time.zone.formatted_offset
+country_timezone_offset = !current_user.main_space.nil? ? ActiveSupport::TimeZone.new(Country.find_by_code(current_user.main_space.country).timezone).formatted_offset : nil
+      logger.error "space=#{current_user.main_space} Timezone=#{Time.zone.formatted_offset} current_user.timezone=#{user_timezone_offset} country_timezone=#{country_timezone_offset}"
+      if current_user.main_space && !Country.find_by_code(current_user.main_space.country).nil? && user_timezone_offset != country_timezone_offset 
         flash.now[:notice] = "Su zona horaria es diferente a la de su institución principal. Para cambiarla haga <a href=\"#{edit_user_path(current_user)}\">click aquí</a>"
       end
     end

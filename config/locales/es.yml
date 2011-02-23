@@ -1701,6 +1701,7 @@ es:
       successfully_updated: La sala fue modificada exitosamente.
     name: Nombre
     new: Crear Nueva Sala
+    no_available: No existen salas registradas en sus instituciones.
     notification:
         subject: "Se ha realizado cambios en la sala {{room}}"
         body: "Se solicita recalificar la sala {{room}} de la institución {{space}}."

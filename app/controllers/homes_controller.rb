@@ -57,7 +57,7 @@ class HomesController < ApplicationController
 
     @all_contents = Array.new
 
-    clara_space = Space.find_by_name("Red CLARA")
+    clara_space = Space.root
 
     if params[:country] == nil
       case @type
